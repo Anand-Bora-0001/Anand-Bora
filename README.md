@@ -7,7 +7,14 @@ Built with a focus on **performance, clean UI, and scalability**, this portfolio
 
 ## 🌐 Live Demo
 
-👉 **Live Website**: [https://your-portfolio-url.vercel.app](https://your-portfolio-url.vercel.app)
+## 🌐 Live Demo
+👉 https://anand-bora.vercel.app
+
+![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)
+
+## 🛠 Tech Stack
+React · TypeScript · Tailwind CSS · Vite · shadcn/ui · Vercel
+
 👉 **GitHub Repository**: [https://github.com/Anand-Bora-0001/Anand-Bora](https://github.com/Anand-Bora-0001/Anand-Bora)
 
 ---
