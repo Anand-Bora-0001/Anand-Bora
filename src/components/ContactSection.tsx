@@ -20,9 +20,10 @@ export default function ContactSection() {
             Let's Build Something
           </h2>
           <p className="text-muted-foreground mb-8">
-            Open to internship opportunities, freelance projects, and interesting engineering challenges. 
-            If you're building something that needs solid backend work or automation, let's talk.
-          </p>
+            Open to internships, freelance work, and impactful engineering opportunities. 
+            If you're building a product that needs robust backend systems, full-stack development, or automation, let’s connect.
+            </p>
+
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">

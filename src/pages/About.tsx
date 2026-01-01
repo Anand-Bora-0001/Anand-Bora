@@ -24,10 +24,11 @@ export default function About() {
               className="space-y-6 text-muted-foreground leading-relaxed"
             >
               <p>
-                I'm a Computer Engineering student at Savitribai Phule Pune University, 
-                currently in my final year with a CGPA of 8.42. My focus is on backend development, 
-                automation systems, and building tools that make processes more efficient.
-              </p>
+                Final-year Computer Engineering student at Savitribai Phule Pune University (CGPA 8.42), 
+                working across full-stack and backend development, automation systems,
+                and engineering tools that streamline real-world workflows.
+</p>
+
 
               <p>
                 My approach to engineering comes from a simple observation: most valuable software 

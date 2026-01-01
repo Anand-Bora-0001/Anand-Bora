@@ -5,13 +5,16 @@ import { Button } from '@/components/ui/button';
 import Layout from '@/components/Layout';
 import { getProjectBySlug } from '@/data/projects';
 
+
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
   const project = slug ? getProjectBySlug(slug) : undefined;
 
+
   if (!project) {
     return <Navigate to="/projects" replace />;
   }
+
 
   return (
     <Layout>
@@ -32,6 +35,7 @@ export default function ProjectDetail() {
             </Link>
           </motion.div>
 
+
           {/* Header */}
           <motion.header
             initial={{ opacity: 0, y: 20 }}
@@ -39,15 +43,28 @@ export default function ProjectDetail() {
             transition={{ duration: 0.5 }}
             className="max-w-3xl mb-12"
           >
-            <span className="inline-block px-2 py-1 text-xs font-medium text-primary bg-primary/10 rounded mb-4">
-              {project.category}
-            </span>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="inline-block px-2 py-1 text-xs font-medium text-primary bg-primary/10 rounded">
+                {project.category}
+              </span>
+              {/* Status Badge */}
+              {project.status && (
+                <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
+                  project.status === "Working On" 
+                    ? "bg-yellow-500/10 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400 border border-yellow-500/20" 
+                    : "bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-400 border border-green-500/20"
+                }`}>
+                  {project.status}
+                </span>
+              )}
+            </div>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               {project.title}
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
               {project.longDescription}
             </p>
+
 
             {/* Tech Stack */}
             <div className="flex flex-wrap gap-2 mt-6">
@@ -60,6 +77,7 @@ export default function ProjectDetail() {
                 </span>
               ))}
             </div>
+
 
             {/* Links */}
             <div className="flex gap-4 mt-8">
@@ -82,6 +100,7 @@ export default function ProjectDetail() {
             </div>
           </motion.header>
 
+
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -101,6 +120,7 @@ export default function ProjectDetail() {
                 </p>
               </section>
 
+
               {/* Approach */}
               <section>
                 <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
@@ -112,6 +132,7 @@ export default function ProjectDetail() {
                 </p>
               </section>
 
+
               {/* Challenges */}
               <section>
                 <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
@@ -122,6 +143,7 @@ export default function ProjectDetail() {
                   {project.challenges}
                 </p>
               </section>
+
 
               {/* Outcome */}
               <section>

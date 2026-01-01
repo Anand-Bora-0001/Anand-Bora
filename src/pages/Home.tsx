@@ -93,8 +93,8 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8"
               >
-                Backend-focused engineer building automation systems, data pipelines, and scalable web applications. 
-                I write code that handles the parts you don't see.
+                 Full-stack and backend-focused engineer building automation systems, data pipelines, and scalable web applications. 
+                 I write the code that powers everything behind the scenes.
               </motion.p>
 
               <motion.div
@@ -155,21 +155,22 @@ export default function Home() {
           >
             <h2 className="text-2xl font-semibold text-foreground mb-6">How I Think as a Developer</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                I approach problems by first understanding the system boundaries. Before writing code, 
-                I map out data flows and identify where things could break. This mindset came from 
-                building automation systems where silent failures are worse than loud crashes.
+             <p>
+              I approach engineering problems by first understanding system boundaries. Before writing code, 
+              I map data flows across the stack and identify where failures are most likely to occur. 
+              This mindset comes from building full-stack and automation systems, where silent failures 
+              are far more dangerous than loud crashes.
               </p>
               <p>
-                My internship at AI Adventures taught me that production code isn't about cleverness—it's 
-                about reliability. I learned to write code that other people can debug at 2 AM, 
-                and to document the "why" not just the "what."
-              </p>
-              <p>
-                I'm drawn to backend work because I like solving problems that have clear success criteria. 
-                Either the data pipeline processes correctly, or it doesn't. Either the system scales, or it breaks.
-                There's something satisfying about building infrastructure that just works.
-              </p>
+                My internship at AI Adventures reinforced that production code isn’t about cleverness—it’s 
+                about reliability. Working across the stack, I learned to write code that someone else can 
+                debug at 2 AM, and to document the “why,” not just the “what.”
+                </p>
+                <p>
+                  I’m drawn to full-stack and backend engineering because I enjoy problems with clear success criteria. 
+                  Either the data pipeline runs correctly, or it doesn’t. Either the system scales, or it breaks. 
+                  There’s a deep satisfaction in building end-to-end systems that simply work.
+                </p>
             </div>
           </motion.div>
         </div>

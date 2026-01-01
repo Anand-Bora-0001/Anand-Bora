@@ -32,9 +32,22 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         <div className="p-6">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
-              <span className="inline-block px-2 py-1 text-xs font-medium text-primary bg-primary/10 rounded mb-3">
-                {project.category}
-              </span>
+              {/* Category and Status badges with proper spacing */}
+              <div className="flex flex-wrap items-center gap-2 mb-3">
+                <span className="inline-block px-2 py-1 text-xs font-medium text-primary bg-primary/10 rounded">
+                  {project.category}
+                </span>
+                {project.status && (
+                  <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
+                    project.status === "Working On" 
+                      ? "bg-yellow-500/10 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400 border border-yellow-500/20"
+                      : "bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-400 border border-green-500/20"
+                  }`}>
+                    {project.status}
+                  </span>
+                )}
+              </div>
+
               <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors mb-2">
                 {project.title}
               </h3>
