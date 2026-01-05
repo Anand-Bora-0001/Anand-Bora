@@ -6,8 +6,6 @@ Built with a focus on **performance, clean UI, and scalability**, this portfolio
 ---
 
 ## 🌐 Live Demo
-
-## 🌐 Live Demo
 👉 https://anand-bora.vercel.app
 
 ![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)
