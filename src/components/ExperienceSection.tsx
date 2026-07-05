@@ -18,7 +18,7 @@ const experiences = [
   },
   {
     type: 'education',
-    title: 'BE Computer Engineering (CGPA: 8.42)',
+    title: 'BE Computer Engineering (CGPA: 8.55)',
     organization: 'Savitribai Phule Pune University',
     date: '2022 - 2026',
     icon: GraduationCap,
