@@ -24,24 +24,10 @@ export default function About() {
               className="space-y-6 text-muted-foreground leading-relaxed"
             >
               <p>
-<<<<<<< HEAD
                 I am a Computer Engineering graduate passionate about building robust backend systems, distributed applications, and AI-powered software. My engineering philosophy centers on clean architecture, scalable solutions, and solving complex problems with elegant code.
               </p>
               <p>
                 With a strong foundation in Cloud Engineering, DevOps, and Machine Learning, I thrive on architecting platforms that are not only performant but also maintainable. I believe that the most valuable software runs quietly in the background, processing data correctly, handling edge cases gracefully, and scaling without drama.
-=======
-                Final-year Computer Engineering student at Savitribai Phule Pune University (CGPA 8.55), 
-                working across full-stack and backend development, automation systems,
-                and engineering tools that streamline real-world workflows.
-</p>
-
-
-              <p>
-                My approach to engineering comes from a simple observation: most valuable software 
-                isn't flashy—it's reliable. The systems that matter are the ones that run quietly 
-                in the background, processing data correctly, handling edge cases gracefully, 
-                and scaling without drama.
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
               </p>
             </motion.div>
 
@@ -58,13 +44,8 @@ export default function About() {
                 <div className="card-elevated p-6">
                   <h3 className="text-lg font-medium text-foreground mb-2">Understand Before Building</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-<<<<<<< HEAD
                     I spend significant time understanding the problem space before writing code.
                     This means mapping data flows, identifying failure modes, and questioning assumptions.
-=======
-                    I spend significant time understanding the problem space before writing code. 
-                    This means mapping data flows, identifying failure modes, and questioning assumptions. 
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
                     A clear mental model prevents expensive rewrites later.
                   </p>
                 </div>
@@ -72,13 +53,8 @@ export default function About() {
                 <div className="card-elevated p-6">
                   <h3 className="text-lg font-medium text-foreground mb-2">Automate the Boring Stuff</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-<<<<<<< HEAD
                     If a task is repetitive, it should be automated. My internship work focused heavily
                     on this—building systems that eliminated manual data entry, automated certificate
-=======
-                    If a task is repetitive, it should be automated. My internship work focused heavily 
-                    on this—building systems that eliminated manual data entry, automated certificate 
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
                     generation, and reduced human error through scripts and workflows.
                   </p>
                 </div>
@@ -86,13 +62,8 @@ export default function About() {
                 <div className="card-elevated p-6">
                   <h3 className="text-lg font-medium text-foreground mb-2">Write for the Next Developer</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-<<<<<<< HEAD
                     Code is read more than it's written. I prioritize clarity over cleverness,
                     document edge cases, and structure projects so that anyone inheriting the
-=======
-                    Code is read more than it's written. I prioritize clarity over cleverness, 
-                    document edge cases, and structure projects so that anyone inheriting the 
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
                     codebase can understand the reasoning behind decisions.
                   </p>
                 </div>
@@ -112,11 +83,7 @@ export default function About() {
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <div>
                     <h3 className="text-lg font-medium text-foreground">AI Adventures LLP</h3>
-<<<<<<< HEAD
                     <p className="text-sm text-muted-foreground">Python Developer Intern</p>
-=======
-                    <p className="text-sm text-muted-foreground">Software Engineering Intern</p>
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
                   </div>
                   <span className="text-xs font-mono text-muted-foreground">2024</span>
                 </div>
@@ -176,11 +143,7 @@ export default function About() {
               <h2 className="text-2xl font-semibold text-foreground mb-6">Currently Exploring</h2>
               <div className="flex flex-wrap gap-3">
                 {['System Design', 'Cloud Architecture', 'DevOps Practices', 'Performance Optimization'].map((topic) => (
-<<<<<<< HEAD
                   <span
-=======
-                  <span 
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
                     key={topic}
                     className="px-4 py-2 text-sm font-mono text-foreground bg-secondary border border-border rounded-md"
                   >
@@ -190,26 +153,7 @@ export default function About() {
               </div>
             </motion.div>
 
-<<<<<<< HEAD
 
-=======
-            {/* Resume Link */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="mt-16 pt-8 border-t border-border"
-            >
-              <a 
-                href="#"
-                className="inline-flex items-center gap-2 text-primary hover:underline"
-              >
-                Download Resume (PDF)
-                <ArrowUpRight size={16} />
-              </a>
-            </motion.div>
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
           </div>
         </div>
       </section>

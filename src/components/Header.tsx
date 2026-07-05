@@ -10,24 +10,17 @@ const WHATSAPP_URL = `https://wa.me/91${WHATSAPP_NUMBER}`;
 
 const navItems = [
   { href: '/', label: 'Home' },
-<<<<<<< HEAD
   { href: '/about', label: 'About' },
   { href: '/#skills', label: 'Skills' },
   { href: '/projects', label: 'Projects' },
   { href: '/#experience', label: 'Experience' },
   { href: '/#contact', label: 'Contact' },
-=======
-  { href: '/projects', label: 'Projects' },
-  { href: '/about', label: 'About' },
-  { href: '/Anand_Bora.pdf', label: 'Resume', external: true },
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
 ];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-<<<<<<< HEAD
   const isActive = (href: string) => {
     const currentPath = location.pathname + location.hash;
     if (href === '/') {
@@ -49,8 +42,6 @@ export default function Header() {
     }
   });
 
-=======
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="section-container">
@@ -64,7 +55,6 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
-<<<<<<< HEAD
               <a
                 key={item.href}
                 href={item.href}
@@ -76,31 +66,6 @@ export default function Header() {
               >
                 {item.label}
               </a>
-=======
-              item.external ? (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 text-sm font-medium rounded-md transition-colors text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-                    location.pathname === item.href
-                      ? 'text-primary bg-secondary'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              )
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
             ))}
             <ThemeToggle />
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
@@ -135,7 +100,6 @@ export default function Header() {
           >
             <nav className="section-container py-4 flex flex-col gap-2">
               {navItems.map((item) => (
-<<<<<<< HEAD
                 <a
                   key={item.href}
                   href={item.href}
@@ -148,33 +112,6 @@ export default function Header() {
                 >
                   {item.label}
                 </a>
-=======
-                item.external ? (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setIsOpen(false)}
-                    className="px-4 py-3 text-sm font-medium rounded-md transition-colors text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`px-4 py-3 text-sm font-medium rounded-md transition-colors ${
-                      location.pathname === item.href
-                        ? 'text-primary bg-secondary'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                )
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
               ))}
               <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
                 <Button variant="hero" size="sm" className="w-full mt-2">

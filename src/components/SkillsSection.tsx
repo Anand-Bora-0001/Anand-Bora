@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { skillCategories } from '@/data/skills';
-<<<<<<< HEAD
 import { 
   SiPython, SiJavascript, SiTypescript, SiPostgresql, 
   SiFastapi, SiNodedotjs, SiExpress, SiDjango, SiFlask,
@@ -66,12 +65,6 @@ const getIconForSkill = (skill: string) => {
 export default function SkillsSection() {
   return (
     <section id="skills" className="py-24 bg-card/30">
-=======
-
-export default function SkillsSection() {
-  return (
-    <section className="py-24 bg-card/30">
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -81,17 +74,10 @@ export default function SkillsSection() {
           className="mb-12"
         >
           <h2 className="text-2xl font-semibold text-foreground mb-2">Technical Skills</h2>
-<<<<<<< HEAD
           <p className="text-muted-foreground">Technologies I use to build scalable systems</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-=======
-          <p className="text-muted-foreground">Organized by proficiency and practical experience</p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-6">
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
           {skillCategories.map((category, index) => (
             <motion.div
               key={category.title}
@@ -99,7 +85,6 @@ export default function SkillsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-<<<<<<< HEAD
               className="group relative overflow-hidden rounded-2xl border border-white/20 dark:border-white/10 bg-white/40 dark:bg-black/20 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] hover:border-primary/40 transition-all duration-500 transform hover:-translate-y-1 p-6 flex flex-col h-full"
             >
               {/* Glossy Gradient Overlay on Hover */}
@@ -124,21 +109,6 @@ export default function SkillsSection() {
                     );
                   })}
                 </div>
-=======
-              className="card-elevated p-6"
-            >
-              <h3 className="text-lg font-semibold text-foreground mb-1">{category.title}</h3>
-              <p className="text-xs text-muted-foreground mb-4">{category.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 text-sm font-mono text-secondary-foreground bg-secondary rounded-md hover:bg-secondary/90 transition-colors"
-                  >
-                    {skill}
-                  </span>
-                ))}
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
               </div>
             </motion.div>
           ))}

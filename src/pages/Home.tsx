@@ -1,19 +1,12 @@
 import { motion } from 'framer-motion';
-<<<<<<< HEAD
 import { ArrowDown, ArrowUpRight, MessageCircle, Github, Linkedin } from 'lucide-react';
-=======
-import { ArrowDown, ArrowUpRight, MessageCircle, FileText } from 'lucide-react';
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Layout from '@/components/Layout';
 import NetworkScene from '@/components/NetworkScene';
 import ProjectCard from '@/components/ProjectCard';
 import SkillsSection from '@/components/SkillsSection';
-<<<<<<< HEAD
 import ExperienceSection from '@/components/ExperienceSection';
-=======
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
 import ContactSection from '@/components/ContactSection';
 import { getFeaturedProjects } from '@/data/projects';
 import profileImg from '@/assets/profile.jpg';
@@ -80,7 +73,6 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-<<<<<<< HEAD
                 className="flex flex-wrap items-center gap-3 mb-6"
               >
                 <span className="inline-block px-3 py-1 text-xs font-medium font-mono text-primary bg-primary/10 border border-primary/20 rounded-full">
@@ -93,12 +85,6 @@ export default function Home() {
                   </span>
                   Open to Full-Time Opportunities
                 </span>
-=======
-              >
-                <span className="inline-block px-3 py-1 text-xs font-medium font-mono text-primary bg-primary/10 border border-primary/20 rounded-full mb-6">
-                  Computer Engineering · Pune, India
-                </span>
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
               </motion.div>
 
               <motion.h1
@@ -114,7 +100,6 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-<<<<<<< HEAD
                 className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-4"
               >
                 Software Engineer · Backend Engineer · Cloud & DevOps Engineer · AI/ML Enthusiast
@@ -127,12 +112,6 @@ export default function Home() {
                 className="text-base text-muted-foreground leading-relaxed mb-8 max-w-[90%]"
               >
                 I build scalable backend systems, distributed applications, AI-powered software, cloud-native platforms, and production-ready engineering solutions.
-=======
-                className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8"
-              >
-                 Full-stack and backend-focused engineer building automation systems, data pipelines, and scalable web applications. 
-                 I write the code that powers everything behind the scenes.
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
               </motion.p>
 
               <motion.div
@@ -147,7 +126,6 @@ export default function Home() {
                     <ArrowUpRight size={18} />
                   </Button>
                 </Link>
-<<<<<<< HEAD
                 <a href="https://github.com/Anand-Bora-0001" target="_blank" rel="noopener noreferrer">
                   <Button variant="subtle" size="lg" className="gap-2">
                     <Github size={18} />
@@ -158,22 +136,12 @@ export default function Home() {
                   <Button variant="subtle" size="lg" className="gap-2">
                     <Linkedin size={18} />
                     LinkedIn
-=======
-                <a href="/Anand_Bora.pdf" target="_blank" rel="noopener noreferrer">
-                  <Button variant="subtle" size="lg" className="gap-2">
-                    <FileText size={18} />
-                    View Resume
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
                   </Button>
                 </a>
                 <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                   <Button variant="subtle" size="lg" className="gap-2">
                     <MessageCircle size={18} />
-<<<<<<< HEAD
                     Contact
-=======
-                    Contact Me
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
                   </Button>
                 </a>
               </motion.div>
@@ -231,12 +199,9 @@ export default function Home() {
         </div>
       </section>
 
-<<<<<<< HEAD
       {/* Skills Section */}
       <SkillsSection />
 
-=======
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
       {/* Featured Projects */}
       <section className="py-24 border-t border-border">
         <div className="section-container">
@@ -276,41 +241,8 @@ export default function Home() {
         </div>
       </section>
 
-<<<<<<< HEAD
       {/* Experience Section */}
       <ExperienceSection />
-=======
-      {/* Resume Section */}
-      <section className="py-24 border-t border-border">
-        <div className="section-container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-2xl mx-auto"
-          >
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6">
-              <FileText className="w-8 h-8 text-primary" />
-            </div>
-            <h2 className="text-2xl font-semibold text-foreground mb-4">My Resume</h2>
-            <p className="text-muted-foreground mb-8">
-              Download my resume to learn more about my education, experience, and skills.
-            </p>
-            <a href="/Anand_Bora.pdf" target="_blank" rel="noopener noreferrer">
-              <Button variant="hero" size="lg" className="gap-2">
-                <FileText size={18} />
-                View Resume
-                <ArrowUpRight size={18} />
-              </Button>
-            </a>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <SkillsSection />
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
 
       {/* Contact Section */}
       <ContactSection />

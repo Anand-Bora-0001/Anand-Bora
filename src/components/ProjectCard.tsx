@@ -18,7 +18,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     >
       <Link 
         to={`/projects/${project.slug}`}
-<<<<<<< HEAD
         className="group block relative overflow-hidden h-full rounded-2xl border border-white/20 dark:border-white/10 bg-white/40 dark:bg-black/20 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] hover:border-primary/40 transition-all duration-500 transform hover:-translate-y-1"
       >
         {/* Advanced Glossy Gradient Overlay */}
@@ -36,32 +35,15 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
         )}
         <div className="p-6 relative z-20">
-=======
-        className="group block card-elevated overflow-hidden h-full hover:border-primary/30 transition-all duration-300"
-      >
-        {project.image && (
-          <div className="aspect-video overflow-hidden bg-secondary">
-            <img 
-              src={project.image} 
-              alt={project.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-        )}
-        <div className="p-6">
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
               {/* Category and Status badges with proper spacing */}
               <div className="flex flex-wrap items-center gap-2 mb-3">
-<<<<<<< HEAD
                 {project.featured && (
                   <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-amber-600 bg-amber-500/10 dark:text-amber-400 dark:bg-amber-500/20 border border-amber-500/20 rounded-full shadow-[0_0_10px_rgba(245,158,11,0.2)]">
                     ★ Featured
                   </span>
                 )}
-=======
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
                 <span className="inline-block px-2 py-1 text-xs font-medium text-primary bg-primary/10 rounded">
                   {project.category}
                 </span>
@@ -69,11 +51,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                   <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
                     project.status === "Working On" 
                       ? "bg-yellow-500/10 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400 border border-yellow-500/20"
-<<<<<<< HEAD
                       : project.status === "Maintained"
                       ? "bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 border border-blue-500/20"
-=======
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
                       : "bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-400 border border-green-500/20"
                   }`}>
                     {project.status}

@@ -4,11 +4,8 @@ import ProjectCard from '@/components/ProjectCard';
 import { projects } from '@/data/projects';
 
 export default function Projects() {
-<<<<<<< HEAD
   const featuredProjects = projects.filter(p => p.featured);
   const archivedProjects = projects.filter(p => !p.featured);
-=======
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
   return (
     <Layout>
       <section className="py-24">
@@ -26,7 +23,6 @@ export default function Projects() {
             </p>
           </motion.div>
 
-<<<<<<< HEAD
           <div className="mb-16">
             <h2 className="text-2xl font-semibold text-foreground mb-6">Featured Projects</h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -46,13 +42,6 @@ export default function Projects() {
               </div>
             </div>
           )}
-=======
-          <div className="grid md:grid-cols-2 gap-6">
-            {projects.map((project, index) => (
-              <ProjectCard key={project.slug} project={project} index={index} />
-            ))}
-          </div>
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
         </div>
       </section>
     </Layout>

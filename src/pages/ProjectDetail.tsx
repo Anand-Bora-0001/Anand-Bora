@@ -109,7 +109,6 @@ export default function ProjectDetail() {
             className="max-w-3xl"
           >
             <div className="space-y-12">
-<<<<<<< HEAD
               {project.overview && (
                 <section>
                   <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
@@ -243,54 +242,6 @@ export default function ProjectDetail() {
                   </p>
                 </section>
               )}
-=======
-              {/* Problem */}
-              <section>
-                <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-mono flex items-center justify-center">1</span>
-                  The Problem
-                </h2>
-                <p className="text-muted-foreground leading-relaxed pl-11">
-                  {project.problem}
-                </p>
-              </section>
-
-
-              {/* Approach */}
-              <section>
-                <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-mono flex items-center justify-center">2</span>
-                  Approach & Architecture
-                </h2>
-                <p className="text-muted-foreground leading-relaxed pl-11">
-                  {project.approach}
-                </p>
-              </section>
-
-
-              {/* Challenges */}
-              <section>
-                <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-mono flex items-center justify-center">3</span>
-                  Challenges & Tradeoffs
-                </h2>
-                <p className="text-muted-foreground leading-relaxed pl-11">
-                  {project.challenges}
-                </p>
-              </section>
-
-
-              {/* Outcome */}
-              <section>
-                <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-mono flex items-center justify-center">4</span>
-                  Outcome
-                </h2>
-                <p className="text-muted-foreground leading-relaxed pl-11">
-                  {project.outcome}
-                </p>
-              </section>
->>>>>>> 285b6236e8a509b4a43dd7c13146cc3e4b4e923a
             </div>
           </motion.div>
         </div>
