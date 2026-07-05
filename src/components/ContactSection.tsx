@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle, Github, Linkedin, Mail, MapPin, Globe, Send } from 'lucide-react';
+import { MessageCircle, Github, Linkedin, Mail, MapPin, Globe, Send, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 export default function ContactSection() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
+
+    // Construct the mailto link
+    const mailtoSubject = encodeURIComponent(`Portfolio Contact: ${subject}`);
+    const mailtoBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+    const mailtoUrl = `mailto:anandbora241@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+    
+    // Small delay for button animation
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Open the default email client
+    window.location.href = mailtoUrl;
+    
+    toast.success("Opening your email client!", {
+      description: "You can send the message directly from there.",
+    });
+    
+    setIsSubmitting(false);
+    (e.target as HTMLFormElement).reset();
+  };
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
       {/* Decorative background elements */}
@@ -104,13 +136,15 @@ export default function ContactSection() {
           >
             <div className="card-elevated p-8">
               <h3 className="text-xl font-semibold text-foreground mb-6">Send a Message</h3>
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-4" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium text-muted-foreground">Name</label>
                     <input 
                       type="text" 
                       id="name" 
+                      name="name"
+                      required
                       placeholder="John Doe" 
                       className="w-full px-4 py-3 rounded-md bg-secondary/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm"
                     />
@@ -120,6 +154,8 @@ export default function ContactSection() {
                     <input 
                       type="email" 
                       id="email" 
+                      name="email"
+                      required
                       placeholder="john@example.com" 
                       className="w-full px-4 py-3 rounded-md bg-secondary/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm"
                     />
@@ -130,6 +166,8 @@ export default function ContactSection() {
                   <input 
                     type="text" 
                     id="subject" 
+                    name="subject"
+                    required
                     placeholder="Project Inquiry" 
                     className="w-full px-4 py-3 rounded-md bg-secondary/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm"
                   />
@@ -138,14 +176,20 @@ export default function ContactSection() {
                   <label htmlFor="message" className="text-sm font-medium text-muted-foreground">Message</label>
                   <textarea 
                     id="message" 
+                    name="message"
+                    required
                     rows={4} 
                     placeholder="How can we help you?" 
                     className="w-full px-4 py-3 rounded-md bg-secondary/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm resize-none"
                   ></textarea>
                 </div>
-                <Button type="submit" variant="hero" className="w-full gap-2 mt-2">
-                  <Send className="w-4 h-4" />
-                  Send Message
+                <Button type="submit" variant="hero" className="w-full gap-2 mt-2" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </div>
