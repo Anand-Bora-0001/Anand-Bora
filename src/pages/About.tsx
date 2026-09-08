@@ -1,163 +1,92 @@
-import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import Layout from '@/components/Layout';
-import ContactSection from '@/components/ContactSection';
-
+import { ArrowUpRight } from "lucide-react";
+import Layout from "@/components/Layout";
+import ExperienceSection from "@/components/ExperienceSection";
+import ContactSection from "@/components/ContactSection";
+import profileImg from "@/assets/profile.jpg";
+const principles = [
+  {
+    title: "Understand the system first.",
+    text: "Map the data flow, name the service boundaries, and think through the failure modes before reaching for another dependency.",
+  },
+  {
+    title: "Make the repetitive things disappear.",
+    text: "Automation is most useful when it removes real work. Attendance workflows, certificate generation, and API integrations taught me to start with the person using the system.",
+  },
+  {
+    title: "Leave a trail for the next engineer.",
+    text: "Readable code, observable behavior, and documentation that explains decisions make a system easier to improve long after the first release.",
+  },
+];
 export default function About() {
   return (
     <Layout>
-      <section className="py-24">
+      <section className="section-space">
         <div className="section-container">
-          <div className="max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-8">About</h1>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="space-y-6 text-muted-foreground leading-relaxed"
-            >
-              <p>
-                I am a Computer Engineering graduate passionate about building robust backend systems, distributed applications, and AI-powered software. My engineering philosophy centers on clean architecture, scalable solutions, and solving complex problems with elegant code.
+          <div className="about-grid">
+            <div>
+              <p className="eyebrow">A LITTLE ABOUT ME</p>
+              <h1 className="page-title">
+                Curious about AI.
+                <br />
+                <span className="text-gradient">
+                  Serious about engineering.
+                </span>
+              </h1>
+              <p className="section-copy">
+                I'm Anand Bora, an AI Engineer at{" "}
+                <a
+                  className="text-primary"
+                  href="https://flid.ai/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Flid AI
+                </a>
+                , based in Pune, India. My work sits between applied AI, backend
+                engineering, and data systems.
               </p>
-              <p>
-                With a strong foundation in Cloud Engineering, DevOps, and Machine Learning, I thrive on architecting platforms that are not only performant but also maintainable. I believe that the most valuable software runs quietly in the background, processing data correctly, handling edge cases gracefully, and scaling without drama.
+              <p className="section-copy">
+                Right now, I'm focused on agent architectures, distributed
+                systems, and the practical ways Go, DuckDB, and Python fit
+                together. I enjoy the questions around the model: how it gets
+                context, uses tools, handles failure, and becomes part of a
+                useful product.
               </p>
-            </motion.div>
-
-            {/* Engineering Philosophy */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="mt-16"
-            >
-              <h2 className="text-2xl font-semibold text-foreground mb-6">Engineering Philosophy</h2>
-              <div className="grid gap-6">
-                <div className="card-elevated p-6">
-                  <h3 className="text-lg font-medium text-foreground mb-2">Understand Before Building</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    I spend significant time understanding the problem space before writing code.
-                    This means mapping data flows, identifying failure modes, and questioning assumptions.
-                    A clear mental model prevents expensive rewrites later.
-                  </p>
-                </div>
-
-                <div className="card-elevated p-6">
-                  <h3 className="text-lg font-medium text-foreground mb-2">Automate the Boring Stuff</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    If a task is repetitive, it should be automated. My internship work focused heavily
-                    on this—building systems that eliminated manual data entry, automated certificate
-                    generation, and reduced human error through scripts and workflows.
-                  </p>
-                </div>
-
-                <div className="card-elevated p-6">
-                  <h3 className="text-lg font-medium text-foreground mb-2">Write for the Next Developer</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Code is read more than it's written. I prioritize clarity over cleverness,
-                    document edge cases, and structure projects so that anyone inheriting the
-                    codebase can understand the reasoning behind decisions.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Experience */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="mt-16"
-            >
-              <h2 className="text-2xl font-semibold text-foreground mb-6">Experience</h2>
-              <div className="card-elevated p-6">
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <div>
-                    <h3 className="text-lg font-medium text-foreground">AI Adventures LLP</h3>
-                    <p className="text-sm text-muted-foreground">Python Developer Intern</p>
-                  </div>
-                  <span className="text-xs font-mono text-muted-foreground">2024</span>
-                </div>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">•</span>
-                    Built absence detection system for automated attendance tracking
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">•</span>
-                    Developed Google Sheets automation using Python and API integration
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">•</span>
-                    Implemented CI/CD workflows using GitHub Actions
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">•</span>
-                    Contributed to Moodle platform customization and bulk certificate automation
-                  </li>
-                </ul>
-              </div>
-            </motion.div>
-
-            {/* Education */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="mt-16"
-            >
-              <h2 className="text-2xl font-semibold text-foreground mb-6">Education</h2>
-              <div className="card-elevated p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-medium text-foreground">BE Computer Engineering</h3>
-                    <p className="text-sm text-muted-foreground">Savitribai Phule Pune University</p>
-                    <p className="text-sm text-muted-foreground">Genba Sopanrao Moze College of Engineering, Pune</p>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-xs font-mono text-muted-foreground">2022–2026</span>
-                    <p className="text-sm font-medium text-primary mt-1">CGPA: 8.55</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Currently Learning */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="mt-16"
-            >
-              <h2 className="text-2xl font-semibold text-foreground mb-6">Currently Exploring</h2>
-              <div className="flex flex-wrap gap-3">
-                {['System Design', 'Cloud Architecture', 'DevOps Practices', 'Performance Optimization'].map((topic) => (
-                  <span
-                    key={topic}
-                    className="px-4 py-2 text-sm font-mono text-foreground bg-secondary border border-border rounded-md"
-                  >
-                    {topic}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-
-
+              <p className="section-copy">
+                My path started with Python automation and grew into projects in
+                cybersecurity, observability, MLOps, and data engineering. That
+                variety keeps me curious—and keeps the emphasis on the problem
+                rather than any one tool.
+              </p>
+              <a
+                href="/Anand_Bora.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="text-link"
+              >
+                Download resume <ArrowUpRight size={18} />
+              </a>
+              <p className="text-sm text-muted-foreground mt-3">
+                For my current role and focus, see the experience below.
+              </p>
+            </div>
+            <div className="about-portrait">
+              <img src={profileImg} alt="Anand Bora" width="768" height="703" />
+              <p>Based in Pune. Building with curiosity.</p>
+            </div>
+          </div>
+          <div className="principles-grid">
+            {principles.map((principle, index) => (
+              <article key={principle.title}>
+                <span className="eyebrow">0{index + 1}</span>
+                <h2>{principle.title}</h2>
+                <p>{principle.text}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
-
+      <ExperienceSection />
       <ContactSection />
     </Layout>
   );

@@ -1,40 +1,74 @@
 export interface SkillCategory {
   title: string;
-  description?: string;
+  description: string;
   skills: string[];
 }
-
 export const skillCategories: SkillCategory[] = [
   {
-    title: "Languages",
-    skills: ["Python", "JavaScript", "TypeScript", "SQL"],
+    title: "Agents & applied AI",
+    description: "Connecting models to useful product workflows.",
+    skills: [
+      "Agent architectures",
+      "Tool orchestration",
+      "RAG",
+      "Scikit-Learn",
+      "MLOps",
+      "LangChain",
+    ],
   },
   {
-    title: "Backend",
-    skills: ["FastAPI", "Node.js", "Express", "Django", "Flask"],
+    title: "Backend & systems",
+    description: "Clear interfaces and dependable service boundaries.",
+    skills: [
+      "Go",
+      "Python",
+      "FastAPI",
+      "Flask",
+      "REST APIs",
+      "Distributed systems",
+    ],
   },
   {
-    title: "Frontend",
-    skills: ["React", "Next.js", "Tailwind CSS"],
+    title: "Data & storage",
+    description: "From events and datasets to usable information.",
+    skills: ["DuckDB", "PostgreSQL", "Redis", "SQL", "Kafka", "Airflow"],
   },
   {
-    title: "Cloud & DevOps",
-    skills: ["Docker", "Kubernetes", "AWS", "Linux", "GitHub Actions", "Nginx"],
+    title: "Cloud & delivery",
+    description: "Shipping software with visibility into how it behaves.",
+    skills: [
+      "Docker",
+      "Kubernetes",
+      "AWS",
+      "Linux",
+      "GitHub Actions",
+      "Prometheus",
+      "Grafana",
+    ],
   },
-  {
-    title: "Databases",
-    skills: ["PostgreSQL", "MongoDB", "Redis", "SQLite"],
-  },
-  {
-    title: "AI / Machine Learning",
-    skills: ["TensorFlow", "PyTorch", "Scikit-Learn", "LangChain", "RAG", "Vector Databases", "MLOps"],
-  },
-  {
-    title: "Data Engineering",
-    skills: ["Kafka", "Apache Spark", "Airflow", "ETL", "Streaming", "Monitoring"],
-  },
-  {
-    title: "Tools",
-    skills: ["Git", "GitHub", "REST APIs", "CI/CD", "JWT", "OAuth", "Microservices"],
-  },
+];
+export const extendedSkills = [
+  "TypeScript",
+  "JavaScript",
+  "React",
+  "Next.js",
+  "Tailwind CSS",
+  "Node.js",
+  "Express",
+  "Django",
+  "MongoDB",
+  "SQLite",
+  "TensorFlow",
+  "PyTorch",
+  "Vector Databases",
+  "Apache Spark",
+  "ETL",
+  "Streaming",
+  "Nginx",
+  "Git",
+  "GitHub",
+  "CI/CD",
+  "JWT",
+  "OAuth",
+  "Microservices",
 ];

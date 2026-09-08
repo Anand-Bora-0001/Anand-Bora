@@ -1,250 +1,198 @@
-import { motion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, MessageCircle, Github, Linkedin } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import Layout from '@/components/Layout';
-import NetworkScene from '@/components/NetworkScene';
-import ProjectCard from '@/components/ProjectCard';
-import SkillsSection from '@/components/SkillsSection';
-import ExperienceSection from '@/components/ExperienceSection';
-import ContactSection from '@/components/ContactSection';
-import { getFeaturedProjects } from '@/data/projects';
-import profileImg from '@/assets/profile.jpg';
-
-const WHATSAPP_NUMBER = '7821025663';
-const WHATSAPP_URL = `https://wa.me/91${WHATSAPP_NUMBER}`;
+import {
+  ArrowDown,
+  ArrowUpRight,
+  Github,
+  Linkedin,
+  MapPin,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import Layout from "@/components/Layout";
+import ProjectCard from "@/components/ProjectCard";
+import SkillsSection from "@/components/SkillsSection";
+import ExperienceSection from "@/components/ExperienceSection";
+import ContactSection from "@/components/ContactSection";
+import { getFeaturedProjects } from "@/data/projects";
+import profileImg from "@/assets/profile.jpg";
 
 export default function Home() {
-  const featuredProjects = getFeaturedProjects();
-
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Background gradient */}
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: 'var(--gradient-hero)' }}
-        />
-        
-        {/* 3D Scene */}
-        <div className="absolute right-0 top-0 w-full md:w-1/2 h-full opacity-60 md:opacity-100">
-          <NetworkScene />
+      <section className="hero-section section-container">
+        <div className="hero-topline">
+          <span className="eyebrow">ANAND BORA / AI ENGINEER</span>
+          <span className="location-label">
+            <MapPin size={14} /> Pune, India
+          </span>
         </div>
-
-        <div className="section-container relative z-10">
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            {/* Profile Image - Left Side */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.05, rotate: 3 }}
-              transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 300 }}
-              className="relative flex-shrink-0 cursor-pointer"
+        <div className="hero-grid">
+          <div className="hero-copy">
+            <a
+              className="current-role"
+              href="https://flid.ai/"
+              target="_blank"
+              rel="noreferrer"
             >
-              <div className="relative w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72">
-                {/* Gradient border ring */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary via-secondary to-accent p-1 transition-shadow duration-300 hover:shadow-[0_0_40px_hsl(var(--primary)/0.4)]">
-                  <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
-                    {/* Replace this with your image */}
-                    <img 
-                      src={profileImg} 
-                      alt="Anand Bora"
-                      className="w-full h-full object-cover rounded-full"
-                      onError={(e) => {
-                        // Fallback to initials if image not found
-                        e.currentTarget.style.display = 'none';
-                        e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                      }}
-                    />
-                    <div className="hidden w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                      <span className="text-4xl md:text-5xl font-bold text-primary">AB</span>
-                    </div>
-                  </div>
-                </div>
-                {/* Decorative glow */}
-                <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl -z-10" />
-              </div>
-            </motion.div>
-
-            {/* Text Content - Right Side */}
-            <div className="max-w-2xl flex-1">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="flex flex-wrap items-center gap-3 mb-6"
-              >
-                <span className="inline-block px-3 py-1 text-xs font-medium font-mono text-primary bg-primary/10 border border-primary/20 rounded-full">
-                  Computer Engineering · Pune, India
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium font-mono text-green-500 bg-green-500/10 border border-green-500/20 rounded-full">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  Open to Full-Time Opportunities
-                </span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6"
-              >
-                Anand Bora
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-4"
-              >
-                Software Engineer · Backend Engineer · Cloud & DevOps Engineer · AI/ML Enthusiast
-              </motion.p>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.25 }}
-                className="text-base text-muted-foreground leading-relaxed mb-8 max-w-[90%]"
-              >
-                I build scalable backend systems, distributed applications, AI-powered software, cloud-native platforms, and production-ready engineering solutions.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex flex-wrap gap-4"
-              >
+              <span className="status-dot" /> Currently building at Flid AI{" "}
+              <ArrowUpRight size={14} />
+            </a>
+            <h1>
+              Useful AI.
+              <br />
+              <span className="text-gradient">Solid systems.</span>
+            </h1>
+            <p className="hero-intro">
+              I'm Anand. I turn complex problems into thoughtful
+              software—connecting{" "}
+              <strong>agents, data, and the systems behind them.</strong>
+            </p>
+            <p className="hero-stack">
+              <span>Go</span>
+              <span>DuckDB</span>
+              <span>Python</span>
+              <span>Distributed systems</span>
+            </p>
+            <div className="hero-actions">
+              <Button asChild variant="hero" size="lg">
                 <Link to="/projects">
-                  <Button variant="hero" size="lg" className="gap-2">
-                    View Projects
-                    <ArrowUpRight size={18} />
-                  </Button>
+                  Explore my work <ArrowUpRight />
                 </Link>
-                <a href="https://github.com/Anand-Bora-0001" target="_blank" rel="noopener noreferrer">
-                  <Button variant="subtle" size="lg" className="gap-2">
-                    <Github size={18} />
-                    GitHub
-                  </Button>
-                </a>
-                <a href="https://www.linkedin.com/in/anand-bora/" target="_blank" rel="noopener noreferrer">
-                  <Button variant="subtle" size="lg" className="gap-2">
-                    <Linkedin size={18} />
-                    LinkedIn
-                  </Button>
-                </a>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-                  <Button variant="subtle" size="lg" className="gap-2">
-                    <MessageCircle size={18} />
-                    Contact
-                  </Button>
-                </a>
-              </motion.div>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <a href="#contact">Let's talk</a>
+              </Button>
+            </div>
+            <div className="hero-socials">
+              <a
+                href="https://github.com/Anand-Bora-0001"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Github size={17} /> GitHub <ArrowUpRight size={13} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/anand-bora/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Linkedin size={17} /> LinkedIn <ArrowUpRight size={13} />
+              </a>
             </div>
           </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="text-muted-foreground"
-          >
-            <ArrowDown size={20} />
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* How I Think Section */}
-      <section className="py-24 border-t border-border">
-        <div className="section-container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-3xl"
-          >
-            <h2 className="text-2xl font-semibold text-foreground mb-6">How I Think as a Developer</h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed">
-             <p>
-              I approach engineering problems by first understanding system boundaries. Before writing code, 
-              I map data flows across the stack and identify where failures are most likely to occur. 
-              This mindset comes from building full-stack and automation systems, where silent failures 
-              are far more dangerous than loud crashes.
+          <div className="portrait-composition">
+            <div className="portrait-frame">
+              <img
+                src={profileImg}
+                alt="Anand Bora"
+                width="768"
+                height="703"
+                fetchPriority="high"
+              />
+              <div className="portrait-caption">
+                <span>ANAND BORA</span>
+                <span>Engineer. Curious by default.</span>
+              </div>
+            </div>
+            <div className="terminal-note">
+              <div>
+                <span className="terminal-dots" />
+                <span>currently.focused_on</span>
+              </div>
+              <p>
+                <span>01</span> Agent architectures
               </p>
               <p>
-                My internship at AI Adventures reinforced that production code isn’t about cleverness—it’s 
-                about reliability. Working across the stack, I learned to write code that someone else can 
-                debug at 2 AM, and to document the “why,” not just the “what.”
-                </p>
-                <p>
-                  I’m drawn to full-stack and backend engineering because I enjoy problems with clear success criteria. 
-                  Either the data pipeline runs correctly, or it doesn’t. Either the system scales, or it breaks. 
-                  There’s a deep satisfaction in building end-to-end systems that simply work.
-                </p>
+                <span>02</span> Reliable backend systems
+              </p>
+              <p>
+                <span>03</span> Data that does something
+                <span className="terminal-cursor" />
+              </p>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <SkillsSection />
-
-      {/* Featured Projects */}
-      <section className="py-24 border-t border-border">
-        <div className="section-container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex items-end justify-between mb-12"
-          >
-            <div>
-              <h2 className="text-2xl font-semibold text-foreground mb-2">Featured Projects</h2>
-              <p className="text-muted-foreground">Selected work demonstrating engineering thinking</p>
-            </div>
-            <Link 
-              to="/projects"
-              className="hidden sm:flex items-center gap-1 text-sm text-primary hover:underline"
-            >
-              View all projects
-              <ArrowUpRight size={14} />
-            </Link>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredProjects.map((project, index) => (
-              <ProjectCard key={project.slug} project={project} index={index} />
-            ))}
           </div>
+        </div>
+        <a href="#selected-work" className="scroll-cue">
+          <ArrowDown size={16} /> A little less theory. A little more building.
+        </a>
+      </section>
 
-          <Link 
-            to="/projects"
-            className="flex sm:hidden items-center justify-center gap-1 mt-8 text-sm text-primary hover:underline"
-          >
-            View all projects
-            <ArrowUpRight size={14} />
-          </Link>
+      <section
+        id="selected-work"
+        className="section-space border-t border-border"
+      >
+        <div className="section-container">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">01 / SELECTED WORK</p>
+              <h2>
+                Ideas, made tangible<span className="accent-period">.</span>
+              </h2>
+            </div>
+            <Link to="/projects" className="text-link">
+              All projects <ArrowUpRight size={18} />
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-2 gap-7">
+            {getFeaturedProjects()
+              .slice(0, 4)
+              .map((project, index) => (
+                <ProjectCard
+                  key={project.slug}
+                  project={project}
+                  index={index}
+                />
+              ))}
+          </div>
         </div>
       </section>
 
-      {/* Experience Section */}
+      <section className="section-space engineering-section">
+        <div className="section-container engineering-grid">
+          <div>
+            <p className="eyebrow">02 / HOW I THINK</p>
+            <h2>
+              Beyond the model.
+              <br />
+              Into the system.
+            </h2>
+            <p className="section-copy">
+              The interesting part is making everything work together. Clear
+              APIs. Useful tools. Data you can trust. Enough visibility to
+              understand what happened when something goes wrong.
+            </p>
+            <Link to="/about" className="text-link">
+              A little more about me <ArrowUpRight size={18} />
+            </Link>
+          </div>
+          <div
+            className="system-map"
+            role="img"
+            aria-label="Engineering focus: a request enters an API, reaches an agent, uses tools and data, and produces an observable result."
+          >
+            <div className="system-map-heading">
+              <span className="status-dot" /> FROM INTENT TO INSIGHT
+            </div>
+            <div className="system-row">
+              <span>Request</span>
+              <i />
+              <span>API</span>
+              <i />
+              <span className="system-agent">Agent</span>
+            </div>
+            <div className="system-branch">
+              <span>Tools</span>
+              <span>Data</span>
+              <span>Context</span>
+            </div>
+            <div className="system-result">
+              <span className="status-dot" /> Observable, useful outcomes
+            </div>
+            <p>Design the flow. Understand the failure modes.</p>
+          </div>
+        </div>
+      </section>
+      <SkillsSection />
       <ExperienceSection />
-
-      {/* Contact Section */}
       <ContactSection />
     </Layout>
   );

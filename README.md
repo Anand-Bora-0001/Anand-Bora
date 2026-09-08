@@ -1,134 +1,42 @@
-# 🚀 Personal Portfolio Website
+# Anand Bora — portfolio
 
-A modern, responsive **developer portfolio** showcasing my projects, skills, and experience.
-Built with a focus on **performance, clean UI, and scalability**, this portfolio serves as a central place for recruiters and collaborators to explore my work.
+Personal portfolio for Anand Bora, AI Engineer at Flid AI. Built with React, TypeScript, Vite, Tailwind CSS, and the existing shadcn/ui components.
 
----
+**Live:** [anand-bora.vercel.app](https://anand-bora.vercel.app/)
 
-## 🌐 Live Demo
-👉 https://anand-bora.vercel.app
+## Development
 
-![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)
-
-## 🛠 Tech Stack
-React · TypeScript · Tailwind CSS · Vite · shadcn/ui · Vercel
-
-👉 **GitHub Repository**: [https://github.com/Anand-Bora-0001/Anand-Bora](https://github.com/Anand-Bora-0001/Anand-Bora)
-
----
-
-## ✨ Features
-
-* ⚡ Fast and responsive UI
-* 🎨 Clean, modern design with Tailwind CSS
-* 🧩 Reusable and well-structured React components
-* 📱 Fully responsive (mobile, tablet, desktop)
-* 🌙 Accessible & user-friendly UI components
-* 🚀 Optimized for deployment on modern hosting platforms
-
----
-
-## 🛠️ Tech Stack
-
-* **Frontend**: React + TypeScript
-* **Build Tool**: Vite
-* **Styling**: Tailwind CSS
-* **UI Components**: shadcn/ui
-* **Icons**: Lucide Icons
-* **Deployment**: Vercel / Netlify (free)
-
----
-
-## 📂 Project Structure
-
-```
-portfolio/
-├── src/
-│   ├── components/     # Reusable UI components
-│   ├── pages/          # Page-level components
-│   ├── assets/         # Images & static assets
-│   ├── styles/         # Global styles
-│   └── main.tsx
-├── public/
-├── index.html
-├── package.json
-└── README.md
-```
-
----
-
-## 🧑‍💻 Getting Started (Local Setup)
-
-### Prerequisites
-
-* Node.js (v18 or higher recommended)
-* npm or yarn
-
-### Installation
+Use Node.js 22 and npm. The npm lockfile is the deployment source of truth.
 
 ```sh
-# Clone the repository
-git clone https://github.com/your-username/your-repo-name.git
-
-# Navigate into the project
-cd your-repo-name
-
-# Install dependencies
-npm install
-
-# Start development server
+npm ci
 npm run dev
 ```
 
-The app will be available at:
+## Checks
 
+```sh
+npm run build
+npm test
+npm run lint
 ```
-http://localhost:5173
-```
 
----
+The production build runs TypeScript checks, generates the project sitemap, and creates `dist/`. GitHub Actions validates pushes and pull requests. Vercel publishes the connected `main` branch; `vercel.json` preserves direct links into the client-side routes.
 
-## 🚀 Deployment
+## Updating content
 
-This project can be deployed **for free** using platforms like:
+- `src/data/profile.ts`: contact details and current experience. No inferred employment start date is published.
+- `src/data/skills.ts`: current tools and the broader toolkit.
+- `src/data/projects.ts`: project records, case-study content, and featured order. Existing project URLs are preserved.
+- `src/index.css`: visual identity, responsive layouts, focus styles, and reduced motion.
+- `public/projects/`: screenshots sourced from the corresponding public repositories.
+- `public/Anand_Bora.pdf`: existing resume, preserved as supplied. Update it separately when a new resume is available.
 
-* **Vercel** (recommended)
-* **Netlify**
+The contact form opens a `mailto:` draft; it does not send a message or use a backend. Form content remains available if no email app opens. Themes use local device preferences through `next-themes`.
 
-### Deploy on Vercel
+## Project screenshots
 
-1. Push the repository to GitHub
-2. Import the project on Vercel
-3. Click **Deploy**
+- AmEx Pulse: [project repository](https://github.com/Anand-Bora-0001/amex-pulse), `docs/dashboard.png`.
+- Enterprise MLOps: [project repository](https://github.com/Anand-Bora-0001/Enterprise-MLOps-Platform), `docs/dashboard.png`.
 
-Automatic deployments will trigger on every GitHub push.
-
----
-
-## 📈 Future Improvements
-
-* Add animations & micro-interactions
-* Integrate analytics (Plausible / Google Analytics)
-* Improve SEO with meta tags & Open Graph previews
-* Add blog or case-study section
-* Dark mode toggle
-
----
-
-## 🤝 Contributing
-
-This is a personal portfolio, but suggestions and feedback are always welcome.
-
----
-
-## 📬 Contact
-
-* **Email**: [anandbora241@gmail.com](mailto:anandbora@gmail.com)
-* **LinkedIn**: [https://www.linkedin.com/in/anand-bora/](https://www.linkedin.com/in/anand-bora/)
-* **GitHub**: [https://github.com/Anand-Bora-0001](https://github.com/Anand-Bora-0001)
-
----
-
-⭐ If you like this project, consider giving it a star — it helps!
-
----
+Project descriptions distinguish prototype goals and local mocks from production capabilities. The linked repositories remain the source of truth for implementation and setup.
