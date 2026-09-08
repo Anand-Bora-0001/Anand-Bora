@@ -1,3 +1,5 @@
+import type { PointerEvent } from "react";
+import { getTilt } from "@/data/atlas";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Braces, Database, Shield, Bot } from "lucide-react";
 import type { Project } from "@/data/projects";
@@ -10,8 +12,35 @@ export default function ProjectCard({
   index: number;
 }) {
   const Icon = icons[index % icons.length];
+  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
+    if (
+      event.pointerType !== "mouse" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const tilt = getTilt(
+      event.clientX - rect.left,
+      event.clientY - rect.top,
+      rect.width,
+      rect.height,
+    );
+    event.currentTarget.style.setProperty("--tilt-x", `${tilt.rotateX}deg`);
+    event.currentTarget.style.setProperty("--tilt-y", `${tilt.rotateY}deg`);
+    event.currentTarget.style.setProperty("--light-x", `${tilt.lightX}%`);
+    event.currentTarget.style.setProperty("--light-y", `${tilt.lightY}%`);
+  };
+  const resetTilt = (event: PointerEvent<HTMLElement>) => {
+    event.currentTarget.style.setProperty("--tilt-x", "0deg");
+    event.currentTarget.style.setProperty("--tilt-y", "0deg");
+  };
   return (
-    <article className={`project-card project-accent-${index % 4}`}>
+    <article
+      className={`project-card project-accent-${index % 4}`}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetTilt}
+      onPointerCancel={resetTilt}
+    >
       <Link to={`/projects/${project.slug}`} className="project-card-link">
         <div className="project-visual">
           {project.image ? (
@@ -25,6 +54,9 @@ export default function ProjectCard({
             />
           ) : (
             <div className="project-typographic">
+              <span className="project-ghost-number" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
               <Icon size={38} strokeWidth={1} />
               <span>{project.title}</span>
               <p>{project.techStack.slice(0, 3).join(" / ")}</p>
