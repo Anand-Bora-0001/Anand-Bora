@@ -17,6 +17,25 @@ export default function CyberCursor() {
     let targetX = 0;
     let targetY = 0;
     let previous = 0;
+    let colorIndex = 0;
+    let colorKey = "";
+    const recolor = () => {
+      const dark = root.classList.contains("dark");
+      const key = `${dark}:${colorIndex}`;
+      if (key === colorKey) return;
+      colorKey = key;
+      const palette = dark
+        ? ["#43f5da", "#ff609f", "#d6f65a", "#bb9aff", "#ffa86a", "#6dc9ff"]
+        : ["#006b73", "#b52362", "#586900", "#7037b0", "#a24612", "#17629b"];
+      const color = palette[colorIndex];
+      const stroke = dark ? "#07191f" : "#ffffff";
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><path d="M3 2L3 21L8 16L12 24L16 22L12 14L20 14Z" fill="${color}" stroke="${stroke}" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+      root.style.setProperty(
+        "--cyber-pointer",
+        `url("data:image/svg+xml,${encodeURIComponent(svg)}") 3 2, auto`,
+      );
+      root.style.setProperty("--cursor-hover-color", color);
+    };
     const allowed = () => fine.matches && !reduced.matches && !contrast.matches;
     const hide = () => {
       visible = false;
@@ -37,12 +56,40 @@ export default function CyberCursor() {
       const disabled = interactive?.matches(
         ":disabled, [aria-disabled='true']",
       );
-      element.dataset.mode =
+      const mode =
         interactive && !disabled
           ? "link"
           : target?.closest("canvas")
             ? "orbit"
-            : "idle";
+            : target?.closest("img, picture, video, svg")
+              ? "image"
+              : target?.closest(
+                    "h1, h2, h3, h4, h5, h6, p, span, small, strong, em, label, li, code, pre, blockquote",
+                  )
+                ? "text"
+                : "surface";
+      element.dataset.mode = mode;
+      colorIndex =
+        mode === "link"
+          ? 1
+          : mode === "orbit"
+            ? 2
+            : mode === "text"
+              ? 3
+              : mode === "image"
+                ? 4
+                : 0;
+      if (mode === "surface" && target) {
+        // Stable variations make different panels and sections respond individually.
+        const section =
+          target.closest("section, article, header, footer, aside, main") ??
+          target;
+        const key = `${section.tagName}:${section.id}:${section.className}`;
+        let hash = 0;
+        for (const char of key) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+        colorIndex = [0, 2, 5][hash % 3];
+      }
+      recolor();
     };
     const draw = (now: number) => {
       frame = 0;
@@ -96,6 +143,11 @@ export default function CyberCursor() {
     const visibility = () => {
       if (document.hidden) hide();
     };
+    const themeObserver = new MutationObserver(recolor);
+    themeObserver.observe(root, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
     window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("pointerdown", down, { passive: true });
     window.addEventListener("pointerup", up, { passive: true });
@@ -108,7 +160,10 @@ export default function CyberCursor() {
     for (const media of [fine, reduced, contrast])
       media.addEventListener("change", hide);
     return () => {
+      themeObserver.disconnect();
       hide();
+      root.style.removeProperty("--cyber-pointer");
+      root.style.removeProperty("--cursor-hover-color");
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerdown", down);
       window.removeEventListener("pointerup", up);

@@ -48,7 +48,7 @@
     z-index: 2147483647;
     pointer-events: none;
     opacity: 0;
-    color: var(--cyan);
+    color: var(--cursor-hover-color, var(--cyan));
     transition: opacity 120ms;
   }
   .cyber-cursor[data-visible="true"]:not([data-native="true"]) {
@@ -96,13 +96,17 @@
     transform: rotate(270deg);
   }
   .cyber-cursor[data-mode="link"] .cyber-cursor-ring {
-    color: var(--pink);
     transform: rotate(0deg) scale(1.35);
-    background: color-mix(in srgb, var(--pink) 5%, transparent);
+    background: color-mix(in srgb, currentColor 5%, transparent);
   }
   .cyber-cursor[data-mode="orbit"] .cyber-cursor-ring {
-    color: var(--gold);
     transform: rotate(45deg) scale(1.15);
+  }
+  .cyber-cursor[data-mode="text"] .cyber-cursor-ring {
+    transform: rotate(0deg) scale(0.85);
+  }
+  .cyber-cursor[data-mode="image"] .cyber-cursor-ring {
+    transform: rotate(0deg) scale(1.2);
   }
   .cyber-cursor[data-pressed="true"] .cyber-cursor-ring {
     transform: rotate(0deg) scale(0.75);
