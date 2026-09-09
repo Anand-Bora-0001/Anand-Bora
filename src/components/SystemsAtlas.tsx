@@ -16,6 +16,7 @@ import {
   type AtlasFocus,
 } from "@/data/atlas";
 import AtlasPoster from "./AtlasPoster";
+import { useTheme } from "next-themes";
 const SystemsScene = lazy(() => import("./SystemsScene"));
 class SceneBoundary extends Component<
   { children: ReactNode; fallback: ReactNode; onFailure: () => void },
@@ -36,6 +37,8 @@ function preference(query: string) {
   return typeof window !== "undefined" && window.matchMedia(query).matches;
 }
 export default function SystemsAtlas() {
+  const { resolvedTheme } = useTheme();
+  const light = resolvedTheme === "light";
   const [focus, setFocus] = useState<AtlasFocus>("agents");
   const [reduced, setReduced] = useState(() =>
     preference("(prefers-reduced-motion: reduce)"),
@@ -90,13 +93,13 @@ export default function SystemsAtlas() {
     inView: visible,
     pageVisible,
   });
-  const poster = <AtlasPoster focus={focus} />;
+  const poster = <AtlasPoster focus={focus} light={light} />;
   return (
     <div className="systems-atlas" ref={wrapper} data-focus={focus}>
       <div className="atlas-topbar">
         <span>
           <i />
-          SYSTEMS ATLAS <small>VOL. 01</small>
+          SYSTEMS ATLAS <small>AB / 01</small>
         </span>
         <span className="atlas-live-label">
           {show3D ? "INTERACTIVE 3D" : "INTERACTIVE MAP"}
@@ -110,6 +113,7 @@ export default function SystemsAtlas() {
           <SceneBoundary onFailure={() => setFailed(true)} fallback={poster}>
             <Suspense fallback={poster}>
               <SystemsScene
+                light={light}
                 focus={focus}
                 onSelect={setFocus}
                 running={running}

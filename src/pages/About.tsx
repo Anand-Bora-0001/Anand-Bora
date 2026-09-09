@@ -24,13 +24,11 @@ export default function About() {
         <div className="section-container">
           <div className="about-grid">
             <div>
-              <p className="eyebrow">A LITTLE ABOUT ME</p>
+              <p className="eyebrow">PROFILE / THE ENGINEER</p>
               <h1 className="page-title">
-                Curious about AI.
+                Human behind
                 <br />
-                <span className="text-gradient">
-                  Serious about engineering.
-                </span>
+                <span className="text-gradient">the systems_</span>
               </h1>
               <p className="section-copy">
                 I'm Anand Bora, an AI Engineer at{" "}

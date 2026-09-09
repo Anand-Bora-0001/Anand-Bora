@@ -21,7 +21,9 @@ export default function Home() {
     <Layout>
       <section className="hero-section atlas-hero section-container">
         <div className="hero-topline">
-          <span className="eyebrow">ANAND BORA / THE SYSTEMS EDITION</span>
+          <span className="eyebrow">
+            ANAND BORA <span aria-hidden="true">//</span> AI ENGINEER
+          </span>
           <span className="location-label">
             <MapPin size={14} /> Pune, India
           </span>
@@ -37,13 +39,15 @@ export default function Home() {
               <span className="status-dot" /> Currently building at Flid AI{" "}
               <ArrowUpRight size={14} />
             </a>
-            <h1>
-              A little curious.
-              <br />
-              <span className="text-gradient">A lot of</span>
-              <br />
-              <span className="hero-building">
-                building<span className="accent-period">.</span>
+            <p className="cyber-overline">
+              <span aria-hidden="true">&gt;_</span> HUMAN IDEAS. ENGINEERED
+              SYSTEMS.
+            </p>
+            <h1 className="cyber-headline">
+              <span>BUILD.</span>
+              <span className="cyber-outline">CONNECT.</span>
+              <span className="text-gradient">
+                EVOLVE<span className="accent-period">_</span>
               </span>
             </h1>
             <p className="hero-intro">
@@ -95,11 +99,17 @@ export default function Home() {
             </Link>
           </div>
           <span className="signature-line" />
-          <span className="signature-note">
-            Pune, India
-            <br />
-            Always a work in progress.
-          </span>
+          <div className="cyber-focus-strip">
+            <span>
+              <small>01 / INTELLIGENCE</small>Agent architectures
+            </span>
+            <span>
+              <small>02 / INFRASTRUCTURE</small>Distributed systems
+            </span>
+            <span>
+              <small>03 / INFORMATION</small>Data engineering
+            </span>
+          </div>
         </div>
         <a href="#selected-work" className="scroll-cue">
           <ArrowDown size={16} /> SCROLL TO EXPLORE THE WORK
@@ -115,7 +125,7 @@ export default function Home() {
             <div>
               <p className="eyebrow">01 / SELECTED WORK</p>
               <h2>
-                Proof of curiosity<span className="accent-period">.</span>
+                The build log<span className="accent-period">_</span>
               </h2>
             </div>
             <Link to="/projects" className="text-link">

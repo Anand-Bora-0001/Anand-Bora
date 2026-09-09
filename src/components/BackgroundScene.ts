@@ -16,6 +16,7 @@ import {
   WebGLRenderer,
   WireframeGeometry,
 } from "three";
+import { getSceneTheme } from "@/data/sceneTheme";
 
 /** A decorative scene: no pointer capture, external textures, or animation while hidden. */
 export function createBackgroundScene(
@@ -34,7 +35,8 @@ export function createBackgroundScene(
   camera.position.z = 12;
   const world = new Group();
   scene.add(world);
-  const colors = ["#a78bfa", "#50cddb", "#ebac6e"];
+  const initialTheme = getSceneTheme(false);
+  const colors = [initialTheme.agents, initialTheme.systems, initialTheme.data];
   const source = new IcosahedronGeometry(0.8, 0);
   const crystal = new WireframeGeometry(source);
   source.dispose();
@@ -165,6 +167,24 @@ export function createBackgroundScene(
   window.addEventListener("scroll", onScroll, { passive: true });
   resize();
   return {
+    setTheme(light: boolean) {
+      if (disposed) return;
+      const theme = getSceneTheme(light);
+      const palette = [theme.agents, theme.systems, theme.data];
+      bodies.forEach(({ material }, i) => {
+        material.color.set(palette[i % 3]);
+        material.opacity = light ? 0.44 : 0.32;
+      });
+      const attribute = dustGeometry.getAttribute("color");
+      const color = new Color();
+      for (let i = 0; i < attribute.count; i++) {
+        color.set(palette[i % 3]);
+        attribute.setXYZ(i, color.r, color.g, color.b);
+      }
+      attribute.needsUpdate = true;
+      dustMaterial.opacity = light ? 0.65 : 0.5;
+      draw();
+    },
     setRunning(next: boolean) {
       if (disposed || running === next) return;
       running = next;

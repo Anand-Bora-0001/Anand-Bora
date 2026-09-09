@@ -7,6 +7,35 @@ import assert from "node:assert/strict";
 import ts from "typescript";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const cache = new Map();
+test("3D palettes change by theme and keep domain labels readable on their surfaces", () => {
+  const { getSceneTheme } = load("src/data/sceneTheme.ts");
+  const luminance = (hex) => {
+    const rgb = hex
+      .slice(1)
+      .match(/../g)
+      .map((part) => {
+        const value = parseInt(part, 16) / 255;
+        return value <= 0.04045
+          ? value / 12.92
+          : ((value + 0.055) / 1.055) ** 2.4;
+      });
+    return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
+  };
+  for (const light of [true, false]) {
+    const palette = getSceneTheme(light);
+    for (const domain of ["agents", "systems", "data"]) {
+      assert.notEqual(palette[domain], getSceneTheme(!light)[domain]);
+      const values = [
+        luminance(palette[domain]),
+        luminance(palette.surface),
+      ].sort((a, b) => a - b);
+      assert.ok(
+        (values[1] + 0.05) / (values[0] + 0.05) >= 4.5,
+        `${domain} contrast in ${light ? "light" : "dark"} mode`,
+      );
+    }
+  }
+});
 function load(relative) {
   const filename = resolve(root, relative);
   if (cache.has(filename)) return cache.get(filename);

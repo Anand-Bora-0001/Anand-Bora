@@ -3,8 +3,10 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Html, OrbitControls } from "@react-three/drei";
 import { Group, Mesh, Vector3, QuadraticBezierCurve3 } from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
-import { atlasDomains, getAtlasDomain, type AtlasFocus } from "@/data/atlas";
+import { atlasDomains, type AtlasFocus } from "@/data/atlas";
+import { getSceneTheme } from "@/data/sceneTheme";
 interface Props {
+  light: boolean;
   focus: AtlasFocus;
   onSelect: (focus: AtlasFocus) => void;
   running: boolean;
@@ -57,9 +59,18 @@ function Signal({
     </group>
   );
 }
-function Core({ focus, running }: { focus: AtlasFocus; running: boolean }) {
+function Core({
+  focus,
+  running,
+  light,
+}: {
+  focus: AtlasFocus;
+  running: boolean;
+  light: boolean;
+}) {
   const core = useRef<Group>(null);
-  const color = getAtlasDomain(focus).color;
+  const palette = getSceneTheme(light);
+  const color = palette[focus];
   useFrame((_, delta) => {
     if (running && core.current) {
       core.current.rotation.y += Math.min(delta, 0.05) * 0.2;
@@ -71,7 +82,7 @@ function Core({ focus, running }: { focus: AtlasFocus; running: boolean }) {
       <mesh>
         <icosahedronGeometry args={[0.66, 0]} />
         <meshStandardMaterial
-          color="#25263f"
+          color={palette.surface}
           emissive={color}
           emissiveIntensity={0.2}
           roughness={0.22}
@@ -94,7 +105,12 @@ function Core({ focus, running }: { focus: AtlasFocus; running: boolean }) {
     </group>
   );
 }
-function Scene({ focus, onSelect, running, coarse, resetToken }: Props) {
+function Scene({ focus, onSelect, running, coarse, resetToken, light }: Props) {
+  const palette = getSceneTheme(light);
+  const domains = atlasDomains.map((domain) => ({
+    ...domain,
+    color: palette[domain.id],
+  }));
   const controls = useRef<OrbitControlsImpl>(null);
   useEffect(() => {
     controls.current?.reset();
@@ -102,12 +118,12 @@ function Scene({ focus, onSelect, running, coarse, resetToken }: Props) {
   return (
     <>
       <ambientLight intensity={1.4} />
-      <directionalLight position={[2, 5, 4]} intensity={3} color="#ded9ff" />
-      <pointLight position={[-3, 1, 2]} intensity={8} color="#a685ff" />
-      <pointLight position={[3, 0, 2]} intensity={5} color="#70e5ef" />
+      <directionalLight position={[2, 5, 4]} intensity={3} color="#ffffff" />
+      <pointLight position={[-3, 1, 2]} intensity={5} color={palette.agents} />
+      <pointLight position={[3, 0, 2]} intensity={4} color={palette.systems} />
       <group rotation={[0, -0.28, 0]}>
-        <Core focus={focus} running={running} />
-        {atlasDomains.map((domain, index) => (
+        <Core focus={focus} running={running} light={light} />
+        {domains.map((domain, index) => (
           <group key={domain.id}>
             <Signal
               end={domain.position}
@@ -166,11 +182,11 @@ function Scene({ focus, onSelect, running, coarse, resetToken }: Props) {
         ))}
         <mesh rotation={[Math.PI / 2, 0.12, 0]} position={[0, -0.5, 0]}>
           <torusGeometry args={[2.7, 0.006, 6, 120]} />
-          <meshBasicMaterial color="#70698f" transparent opacity={0.35} />
+          <meshBasicMaterial color={palette.guide} transparent opacity={0.45} />
         </mesh>
         <mesh rotation={[1.04, 0.6, 0.1]}>
           <torusGeometry args={[2.48, 0.005, 6, 120]} />
-          <meshBasicMaterial color="#9082bb" transparent opacity={0.26} />
+          <meshBasicMaterial color={palette.guide} transparent opacity={0.35} />
         </mesh>
         <Html position={[0, -1, 0]} center style={{ pointerEvents: "none" }}>
           <span className="atlas-core-label">ANAND / SYSTEMS ATLAS</span>

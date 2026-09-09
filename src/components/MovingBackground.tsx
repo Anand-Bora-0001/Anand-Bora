@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
+import { useTheme } from "next-themes";
 import type { createBackgroundScene } from "./BackgroundScene";
 
 export default function MovingBackground() {
+  const { resolvedTheme } = useTheme();
   const canvas = useRef<HTMLCanvasElement>(null);
   const scene = useRef<ReturnType<typeof createBackgroundScene>>();
   const [ready, setReady] = useState(false);
@@ -49,6 +51,9 @@ export default function MovingBackground() {
       ready && !failed && !paused && !reduced && !hidden,
     );
   }, [ready, failed, paused, reduced, hidden]);
+  useEffect(() => {
+    if (ready) scene.current?.setTheme(resolvedTheme === "light");
+  }, [ready, resolvedTheme]);
   return (
     <>
       <div className="moving-background" aria-hidden="true">

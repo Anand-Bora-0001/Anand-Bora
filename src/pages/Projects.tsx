@@ -10,11 +10,11 @@ export default function Projects() {
         <div className="section-container">
           <div className="projects-intro">
             <div>
-              <p className="eyebrow">THE PROJECT COLLECTION</p>
+              <p className="eyebrow">DIRECTORY / PROJECTS</p>
               <h1 className="page-title">
-                Built to explore.
+                Ideas to
                 <br />
-                <span className="text-gradient">Made to work.</span>
+                <span className="text-gradient">working systems_</span>
               </h1>
             </div>
             <p className="section-copy">

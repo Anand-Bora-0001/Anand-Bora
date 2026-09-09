@@ -26,9 +26,11 @@ export default function Header() {
       <div className="section-container header-inner">
         <Link to="/" aria-label="Anand Bora, home" className="brand">
           <span className="brand-monogram">
-            ab<span>.</span>
+            ab<span>_</span>
           </span>
-          <span className="brand-name">anand bora</span>
+          <span className="brand-name">
+            ANAND BORA<small>AI / SYSTEMS / DATA</small>
+          </span>
         </Link>
         <nav
           aria-label="Main navigation"

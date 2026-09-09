@@ -1,6 +1,13 @@
 import type { AtlasFocus } from "@/data/atlas";
-export default function AtlasPoster({ focus }: { focus: AtlasFocus }) {
-  const colors = { agents: "#c6a0ff", systems: "#7ce8ef", data: "#f2ba77" };
+import { getSceneTheme } from "@/data/sceneTheme";
+export default function AtlasPoster({
+  focus,
+  light = false,
+}: {
+  focus: AtlasFocus;
+  light?: boolean;
+}) {
+  const colors = getSceneTheme(light);
   return (
     <svg
       className="atlas-poster"
@@ -15,7 +22,7 @@ export default function AtlasPoster({ focus }: { focus: AtlasFocus }) {
         </radialGradient>
       </defs>
       <circle cx="310" cy="210" r="190" fill="url(#atlas-halo)" />
-      <g fill="none" stroke="#434663">
+      <g fill="none" stroke={colors.guide}>
         <ellipse
           cx="310"
           cy="233"
@@ -52,7 +59,7 @@ export default function AtlasPoster({ focus }: { focus: AtlasFocus }) {
           stroke={focus === "data" ? colors.data : "#514533"}
         />
       </g>
-      <g fill="#141827">
+      <g fill={colors.surface}>
         <path
           d="M310 149L369 183V247L310 280L251 247V183Z"
           stroke={colors[focus]}
@@ -65,7 +72,7 @@ export default function AtlasPoster({ focus }: { focus: AtlasFocus }) {
         />
       </g>
       <g
-        fill="#d5d9ed"
+        fill={colors.ink}
         fontFamily="monospace"
         fontSize="13"
         textAnchor="middle"
@@ -74,7 +81,7 @@ export default function AtlasPoster({ focus }: { focus: AtlasFocus }) {
           cx="146"
           cy="157"
           r="29"
-          fill="#251e3e"
+          fill={colors.surface}
           stroke={colors.agents}
         />
         <text x="146" y="162" fill={colors.agents}>
@@ -89,7 +96,7 @@ export default function AtlasPoster({ focus }: { focus: AtlasFocus }) {
           width="62"
           height="62"
           rx="12"
-          fill="#122d35"
+          fill={colors.surface}
           stroke={colors.systems}
         />
         <text x="474" y="176" fill={colors.systems}>
@@ -103,7 +110,7 @@ export default function AtlasPoster({ focus }: { focus: AtlasFocus }) {
           cy="340"
           rx="34"
           ry="17"
-          fill="#30261e"
+          fill={colors.surface}
           stroke={colors.data}
         />
         <path d="M309 315V340M377 315V340" stroke={colors.data} />
@@ -112,7 +119,7 @@ export default function AtlasPoster({ focus }: { focus: AtlasFocus }) {
           cy="315"
           rx="34"
           ry="17"
-          fill="#30261e"
+          fill={colors.surface}
           stroke={colors.data}
         />
         <text x="343" y="384">
