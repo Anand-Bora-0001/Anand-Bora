@@ -4,6 +4,89 @@
 @tailwind components;
 @tailwind utilities;
 
+/* A persistent, full-viewport scene behind every route. */
+#root {
+  isolation: isolate;
+}
+.site-content {
+  position: relative;
+  z-index: 1;
+}
+.moving-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+.moving-background canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+}
+.background-aura {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 0% 22%, #9966ee18, transparent 48%),
+    radial-gradient(ellipse at 100% 65%, #28bbcd14, transparent 46%),
+    radial-gradient(ellipse at 35% 100%, #e6a65a0c, transparent 42%);
+}
+.background-reading-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--background) / 0.36) 30%,
+    hsl(var(--background) / 0.36) 70%,
+    transparent
+  );
+}
+.background-motion-control {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 24px;
+  color: hsl(var(--foreground));
+  background: hsl(var(--background) / 0.94);
+  box-shadow: 0 4px 20px #00000010;
+  font-size: 0.875rem;
+}
+.background-motion-control:hover {
+  border-color: hsl(var(--primary));
+}
+.background-motion-control:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 4px;
+}
+.site-content .site-footer {
+  padding-bottom: 76px;
+}
+@media (max-width: 600px) {
+  .background-motion-control {
+    padding: 12px;
+  }
+  .background-motion-control span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
 @layer base {
   :root {
     --background: 210 40% 98%;

@@ -25,6 +25,13 @@ try {
   console.log(
     "Initial atlas renders its 2D fallback and accessible project navigation without WebGL.",
   );
+  const { default: Background } = await server.ssrLoadModule(
+    "/src/components/MovingBackground.tsx",
+  );
+  const background = renderToString(React.createElement(Background));
+  if (!background.includes("background-aura") || !background.includes('aria-hidden="true"'))
+    throw new Error("Decorative background fallback missing");
+  console.log("Full-page background renders safely before browser or WebGL initialization.");
 } finally {
   await server.close();
 }

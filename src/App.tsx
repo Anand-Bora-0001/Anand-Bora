@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { MotionConfig } from "framer-motion";
 import Home from "./pages/Home";
 import RouteEffects from "./components/RouteEffects";
+import MovingBackground from "./components/MovingBackground";
 const Projects = lazy(() => import("./pages/Projects"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const About = lazy(() => import("./pages/About"));
@@ -16,27 +17,30 @@ export default function App() {
       <MotionConfig reducedMotion="user">
         <TooltipProvider>
           <Sonner />
-          <BrowserRouter>
-            <RouteEffects />
-            <Suspense
-              fallback={
-                <div
-                  role="status"
-                  className="section-container py-32 text-muted-foreground"
-                >
-                  Loading…
-                </div>
-              }
-            >
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/projects/:slug" element={<ProjectDetail />} />
-                <Route path="/about" element={<About />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
+          <MovingBackground />
+          <div className="site-content">
+            <BrowserRouter>
+              <RouteEffects />
+              <Suspense
+                fallback={
+                  <div
+                    role="status"
+                    className="section-container py-32 text-muted-foreground"
+                  >
+                    Loading…
+                  </div>
+                }
+              >
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/projects/:slug" element={<ProjectDetail />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </BrowserRouter>
+          </div>
         </TooltipProvider>
       </MotionConfig>
     </ThemeProvider>
