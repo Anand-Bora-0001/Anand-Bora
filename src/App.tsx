@@ -7,6 +7,7 @@ import { MotionConfig } from "framer-motion";
 import Home from "./pages/Home";
 import RouteEffects from "./components/RouteEffects";
 import MovingBackground from "./components/MovingBackground";
+import CyberCursor from "./components/CyberCursor";
 const Projects = lazy(() => import("./pages/Projects"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const About = lazy(() => import("./pages/About"));
@@ -18,6 +19,7 @@ export default function App() {
         <TooltipProvider>
           <Sonner />
           <MovingBackground />
+          <CyberCursor />
           <div className="site-content">
             <BrowserRouter>
               <RouteEffects />

@@ -1,4 +1,114 @@
 /* Cyber workstation identity. Keep content clear in both display modes. */
+.cyber-cursor {
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  .cyber-cursor-enabled {
+    --cyber-pointer:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M3 2L3 21L8 16L12 24L16 22L12 14L20 14Z' fill='%23006b73' stroke='%23ffffff' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+        3 2,
+      auto;
+  }
+  .dark.cyber-cursor-enabled {
+    --cyber-pointer:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M3 2L3 21L8 16L12 24L16 22L12 14L20 14Z' fill='%2343f5da' stroke='%2307191f' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+        3 2,
+      auto;
+  }
+  .cyber-cursor-enabled,
+  .cyber-cursor-enabled * {
+    cursor: var(--cyber-pointer);
+  }
+  .cyber-cursor-enabled
+    :is(input, textarea, [contenteditable]:not([contenteditable="false"])) {
+    cursor: text;
+  }
+  .cyber-cursor-enabled
+    :is(
+      select,
+      input[type="checkbox"],
+      input[type="radio"],
+      input[type="range"],
+      input[type="color"],
+      input[type="file"],
+      [data-native-cursor],
+      [data-native-cursor] *
+    ) {
+    cursor: auto;
+  }
+  .cyber-cursor-enabled :is(:disabled, [aria-disabled="true"]) {
+    cursor: not-allowed;
+  }
+  .cyber-cursor {
+    display: block;
+    position: fixed;
+    inset: 0 auto auto 0;
+    width: 0;
+    height: 0;
+    z-index: 2147483647;
+    pointer-events: none;
+    opacity: 0;
+    color: var(--cyan);
+    transition: opacity 120ms;
+  }
+  .cyber-cursor[data-visible="true"]:not([data-native="true"]) {
+    opacity: 0.8;
+  }
+  .cyber-cursor-ring {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    left: -17px;
+    top: -17px;
+    border: 1px solid color-mix(in srgb, currentColor 32%, transparent);
+    border-radius: 50%;
+    transform: rotate(-45deg);
+    transition:
+      transform 160ms,
+      color 160ms,
+      border-color 160ms,
+      background 160ms;
+  }
+  .cyber-cursor-ring i {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: solid currentColor;
+    border-width: 1.5px 0 0 1.5px;
+  }
+  .cyber-cursor-ring i:nth-child(1) {
+    left: -1px;
+    top: -1px;
+  }
+  .cyber-cursor-ring i:nth-child(2) {
+    right: -1px;
+    top: -1px;
+    transform: rotate(90deg);
+  }
+  .cyber-cursor-ring i:nth-child(3) {
+    right: -1px;
+    bottom: -1px;
+    transform: rotate(180deg);
+  }
+  .cyber-cursor-ring i:nth-child(4) {
+    left: -1px;
+    bottom: -1px;
+    transform: rotate(270deg);
+  }
+  .cyber-cursor[data-mode="link"] .cyber-cursor-ring {
+    color: var(--pink);
+    transform: rotate(0deg) scale(1.35);
+    background: color-mix(in srgb, var(--pink) 5%, transparent);
+  }
+  .cyber-cursor[data-mode="orbit"] .cyber-cursor-ring {
+    color: var(--gold);
+    transform: rotate(45deg) scale(1.15);
+  }
+  .cyber-cursor[data-pressed="true"] .cyber-cursor-ring {
+    transform: rotate(0deg) scale(0.75);
+    border-color: currentColor;
+  }
+}
 :root {
   --background: 180 22% 96%;
   --foreground: 192 45% 12%;
