@@ -26,7 +26,10 @@ export interface Project {
   techStack: string[];
   githubUrl?: string;
   liveUrl?: string;
+  /** A real screenshot of the running app. Projects without one show no image. */
   image?: string;
+  /** More real screenshots for the project page, each with the screen it shows. */
+  gallery?: { src: string; caption: string }[];
 }
 
 export const projectGroups: ProjectGroup[] = [
@@ -63,7 +66,11 @@ export const projects: Project[] = [
   },
   {
     slug: "resumeiq-ai",
-    image: "/projects/covers/resumeiq-ai.jpg",
+    image: "/projects/resumeiq-ai.jpg",
+    gallery: [
+      { src: "/projects/resumeiq-ai/dashboard.jpg", caption: "Dashboard" },
+      { src: "/projects/resumeiq-ai/review-detail.jpg", caption: "Review detail" },
+    ],
     title: "ResumeIQ AI",
     category: "Applied AI",
     group: "Applied AI",
@@ -85,7 +92,12 @@ export const projects: Project[] = [
   },
   {
     slug: "enterprise-data-platform",
-    image: "/projects/covers/enterprise-data-platform.jpg",
+    image: "/projects/enterprise-data-platform.jpg",
+    gallery: [
+      { src: "/projects/enterprise-data-platform/data-catalog.jpg", caption: "Data catalog" },
+      { src: "/projects/enterprise-data-platform/data-quality.jpg", caption: "Data quality" },
+      { src: "/projects/enterprise-data-platform/business-glossary.jpg", caption: "Business glossary" },
+    ],
     title: "Enterprise Data Governance Platform",
     category: "Data Engineering",
     group: "Data",
@@ -116,6 +128,10 @@ export const projects: Project[] = [
   {
     slug: "digital-transformation-platform",
     image: "/projects/digital-transformation-platform.jpg",
+    gallery: [
+      { src: "/projects/digital-transformation-platform/dashboard.jpg", caption: "Executive dashboard" },
+      { src: "/projects/digital-transformation-platform/frontend.jpg", caption: "Landing page" },
+    ],
     title: "Digital Transformation Platform",
     category: "Backend & Systems",
     group: "Backend",
@@ -137,7 +153,6 @@ export const projects: Project[] = [
   },
   {
     slug: "whatsapp-image-ledger",
-    image: "/projects/covers/whatsapp-image-ledger.jpg",
     title: "WhatsApp Image Ledger",
     category: "Applied AI",
     group: "Applied AI",
@@ -159,6 +174,11 @@ export const projects: Project[] = [
   {
     slug: "observability-platform",
     image: "/projects/observability-platform.jpg",
+    gallery: [
+      { src: "/projects/observability-platform/frontend.jpg", caption: "Infrastructure overview" },
+      { src: "/projects/observability-platform/tickets.jpg", caption: "Support tickets" },
+      { src: "/projects/observability-platform/incidents.jpg", caption: "Incidents" },
+    ],
     title: "Enterprise Identity & Cloud Observability",
     category: "Cloud & DevOps",
     group: "Cloud & DevOps",
@@ -195,7 +215,10 @@ export const projects: Project[] = [
   },
   {
     slug: "cloud-monitoring-dashboard",
-    image: "/projects/covers/cloud-monitoring-dashboard.jpg",
+    image: "/projects/cloud-monitoring-dashboard.jpg",
+    gallery: [
+      { src: "/projects/cloud-monitoring-dashboard/capacity-planning.jpg", caption: "AI capacity planning" },
+    ],
     title: "Cloud Infrastructure Observability & Monitoring",
     category: "Cloud & DevOps",
     group: "Cloud & DevOps",
@@ -232,6 +255,9 @@ export const projects: Project[] = [
   {
     slug: "real-time-data-engineering",
     image: "/projects/real-time-data-engineering.jpg",
+    gallery: [
+      { src: "/projects/real-time-data-engineering/spark.jpg", caption: "Spark master UI" },
+    ],
     title: "Real-Time Data Engineering & ML Platform",
     category: "Data Engineering",
     group: "Data",
@@ -268,6 +294,11 @@ export const projects: Project[] = [
   },
   {
     slug: "enterprise-mlops",
+    image: "/projects/enterprise-mlops.jpg",
+    gallery: [
+      { src: "/projects/enterprise-mlops/experiments.jpg", caption: "Experiments tracked in MLflow" },
+      { src: "/projects/enterprise-mlops/datasets.jpg", caption: "Dataset management" },
+    ],
     title: "Enterprise MLOps Platform",
     category: "AI / Machine Learning",
     group: "Applied AI",
@@ -301,10 +332,14 @@ export const projects: Project[] = [
       "Kubernetes",
     ],
     githubUrl: "https://github.com/Anand-Bora-0001/Enterprise-MLOps-Platform",
-    image: "/projects/covers/enterprise-mlops.jpg",
   },
   {
     slug: "honeycloud-x",
+    image: "/projects/honeycloud-x.jpg",
+    gallery: [
+      { src: "/projects/honeycloud-x/analytics.jpg", caption: "SOC dashboard" },
+      { src: "/projects/honeycloud-x/telemetry.jpg", caption: "Incident telemetry feed" },
+    ],
     title: "HoneyCloud-X",
     category: "Cybersecurity",
     group: "Security",
@@ -336,7 +371,6 @@ export const projects: Project[] = [
       "Tailwind CSS",
     ],
     githubUrl: "https://github.com/Anand-Bora-0001/HoneyCloud-X",
-    image: "/projects/covers/honeycloud-x.jpg",
   },
   {
     slug: "railway-management-system",
@@ -352,11 +386,13 @@ export const projects: Project[] = [
     outcome: "A working application covering core railway administration and passenger workflows.",
     techStack: ["Flask", "MySQL", "Python"],
     githubUrl: "https://github.com/Anand-Bora-0001/Railway-Management-System",
-    image: "/projects/covers/railway-management-system.jpg",
   },
   {
     slug: "demo-ecommerce",
-    image: "/projects/covers/demo-ecommerce.jpg",
+    image: "/projects/demo-ecommerce.jpg",
+    gallery: [
+      { src: "/projects/demo-ecommerce/home.jpg", caption: "Storefront home" },
+    ],
     title: "Demo Ecommerce (Python)",
     category: "Backend",
     group: "Backend",
@@ -373,6 +409,12 @@ export const projects: Project[] = [
   {
     slug: "sentinelgrid-ai",
     image: "/projects/sentinelgrid-ai.jpg",
+    gallery: [
+      { src: "/projects/sentinelgrid-ai/executive-overview.jpg", caption: "Executive overview" },
+      { src: "/projects/sentinelgrid-ai/cyber-digital-twin.jpg", caption: "Cyber digital twin" },
+      { src: "/projects/sentinelgrid-ai/attack-predictions.jpg", caption: "Attack predictions" },
+      { src: "/projects/sentinelgrid-ai/ueba-analytics.jpg", caption: "Behavioral anomaly detection" },
+    ],
     title: "SentinelGrid AI",
     category: "Cybersecurity",
     group: "Security",
@@ -388,7 +430,11 @@ export const projects: Project[] = [
   },
   {
     slug: "e-voting-dapp",
-    image: "/projects/covers/e-voting-dapp.jpg",
+    image: "/projects/e-voting-dapp.jpg",
+    gallery: [
+      { src: "/projects/e-voting-dapp/candidates.jpg", caption: "Candidates" },
+      { src: "/projects/e-voting-dapp/election-results.jpg", caption: "Election results" },
+    ],
     title: "E-Voting DApp",
     category: "Web3",
     group: "Web & tools",
@@ -403,7 +449,10 @@ export const projects: Project[] = [
   },
   {
     slug: "student-feedback-portal",
-    image: "/projects/covers/student-feedback-portal.jpg",
+    image: "/projects/student-feedback-portal.jpg",
+    gallery: [
+      { src: "/projects/student-feedback-portal/feedback-form.jpg", caption: "Feedback form" },
+    ],
     title: "Student Feedback Portal",
     category: "Web Application",
     group: "Web & tools",
@@ -418,7 +467,6 @@ export const projects: Project[] = [
   },
   {
     slug: "transport-project",
-    image: "/projects/covers/transport-project.jpg",
     title: "Transport Management Project",
     category: "Logistics",
     group: "Web & tools",
@@ -433,7 +481,6 @@ export const projects: Project[] = [
   },
   {
     slug: "digital-guard-toolkit",
-    image: "/projects/covers/digital-guard-toolkit.jpg",
     title: "Digital Guard Toolkit",
     category: "Cybersecurity",
     group: "Security",
@@ -460,7 +507,6 @@ export const projects: Project[] = [
     outcome: "Reduced generation time from hours to minutes.",
     techStack: ["HTML", "Python"],
     githubUrl: "https://github.com/Anand-Bora-0001/Bulk-Certificate-Generator",
-    image: "/projects/covers/bulk-certificate-generation.jpg",
   },
   {
     slug: "certificate-verification-plugin",
@@ -476,7 +522,6 @@ export const projects: Project[] = [
     outcome: "Instant verification.",
     techStack: ["PHP"],
     githubUrl: "https://github.com/Anand-Bora-0001/certificate-verification-plugin",
-    image: "/projects/covers/certificate-verification-plugin.jpg",
   },
   {
     slug: "secure-virtual-file-system",
@@ -492,11 +537,9 @@ export const projects: Project[] = [
     outcome: "Secure local storage.",
     techStack: ["C++"],
     githubUrl: "https://github.com/Anand-Bora-0001/SVF",
-    image: "/projects/covers/secure-virtual-file-system.jpg",
   },
   {
     slug: "shadowfox",
-    image: "/projects/covers/shadowfox.jpg",
     title: "ShadowFox",
     category: "Desktop Application",
     group: "Web & tools",
@@ -524,7 +567,6 @@ export const projects: Project[] = [
     outcome: "Successfully deployed system.",
     techStack: ["Java"],
     githubUrl: "https://github.com/Anand-Bora-0001/Ecommerce-App",
-    image: "/projects/covers/ecommerce-microservices.jpg",
   },
   {
     slug: "cloud-based-saas-system",
@@ -540,11 +582,9 @@ export const projects: Project[] = [
     outcome: "Functional SaaS platform.",
     techStack: ["Python"],
     githubUrl: "https://github.com/Anand-Bora-0001/Cloud-SaaS-System",
-    image: "/projects/covers/cloud-based-saas-system.jpg",
   },
   {
     slug: "monitor-google-sheet",
-    image: "/projects/covers/monitor-google-sheet.jpg",
     title: "Monitor Google Sheet",
     category: "Automation",
     group: "Web & tools",
@@ -559,7 +599,6 @@ export const projects: Project[] = [
   },
   {
     slug: "absence-detection-system",
-    image: "/projects/covers/absence-detection-system.jpg",
     title: "Absence Detection System",
     category: "Automation",
     group: "Web & tools",
@@ -575,7 +614,6 @@ export const projects: Project[] = [
   },
   {
     slug: "rent-a-bike",
-    image: "/projects/covers/rent-a-bike.jpg",
     title: "Rent-A-Bike",
     category: "Backend",
     group: "Backend",
@@ -591,7 +629,6 @@ export const projects: Project[] = [
   },
   {
     slug: "contact-management-app",
-    image: "/projects/covers/contact-management-app.jpg",
     title: "Contact Management App",
     category: "Utility",
     group: "Web & tools",
@@ -607,7 +644,6 @@ export const projects: Project[] = [
   },
   {
     slug: "fermi-pico-bagel-game",
-    image: "/projects/covers/fermi-pico-bagel-game.jpg",
     title: "Fermi Pico Bagel Game",
     category: "Game",
     group: "Web & tools",
@@ -623,7 +659,7 @@ export const projects: Project[] = [
   },
 ];
 
-const featuredSlugs = ["amex-pulse", "honeycloud-x", "enterprise-mlops", "resumeiq-ai", "observability-platform", "cloud-monitoring-dashboard", "real-time-data-engineering", "sentinelgrid-ai"];
+const featuredSlugs = ["sentinelgrid-ai", "resumeiq-ai", "honeycloud-x", "amex-pulse", "enterprise-mlops", "enterprise-data-platform"];
 
 export const getProject = (slug: string): Project | undefined =>
   projects.find((project) => project.slug === slug);

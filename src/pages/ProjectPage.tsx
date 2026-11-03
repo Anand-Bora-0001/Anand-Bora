@@ -49,11 +49,7 @@ export default function ProjectPage() {
         </header>
         {project.image && (
           <figure className="project-shot" data-reveal>
-            <img src={project.image} alt={
-                project.image.startsWith("/projects/covers/")
-                  ? `Illustrative ${project.title} dashboard with sample data`
-                  : `${project.title} interface`
-              } width="1280" height="720" />
+            <img src={project.image} alt={`${project.title} interface`} width="1280" height="720" />
           </figure>
         )}
         <div className="project-layout">
@@ -81,6 +77,21 @@ export default function ProjectPage() {
             )}
           </aside>
         </div>
+        {project.gallery && (
+          <section className="project-gallery" aria-labelledby="screens">
+            <h2 id="screens">More screens</h2>
+            <ul>
+              {project.gallery.map((shot) => (
+                <li key={shot.src} data-reveal>
+                  <a href={shot.src} target="_blank" rel="noreferrer">
+                    <img src={shot.src} alt={`${project.title}: ${shot.caption}`} loading="lazy" decoding="async" />
+                  </a>
+                  <p>{shot.caption}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <nav className="pager" aria-label="More projects">
           <Link to={`/projects/${prev.slug}`}>
             <small>
