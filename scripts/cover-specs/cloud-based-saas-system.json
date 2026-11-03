@@ -1,0 +1,111 @@
+{
+  "slug": "cloud-based-saas-system",
+  "repo": "Anand-Bora-0001/Cloud-SaaS-System",
+  "kind": "dashboard",
+  "evidence": [
+    "README.md",
+    "frontend/src/App.js",
+    "backend/app.py",
+    "backend/auth.py",
+    "backend/config.py"
+  ],
+  "summary": "React + Flask file-sharing service with JWT login, role-based access (admin/user) and authenticated file upload/download backed by SQLite.",
+  "appName": "Cloud SaaS System",
+  "pageTitle": "Secure File Management",
+  "nav": [
+    "Login",
+    "Upload File",
+    "Download File",
+    "My Files",
+    "Roles & Access"
+  ],
+  "kpis": [
+    {
+      "label": "Files Uploaded",
+      "value": "1,284",
+      "delta": "+12%"
+    },
+    {
+      "label": "Downloads",
+      "value": "3,417",
+      "delta": "+8%"
+    },
+    {
+      "label": "Active Users",
+      "value": "46",
+      "delta": "+5%"
+    },
+    {
+      "label": "Access Denied (403)",
+      "value": "17",
+      "delta": "-21%"
+    }
+  ],
+  "chart": {
+    "title": "Uploads vs Downloads",
+    "subtitle": "JWT-authenticated / day",
+    "type": "lines"
+  },
+  "panel": {
+    "type": "meters",
+    "title": "Requests by Endpoint",
+    "items": [
+      {
+        "label": "POST /login",
+        "value": "912",
+        "pct": 28
+      },
+      {
+        "label": "POST /upload",
+        "value": "1,284",
+        "pct": 39
+      },
+      {
+        "label": "GET /download/<file>",
+        "value": "1,071",
+        "pct": 33
+      }
+    ]
+  },
+  "table": {
+    "title": "Uploaded Files",
+    "columns": [
+      "Filename",
+      "Owner",
+      "Role",
+      "Access"
+    ],
+    "rows": [
+      [
+        "admin_quarterly-report.pdf",
+        "admin",
+        "admin",
+        "All files"
+      ],
+      [
+        "user1_project-notes.txt",
+        "user1",
+        "user",
+        "Own files only"
+      ],
+      [
+        "user2_invoice-0042.pdf",
+        "user2",
+        "user",
+        "Own files only"
+      ],
+      [
+        "admin_backup-config.zip",
+        "admin",
+        "admin",
+        "All files"
+      ],
+      [
+        "user3_design-mockup.png",
+        "user3",
+        "user",
+        "Own files only"
+      ]
+    ]
+  }
+}

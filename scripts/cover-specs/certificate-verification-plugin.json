@@ -1,0 +1,117 @@
+{
+  "slug": "certificate-verification-plugin",
+  "repo": "Anand-Bora-0001/certificate-verification-plugin",
+  "kind": "dashboard",
+  "evidence": [
+    "readme.md",
+    "admin/admin-menu.php",
+    "admin/settings-page.php",
+    "install.php",
+    "inc/core-functions.php",
+    "course-certificate-verification.php"
+  ],
+  "summary": "WordPress plugin with a 'Certificate Codes' admin page to add/edit/delete/CSV-upload course certificates and a [get_certificate_search_form] shortcode for public verification by certificate code.",
+  "appName": "Certificate Codes",
+  "pageTitle": "Manage Certificates",
+  "nav": [
+    "Certificates",
+    "Add Certificate",
+    "Upload CSV",
+    "Search",
+    "Shortcode"
+  ],
+  "kpis": [
+    {
+      "label": "Total Entries",
+      "value": "1,240",
+      "delta": "+36"
+    },
+    {
+      "label": "Courses",
+      "value": "18",
+      "delta": "+2"
+    },
+    {
+      "label": "CSV Uploads",
+      "value": "6",
+      "delta": "+1"
+    },
+    {
+      "label": "Verified Codes",
+      "value": "312",
+      "delta": "+9%"
+    }
+  ],
+  "chart": {
+    "title": "Certificates by Award Date",
+    "subtitle": "award_date · monthly",
+    "type": "bars"
+  },
+  "panel": {
+    "type": "list",
+    "title": "Search Result",
+    "items": [
+      {
+        "label": "Student Name",
+        "value": "Student A",
+        "pct": 100
+      },
+      {
+        "label": "Course Name",
+        "value": "Web Dev",
+        "pct": 100
+      },
+      {
+        "label": "Duration Completed",
+        "value": "3 Months",
+        "pct": 100
+      },
+      {
+        "label": "Award Date",
+        "value": "Mar 2024",
+        "pct": 100
+      }
+    ]
+  },
+  "table": {
+    "title": "Manage Certificates",
+    "columns": [
+      "Student Name",
+      "Course",
+      "Certificate No",
+      "Award Date"
+    ],
+    "rows": [
+      [
+        "Student A",
+        "Web Development",
+        "CERT-2024-0012",
+        "12-03-2024"
+      ],
+      [
+        "Student B",
+        "Python Basics",
+        "CERT-2024-0013",
+        "15-03-2024"
+      ],
+      [
+        "Student C",
+        "Data Analytics",
+        "CERT-2024-0014",
+        "02-04-2024"
+      ],
+      [
+        "Student D",
+        "UI/UX Design",
+        "CERT-2024-0015",
+        "18-04-2024"
+      ],
+      [
+        "Student E",
+        "Cyber Security",
+        "CERT-2024-0016",
+        "05-05-2024"
+      ]
+    ]
+  }
+}

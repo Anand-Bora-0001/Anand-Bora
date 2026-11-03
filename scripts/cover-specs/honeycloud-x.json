@@ -1,0 +1,117 @@
+{
+  "slug": "honeycloud-x",
+  "repo": "Anand-Bora-0001/HoneyCloud-X",
+  "kind": "dashboard",
+  "evidence": [
+    "README.md",
+    "frontend/index.html",
+    "frontend/src/components/Sidebar.jsx",
+    "frontend/src/components/Navbar.jsx",
+    "frontend/src/pages/Dashboard.jsx",
+    "backend/app/models.py"
+  ],
+  "summary": "AI-powered honeypot and SOC intelligence platform (FastAPI + React) that ingests decoy-sensor events, classifies attacks with ML and maps them to MITRE ATT&CK.",
+  "appName": "HoneyCloud-X",
+  "pageTitle": "SOC Dashboard",
+  "nav": [
+    "Overview",
+    "Live Threats",
+    "Investigations",
+    "Reports",
+    "Settings"
+  ],
+  "kpis": [
+    {
+      "label": "Total Incursions",
+      "value": "1,284",
+      "delta": "+18%"
+    },
+    {
+      "label": "Critical Attacks",
+      "value": "37",
+      "delta": "+6%"
+    },
+    {
+      "label": "AI Classification",
+      "value": "94.2%",
+      "delta": "+1.3%"
+    },
+    {
+      "label": "Decoy Traps",
+      "value": "5",
+      "delta": "+1"
+    }
+  ],
+  "chart": {
+    "title": "Incursion Velocity Trend",
+    "subtitle": "Hourly alert traffic",
+    "type": "area"
+  },
+  "panel": {
+    "type": "rings",
+    "title": "Severity Breakdown",
+    "items": [
+      {
+        "label": "CRITICAL",
+        "value": "37",
+        "pct": 12
+      },
+      {
+        "label": "HIGH",
+        "value": "214",
+        "pct": 34
+      },
+      {
+        "label": "MEDIUM",
+        "value": "402",
+        "pct": 31
+      },
+      {
+        "label": "LOW",
+        "value": "631",
+        "pct": 23
+      }
+    ]
+  },
+  "table": {
+    "title": "Incident Telemetry Feed",
+    "columns": [
+      "Severity",
+      "Sensor Target",
+      "Origin IP",
+      "Method Path"
+    ],
+    "rows": [
+      [
+        "CRITICAL",
+        "Admin Portal",
+        "203.0.113.24",
+        "GET /.env"
+      ],
+      [
+        "HIGH",
+        "Login Gateway",
+        "198.51.100.7",
+        "POST /login"
+      ],
+      [
+        "CRITICAL",
+        "Customer API",
+        "192.0.2.145",
+        "GET /api/debug"
+      ],
+      [
+        "MEDIUM",
+        "E-Commerce Frontend",
+        "203.0.113.88",
+        "GET /wp-admin"
+      ],
+      [
+        "LOW",
+        "Payment Service",
+        "198.51.100.42",
+        "TCP Connect"
+      ]
+    ]
+  }
+}

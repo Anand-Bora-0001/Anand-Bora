@@ -1,0 +1,31 @@
+{
+  "slug": "cloud-monitoring-dashboard",
+  "repo": "Anand-Bora-0001/cloud-monitoring-dashboard",
+  "kind": "dashboard",
+  "evidence": ["README.md", "frontend/src/App.tsx", "frontend/src/layouts/DashboardLayout.tsx", "frontend/src/pages/Dashboard.tsx", "frontend/src/components/ui/HeatMap.tsx", "frontend/src/components/ui/DependencyMap.tsx", "frontend/src/pages/CapacityPlanning.tsx", "frontend/src/pages/ComplianceDashboard.tsx", "backend/models.py"],
+  "summary": "FastAPI + React cloud monitoring dashboard with AWS/GCP/Azure/Kubernetes/Docker discovery agents, server metrics, alert rules, AI capacity planning and a compliance/SSL view, backed by Celery workers.",
+  "appName": "CloudMon",
+  "pageTitle": "Global Dashboard",
+  "nav": ["Overview", "Servers", "Alerts", "Capacity Plan", "Compliance"],
+  "kpis": [
+    {"label": "Active Servers", "value": "12", "delta": "+2"},
+    {"label": "Avg CPU Load", "value": "48%", "delta": "-5%"},
+    {"label": "Storage Used", "value": "7.2 TB", "delta": "+0.1"},
+    {"label": "Network Traffic", "value": "845 MB/s", "delta": "+12%"}
+  ],
+  "chart": {"title": "CPU Utilization", "subtitle": "Last 24 hours", "type": "area"},
+  "panel": {"type": "grid", "title": "Global Infra Heat Map", "items": [
+    {"label": "us-east-1", "value": "42", "pct": 95},
+    {"label": "us-west-2", "value": "18", "pct": 60},
+    {"label": "eu-central-1", "value": "24", "pct": 92},
+    {"label": "ap-southeast-1", "value": "5", "pct": 25}
+  ]},
+  "table": {"title": "Service Dependency Map", "columns": ["Service", "Type", "Status"], "rows": [
+    ["Frontend App", "React", "Healthy"],
+    ["FastAPI Gateway", "API", "Healthy"],
+    ["Redis Cache", "Database", "Warning"],
+    ["PostgreSQL", "Database", "Healthy"],
+    ["Celery Worker", "Worker", "Healthy"]
+  ]},
+  "realScreenshot": "docs/dashboard.png"
+}

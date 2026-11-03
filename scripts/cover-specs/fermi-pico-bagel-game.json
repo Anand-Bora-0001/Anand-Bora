@@ -1,0 +1,32 @@
+{
+  "slug": "fermi-pico-bagel-game",
+  "repo": "Anand-Bora-0001/Fermi-Pico-Bagel-Game",
+  "kind": "terminal",
+  "evidence": [
+    "README.md",
+    "fermi_pico_bagel.py"
+  ],
+  "summary": "Terminal number-guessing game: guess a random 3-digit number with no repeated digits using Fermi (right digit, right place), Pico (right digit, wrong place) and Bagel (no match) clues.",
+  "terminal": {
+    "title": "python fermi_pico_bagel.py",
+    "lines": [
+      "Welcome to Fermi Pico Bagel!",
+      "Try to guess the secret number. Type 'q' to quit at any time.",
+      "Enter your 3-digit guess (or 'q' to quit): 123",
+      "Bagel",
+      "Enter your 3-digit guess (or 'q' to quit): 456",
+      "Pico Fermi",
+      "Enter your 3-digit guess (or 'q' to quit): 12",
+      "Your guess must have exactly 3 digits. Try again.",
+      "Enter your 3-digit guess (or 'q' to quit): 664",
+      "Duplicate digits are not allowed. Try again.",
+      "Enter your 3-digit guess (or 'q' to quit): 640",
+      "Pico Fermi",
+      "Enter your 3-digit guess (or 'q' to quit): 849",
+      "Fermi Fermi",
+      "Enter your 3-digit guess (or 'q' to quit): 846",
+      "Fermi Fermi Fermi",
+      "You win!! 🎉"
+    ]
+  }
+}

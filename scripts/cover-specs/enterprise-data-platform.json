@@ -1,0 +1,31 @@
+{
+  "slug": "enterprise-data-platform",
+  "repo": "Anand-Bora-0001/Enterprise-Data-Platform",
+  "kind": "dashboard",
+  "evidence": ["README.md", "frontend/src/App.tsx", "frontend/src/layouts/SidebarLayout.tsx", "frontend/src/pages/Dashboard.tsx", "frontend/src/pages/Catalog.tsx", "frontend/src/pages/Glossary.tsx", "frontend/src/pages/Quality.tsx", "quality-service/models/quality.py", "metadata-service/models/metadata.py"],
+  "summary": "Microservices data-governance platform (FastAPI catalog, metadata, glossary, quality, analytics and reporting services plus a React UI) for cataloguing datasets, business terms, lineage and data-quality rules.",
+  "appName": "EnterpriseData",
+  "pageTitle": "Executive Dashboard",
+  "nav": ["Executive Dash", "Data Catalog", "Glossary", "Data Lineage", "Data Quality"],
+  "kpis": [
+    {"label": "Total Datasets", "value": "1,248", "delta": "+38"},
+    {"label": "Business Terms", "value": "3,842", "delta": "+5%"},
+    {"label": "Quality Score", "value": "94%", "delta": "+2%"},
+    {"label": "Active Alerts", "value": "12", "delta": "-3"}
+  ],
+  "chart": {"title": "Dataset Growth (30 Days)", "subtitle": "Catalogued datasets", "type": "area"},
+  "panel": {"type": "meters", "title": "Dataset Health Score", "items": [
+    {"label": "Customer Master", "value": "98%", "pct": 98},
+    {"label": "Financial Txns", "value": "100%", "pct": 100},
+    {"label": "Web Analytics Logs", "value": "75%", "pct": 75},
+    {"label": "Product Inventory", "value": "89%", "pct": 89}
+  ]},
+  "table": {"title": "Data Quality Rules", "columns": ["Dataset", "Column", "Rule", "Status"], "rows": [
+    ["Customer Master Data", "email", "Not Null", "Passed"],
+    ["Q3 Financial Transactions", "amount", "Range > 0", "Failed (4)"],
+    ["Website Analytics Logs", "session_id", "Unique", "Passed"],
+    ["Product Inventory", "sku", "Regex", "Passed"],
+    ["Orders Fact Table", "order_date", "Freshness", "Passed"]
+  ]},
+  "realScreenshot": "docs/screenshots/executive_dashboard.png"
+}

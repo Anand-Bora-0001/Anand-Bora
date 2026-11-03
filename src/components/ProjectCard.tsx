@@ -1,91 +1,62 @@
 import type { PointerEvent } from "react";
-import { getTilt } from "@/data/atlas";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Braces, Database, Shield, Bot } from "lucide-react";
-import type { Project } from "@/data/projects";
-const icons = [Bot, Shield, Database, Braces];
-export default function ProjectCard({
-  project,
-  index,
-}: {
-  project: Project;
-  index: number;
-}) {
-  const Icon = icons[index % icons.length];
-  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
-    if (
-      event.pointerType !== "mouse" ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    const tilt = getTilt(
-      event.clientX - rect.left,
-      event.clientY - rect.top,
-      rect.width,
-      rect.height,
-    );
-    event.currentTarget.style.setProperty("--tilt-x", `${tilt.rotateX}deg`);
-    event.currentTarget.style.setProperty("--tilt-y", `${tilt.rotateY}deg`);
-    event.currentTarget.style.setProperty("--light-x", `${tilt.lightX}%`);
-    event.currentTarget.style.setProperty("--light-y", `${tilt.lightY}%`);
-  };
-  const resetTilt = (event: PointerEvent<HTMLElement>) => {
-    event.currentTarget.style.setProperty("--tilt-x", "0deg");
-    event.currentTarget.style.setProperty("--tilt-y", "0deg");
-  };
+import { ArrowUpRight, Bot, Boxes, Cloud, Database, Server, Shield } from "lucide-react";
+import Tags from "@/components/ui/Tags";
+import type { Project, ProjectGroup } from "@/content/projects";
+import { prefersReducedMotion } from "@/lib/hooks";
+
+export const groupIcons: Record<ProjectGroup, typeof Bot> = {
+  "Applied AI": Bot,
+  Data: Database,
+  "Cloud & DevOps": Cloud,
+  Security: Shield,
+  Backend: Server,
+  "Web & tools": Boxes,
+};
+
+/** Tilts the card toward the pointer and moves a soft glare with it. */
+function tilt(event: PointerEvent<HTMLElement>) {
+  if (event.pointerType !== "mouse" || prefersReducedMotion()) return;
+  const el = event.currentTarget;
+  const rect = el.getBoundingClientRect();
+  const x = (event.clientX - rect.left) / rect.width;
+  const y = (event.clientY - rect.top) / rect.height;
+  el.style.setProperty("--ry", `${(x - 0.5) * 10}deg`);
+  el.style.setProperty("--rx", `${(0.5 - y) * 8}deg`);
+  el.style.setProperty("--gx", `${x * 100}%`);
+  el.style.setProperty("--gy", `${y * 100}%`);
+}
+
+function untilt(event: PointerEvent<HTMLElement>) {
+  ["--rx", "--ry", "--gx", "--gy"].forEach((p) => event.currentTarget.style.removeProperty(p));
+}
+
+/** A project as a 3D-tilting card. The whole card is the link. */
+export default function ProjectCard({ project }: { project: Project }) {
+  const Icon = groupIcons[project.group];
   return (
-    <article
-      className={`project-card project-accent-${index % 4}`}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={resetTilt}
-      onPointerCancel={resetTilt}
-    >
-      <Link to={`/projects/${project.slug}`} className="project-card-link">
-        <div className="project-visual">
+    <li className="pcard-wrap" data-reveal>
+      <Link to={`/projects/${project.slug}`} className="pcard" onPointerMove={tilt} onPointerLeave={untilt}>
+        <div className="pcard-media">
           {project.image ? (
-            <img
-              src={project.image}
-              alt={`${project.title} project preview`}
-              loading="lazy"
-              decoding="async"
-              width="960"
-              height="540"
-            />
+            <img src={project.image} alt="" width="640" height="360" loading="lazy" decoding="async" />
           ) : (
-            <div className="project-typographic">
-              <span className="project-ghost-number" aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <Icon size={38} strokeWidth={1} />
-              <span>{project.title}</span>
-              <p>{project.techStack.slice(0, 3).join(" / ")}</p>
-            </div>
+            <span className="pcard-icon" aria-hidden="true">
+              <Icon size={44} strokeWidth={1.2} />
+            </span>
           )}
-          <span className="project-number">
-            {String(index + 1).padStart(2, "0")} / PROJECT
-          </span>
         </div>
-        <div className="project-card-content">
-          <div className="project-meta">
-            <span>{project.category}</span>
-            {project.status === "Working On" && <span>In development</span>}
-          </div>
-          <div className="project-title-row">
-            <h3>{project.title}</h3>
-            <ArrowUpRight size={24} />
-          </div>
-          <p className="project-description">{project.description}</p>
-          <div className="tag-list">
-            {project.techStack.slice(0, 4).map((tech) => (
-              <span key={tech}>{tech}</span>
-            ))}
-          </div>
-          <span className="project-case-link">
-            Read the project story <ArrowUpRight size={15} />
-          </span>
+        <div className="pcard-body">
+          <p className="pcard-meta">{project.group}</p>
+          <h3 className="pcard-title">
+            {project.title}
+            <ArrowUpRight size={18} aria-hidden="true" className="pcard-arrow" />
+          </h3>
+          <p className="pcard-text">{project.description}</p>
+          <Tags items={project.techStack.slice(0, 4)} />
         </div>
+        <span className="pcard-glare" aria-hidden="true" />
       </Link>
-    </article>
+    </li>
   );
 }

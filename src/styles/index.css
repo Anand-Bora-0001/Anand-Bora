@@ -1,0 +1,8 @@
+/* Cascade order is explicit: a later layer always wins over an earlier one. */
+@layer tokens, base, layout, components, sections, pages;
+@import "./tokens.css";
+@import "./base.css";
+@import "./layout.css";
+@import "./components.css";
+@import "./sections.css";
+@import "./pages.css";

@@ -1,0 +1,34 @@
+{
+  "slug": "absence-detection-system",
+  "repo": "Anand-Bora-0001/Absence-Detection-System",
+  "kind": "terminal",
+  "evidence": [
+    "README.md",
+    "Trigger.py",
+    ".github/workflows/monitor_spreadsheet.yml"
+  ],
+  "summary": "Daily GitHub Actions job that reads attendance and contact Google Sheets, finds students whose gap between submissions is at least NO_OF_DAYS, and writes them to Final_User_Data.csv.",
+  "terminal": {
+    "title": "python Trigger.py",
+    "lines": [
+      "# GitHub Actions: cron '0 0 * * *' (daily at midnight UTC)",
+      "$ export SHEET1_NAME='Attendance' SHEET1_WORKSHEET='Form Responses 1'",
+      "$ export SHEET2_NAME='Student Contacts' SHEET2_WORKSHEET='Sheet1'",
+      "$ export NO_OF_DAYS=7",
+      "$ python Trigger.py",
+      "Spreadsheet 1: Attendance | Worksheet 1: Form Responses 1",
+      "Spreadsheet 2: Student Contacts | Worksheet 2: Sheet1",
+      "Report successfully written to Final_User_Data.csv",
+      "$ cat Final_User_Data.csv",
+      "Name,Phone Number,Absent Days",
+      "Student A,XXXXXXXXXX,9",
+      "Student B,XXXXXXXXXX,12",
+      "Student C,XXXXXXXXXX,7",
+      "Student D,XXXXXXXXXX,15",
+      "$ NO_OF_DAYS=30 python Trigger.py",
+      "Spreadsheet 1: Attendance | Worksheet 1: Form Responses 1",
+      "Spreadsheet 2: Student Contacts | Worksheet 2: Sheet1",
+      "No students were absent for more than 30 days."
+    ]
+  }
+}

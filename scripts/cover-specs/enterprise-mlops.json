@@ -1,0 +1,30 @@
+{
+  "slug": "enterprise-mlops",
+  "repo": "Anand-Bora-0001/Enterprise-MLOps-Platform",
+  "kind": "dashboard",
+  "evidence": ["frontend/src/layouts/DashboardLayout.tsx", "frontend/src/pages/Dashboard.tsx", "frontend/src/pages/Registry.tsx", "frontend/src/pages/Experiments.tsx", "backend/app/api/v1/explain.py", "docs/dashboard.png"],
+  "summary": "FastAPI + React MLOps platform: dataset management, Celery training jobs tracked in MLflow, a stage-gated model registry and SHAP explanations for inference.",
+  "appName": "MLOps Platform",
+  "pageTitle": "Overview",
+  "nav": ["Dashboard", "Datasets", "Experiments", "Model Registry", "Settings"],
+  "kpis": [
+    {"label": "Total Datasets", "value": "18", "delta": "+3"},
+    {"label": "Active Models", "value": "7", "delta": "+2"},
+    {"label": "Deployments", "value": "4", "delta": "+1"},
+    {"label": "Active Alerts", "value": "1", "delta": "-2"}
+  ],
+  "chart": {"title": "Model Invocations (24h)", "subtitle": "Inference requests", "type": "area"},
+  "panel": {"type": "meters", "title": "SHAP Feature Importance", "items": [
+    {"label": "tenure_months", "value": "0.41", "pct": 82},
+    {"label": "monthly_spend", "value": "0.29", "pct": 58},
+    {"label": "support_tickets", "value": "0.18", "pct": 36},
+    {"label": "region", "value": "0.07", "pct": 14}
+  ]},
+  "table": {"title": "Experiments", "columns": ["Experiment Name", "Model Type", "Metrics", "Status"], "rows": [
+    ["churn-baseline", "RandomForest", "acc 0.91", "Completed"],
+    ["churn-gbm-tuned", "GradientBoosting", "acc 0.93", "Completed"],
+    ["fraud-v2", "LogisticRegression", "auc 0.88", "Running"],
+    ["demand-forecast", "RandomForest", "rmse 12.4", "Queued"],
+    ["fraud-v1", "LogisticRegression", "auc 0.81", "Failed"]
+  ]}
+}

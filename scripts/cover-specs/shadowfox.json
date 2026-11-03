@@ -1,0 +1,42 @@
+{
+  "slug": "shadowfox",
+  "repo": "Anand-Bora-0001/ShadowFox",
+  "kind": "terminal",
+  "evidence": [
+    "Library Management System with Data Persistence (SQLite)/README.md",
+    "Library Management System with Data Persistence (SQLite)/src/Main.java",
+    "Library Management System with Data Persistence (SQLite)/src/DatabaseHelper.java",
+    "Enhanced-Console-Based-Calculator/README.md",
+    "Bank Account System JUnit/README.md",
+    "Student Information System with GUI/README.md",
+    "Ecommerce-App/README.md"
+  ],
+  "summary": "Collection of Java internship projects (ShadowFox program): SQLite library management console app, console calculator, JUnit-tested bank account system, JavaFX student info system and an e-commerce microservices app; the cover shows the library console app.",
+  "terminal": {
+    "title": "java -cp \"bin;lib/*\" Main",
+    "lines": [
+      "$ java -cp \"bin;lib/*\" Main",
+      "Connected to the database!",
+      "Tables created successfully!",
+      "",
+      "Library Management System",
+      "1. Add Book",
+      "2. Display Books",
+      "3. Update Book",
+      "4. Delete Book",
+      "5. Register User",
+      "6. Login User",
+      "7. Exit",
+      "Choose an option: 1",
+      "Enter Book Title: Data Structures 101",
+      "Enter Author: Author A",
+      "Enter Genre: Programming",
+      "Connected to the database!",
+      "Book added successfully!",
+      "Choose an option: 2",
+      "ID | Title | Author",
+      "----------------------",
+      "1 | Data Structures 101 | Author A"
+    ]
+  }
+}

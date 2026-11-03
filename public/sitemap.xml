@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://anand-bora.vercel.app/</loc></url>
-  <url><loc>https://anand-bora.vercel.app/about</loc></url>
+  <url><loc>https://anand-bora.vercel.app/work/leapview</loc></url>
+  <url><loc>https://anand-bora.vercel.app/work/alloy-catalog</loc></url>
   <url><loc>https://anand-bora.vercel.app/projects</loc></url>
+  <url><loc>https://anand-bora.vercel.app/projects/amex-pulse</loc></url>
+  <url><loc>https://anand-bora.vercel.app/projects/resumeiq-ai</loc></url>
+  <url><loc>https://anand-bora.vercel.app/projects/enterprise-data-platform</loc></url>
+  <url><loc>https://anand-bora.vercel.app/projects/digital-transformation-platform</loc></url>
+  <url><loc>https://anand-bora.vercel.app/projects/whatsapp-image-ledger</loc></url>
   <url><loc>https://anand-bora.vercel.app/projects/observability-platform</loc></url>
   <url><loc>https://anand-bora.vercel.app/projects/cloud-monitoring-dashboard</loc></url>
   <url><loc>https://anand-bora.vercel.app/projects/real-time-data-engineering</loc></url>
@@ -26,6 +32,4 @@
   <url><loc>https://anand-bora.vercel.app/projects/rent-a-bike</loc></url>
   <url><loc>https://anand-bora.vercel.app/projects/contact-management-app</loc></url>
   <url><loc>https://anand-bora.vercel.app/projects/fermi-pico-bagel-game</loc></url>
-  <url><loc>https://anand-bora.vercel.app/projects/amex-pulse</loc></url>
-  <url><loc>https://anand-bora.vercel.app/projects/resumeiq-ai</loc></url>
 </urlset>
