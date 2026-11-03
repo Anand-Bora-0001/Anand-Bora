@@ -1,0 +1,118 @@
+{
+  "slug": "student-feedback-portal",
+  "repo": "Anand-Bora-0001/student_feedback_portal",
+  "kind": "dashboard",
+  "evidence": [
+    "README.md",
+    "app.py",
+    "database.py",
+    "templates/base.html",
+    "templates/login.html",
+    "templates/feedback.html",
+    "templates/admin.html"
+  ],
+  "summary": "Flask + SQLite portal where students log in and submit text feedback with a 1-5 rating, and admins view all submissions in a dashboard; ships with a unittest suite and HTML test reports.",
+  "appName": "Student Feedback",
+  "pageTitle": "Admin Dashboard - All Feedback",
+  "nav": [
+    "Home",
+    "Login",
+    "Submit Feedback",
+    "Admin Dashboard",
+    "Logout"
+  ],
+  "kpis": [
+    {
+      "label": "Total Feedback",
+      "value": "248",
+      "delta": "+12%"
+    },
+    {
+      "label": "Average Rating",
+      "value": "4.1/5",
+      "delta": "+0.2"
+    },
+    {
+      "label": "5 - Excellent",
+      "value": "96",
+      "delta": "+8%"
+    },
+    {
+      "label": "Students",
+      "value": "132",
+      "delta": "+5%"
+    }
+  ],
+  "chart": {
+    "title": "Rating (1-5)",
+    "subtitle": "1 Poor to 5 Excellent",
+    "type": "bars"
+  },
+  "panel": {
+    "type": "meters",
+    "title": "Ratings Breakdown",
+    "items": [
+      {
+        "label": "5 - Excellent",
+        "value": "96",
+        "pct": 39
+      },
+      {
+        "label": "4 - Very Good",
+        "value": "84",
+        "pct": 34
+      },
+      {
+        "label": "3 - Good",
+        "value": "44",
+        "pct": 18
+      },
+      {
+        "label": "2 - Fair",
+        "value": "16",
+        "pct": 6
+      }
+    ]
+  },
+  "table": {
+    "title": "All Feedback",
+    "columns": [
+      "Student",
+      "Feedback",
+      "Rating",
+      "Date Submitted"
+    ],
+    "rows": [
+      [
+        "Student A",
+        "Labs were well organised",
+        "5/5",
+        "14 Mar, 10:22"
+      ],
+      [
+        "Student B",
+        "More practice problems please",
+        "4/5",
+        "14 Mar, 11:05"
+      ],
+      [
+        "Student C",
+        "Lecture pace was a bit fast",
+        "3/5",
+        "15 Mar, 09:41"
+      ],
+      [
+        "Student D",
+        "Great course materials",
+        "5/5",
+        "15 Mar, 14:18"
+      ],
+      [
+        "Student E",
+        "Need clearer assignment brief",
+        "2/5",
+        "16 Mar, 16:30"
+      ]
+    ]
+  }
+}

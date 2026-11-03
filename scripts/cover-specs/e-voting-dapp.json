@@ -1,0 +1,119 @@
+{
+  "slug": "e-voting-dapp",
+  "repo": "Anand-Bora-0001/e-voting-dapp",
+  "kind": "dashboard",
+  "evidence": [
+    "README.md",
+    "contracts/Voting.sol",
+    "frontend/public/index.html",
+    "frontend/src/App.js",
+    "frontend/src/components/LoginPage.js",
+    "frontend/src/components/AdminDashboard.js",
+    "frontend/src/components/VoterDashboard.js"
+  ],
+  "summary": "Ethereum voting dApp (Solidity/Hardhat + React/ethers.js + MetaMask) where an admin adds candidates, registers voters and starts/ends an election, and voters cast one on-chain vote with live results.",
+  "appName": "E-Voting dApp",
+  "pageTitle": "Admin Dashboard",
+  "nav": [
+    "Election Status",
+    "Add Candidate",
+    "Register Voters",
+    "Candidates List",
+    "Live Results"
+  ],
+  "kpis": [
+    {
+      "label": "Current Status",
+      "value": "Ongoing",
+      "delta": "Live"
+    },
+    {
+      "label": "Total Candidates",
+      "value": "5",
+      "delta": "+1"
+    },
+    {
+      "label": "Votes Cast",
+      "value": "1,355",
+      "delta": "+9%"
+    },
+    {
+      "label": "Registered Voters",
+      "value": "1,500",
+      "delta": "+120"
+    }
+  ],
+  "chart": {
+    "title": "Vote Distribution",
+    "subtitle": "Votes per candidate",
+    "type": "bars"
+  },
+  "panel": {
+    "type": "rings",
+    "title": "Vote Share",
+    "items": [
+      {
+        "label": "Candidate A",
+        "value": "512",
+        "pct": 38
+      },
+      {
+        "label": "Candidate B",
+        "value": "394",
+        "pct": 29
+      },
+      {
+        "label": "Candidate C",
+        "value": "241",
+        "pct": 18
+      },
+      {
+        "label": "Candidate D",
+        "value": "121",
+        "pct": 9
+      }
+    ]
+  },
+  "table": {
+    "title": "Candidates List",
+    "columns": [
+      "ID",
+      "Candidate Name",
+      "Political Party",
+      "Votes"
+    ],
+    "rows": [
+      [
+        "1",
+        "Candidate A",
+        "Party Alpha",
+        "512"
+      ],
+      [
+        "2",
+        "Candidate B",
+        "Party Beta",
+        "394"
+      ],
+      [
+        "3",
+        "Candidate C",
+        "Party Gamma",
+        "241"
+      ],
+      [
+        "4",
+        "Candidate D",
+        "Independent",
+        "121"
+      ],
+      [
+        "5",
+        "Candidate E",
+        "Party Delta",
+        "87"
+      ]
+    ]
+  },
+  "note": "README references assets/login.png, assets/admin.png, assets/voter.png but those files are not in the repo, so no realScreenshot."
+}

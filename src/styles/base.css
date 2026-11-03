@@ -1,0 +1,127 @@
+/* Reset, document defaults, typography helpers, and motion rules. */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    min-height: 100vh;
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+    font: 400 var(--text-md) / 1.7 var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img,
+  svg,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+  img {
+    height: auto;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  button,
+  input,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+  button {
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  ul,
+  ol {
+    list-style: none;
+    padding: 0;
+  }
+  h1,
+  h2,
+  h3 {
+    color: var(--color-heading);
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+  .accent {
+    color: var(--color-accent);
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+  main:focus {
+    outline: none;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .skip-link {
+    position: fixed;
+    left: 16px;
+    top: -64px;
+    z-index: var(--z-skip);
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-weight: 600;
+  }
+  .skip-link:focus {
+    top: 16px;
+  }
+  .muted {
+    color: var(--color-text-faint);
+  }
+
+  /* Reveal-on-scroll (added by useReveal) */
+  .will-reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition:
+      opacity var(--duration-slow) var(--ease-out),
+      transform 1s var(--ease-out);
+  }
+  .will-reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}

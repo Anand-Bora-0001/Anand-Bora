@@ -1,0 +1,37 @@
+{
+  "slug": "secure-virtual-file-system",
+  "repo": "Anand-Bora-0001/SVF",
+  "kind": "terminal",
+  "evidence": [
+    "README.md",
+    "SVF.cpp"
+  ],
+  "summary": "C++17 in-memory virtual file system shell with SHA-256 (OpenSSL) hashed user login, ADMIN/NORMAL_USER/READ_ONLY roles, inodes, file descriptors and permission checks.",
+  "terminal": {
+    "title": "./svf",
+    "lines": [
+      "$ ./svf",
+      "Simple File System (Type 'help' for commands)",
+      "> login admin",
+      "Password:",
+      "Login successful! Welcome admin (Role: ADMIN)",
+      "> mkdir docs",
+      "Directory created: /docs",
+      "> cd docs",
+      "Current directory: /docs",
+      "> touch notes.txt",
+      "File created: /docs/notes.txt",
+      "> open notes.txt 3",
+      "File opened: /docs/notes.txt (FD: 3)",
+      "> write 3 hello svf",
+      "Wrote 9 bytes to file.",
+      "> read 3",
+      "Read 9 bytes from file.",
+      "Content: hello svf",
+      "> ls",
+      "Contents of /docs:",
+      "Name        Type       Size    Owner    Permissions",
+      "notes.txt   File       9B      admin    rw"
+    ]
+  }
+}

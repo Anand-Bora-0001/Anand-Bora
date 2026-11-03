@@ -1,0 +1,35 @@
+{
+  "slug": "contact-management-app",
+  "repo": "Anand-Bora-0001/Contact-Management-App",
+  "kind": "terminal",
+  "evidence": [
+    "README.md",
+    "contact_app.py"
+  ],
+  "summary": "Menu-driven Python CLI that keeps an in-memory contact list (name, number, email) and lets the user show, add, open, update and delete contacts.",
+  "terminal": {
+    "title": "python contact_app.py",
+    "lines": [
+      "Contact Management App",
+      "1. Show all contacts",
+      "2. Add a new contact",
+      "3. Open a contact",
+      "4. Update a contact",
+      "5. Delete a contact",
+      "q. Quit",
+      "Choose an option: 1",
+      "Contacts:",
+      "1. Alex Doe",
+      "2. Sam Lee",
+      "3. Jordan Park",
+      "",
+      "Press Enter to continue...",
+      "Choose an option: 5",
+      "Enter the name of the contact to delete: Sam Lee",
+      "Contact deleted successfully!",
+      "Press Enter to continue...",
+      "Choose an option: q",
+      "Exiting the application."
+    ]
+  }
+}

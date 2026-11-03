@@ -1,0 +1,37 @@
+{
+  "slug": "rent-a-bike",
+  "repo": "Anand-Bora-0001/Rent-A-Bike",
+  "kind": "terminal",
+  "evidence": [
+    "README.md",
+    "bike_rentals.py"
+  ],
+  "summary": "Interactive terminal bike-rental shop: tracks stock (starts at 100), rents/returns bikes on daily (Rs 500) or weekly (Rs 1500) basis and applies a 30% family discount for 3-5 bikes.",
+  "terminal": {
+    "title": "python bike_rentals.py",
+    "lines": [
+      "Welcome to Bike Rentals!",
+      "",
+      "We currently have 100 bikes available to rent.",
+      "",
+      "Would you like to rent or return bikes? (rent/return/exit): rent",
+      "Enter the number of bikes to rent: 3",
+      "Enter the rental basis (daily/weekly): daily",
+      "Enter the number of days for the rental: 2",
+      "You have successfully rented 3 bikes.",
+      "",
+      "We currently have 97 bikes available to rent.",
+      "",
+      "Would you like to rent or return bikes? (rent/return/exit): return",
+      "Enter the number of bikes to return: 3",
+      "Enter the rental basis (daily/weekly): daily",
+      "Enter the number of days the bikes were rented: 2",
+      "Family rental discount applied: 30%",
+      "Total bill: ₹2100",
+      "3 bikes have been returned. Current stock: 100",
+      "",
+      "Would you like to rent or return bikes? (rent/return/exit): exit",
+      "Thank you for visiting Bike Rentals! Have a great day!"
+    ]
+  }
+}

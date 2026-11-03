@@ -4,56 +4,60 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Anand Bora | AI Engineer at Flid AI</title>
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <title>Anand Bora — AI Engineer at Flid AI</title>
     <meta
       name="description"
-      content="Anand Bora, AI Engineer at Flid AI in Pune. Building agent architectures, reliable backend systems, and data workflows with Go, DuckDB, and Python."
+      content="Anand Bora is an AI Engineer at Flid AI in Pune, building LeapView (open-source BI) and Alloy Catalog, with AI agents and data systems in Go, Rust, DuckDB, Python and TypeScript."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://anand-bora.vercel.app/" />
-    <meta property="og:title" content="Anand Bora | AI Engineer at Flid AI" />
+    <meta property="og:title" content="Anand Bora — AI Engineer at Flid AI" />
     <meta
       property="og:description"
-      content="Useful AI. Solid systems. Explore Anand's work in agent architectures, backend engineering, data, and applied AI."
+      content="Building LeapView and Alloy Catalog at Flid AI: AI agents and the data systems they stand on."
     />
+    <meta property="og:image" content="https://anand-bora.vercel.app/profile.jpg" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:url" content="https://anand-bora.vercel.app/" />
-    <meta name="twitter:title" content="Anand Bora | AI Engineer at Flid AI" />
-    <meta
-      name="twitter:description"
-      content="Useful AI. Solid systems. Go, DuckDB, Python, and the engineering around the model."
-    />
     <link rel="canonical" href="https://anand-bora.vercel.app/" />
-    <meta name="theme-color" content="#0d0e17" />
+    <meta name="theme-color" content="#09090b" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <script>
+      // Mirrors src/lib/theme.tsx so the right theme paints before React loads.
+      (function () {
+        var t;
+        try { t = localStorage.getItem("theme"); } catch (e) {}
+        if (t !== "light" && t !== "dark")
+          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = t;
+        document.querySelector('meta[name="theme-color"]').content = t === "dark" ? "#09090b" : "#f4f3ee";
+      })();
+    </script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Anand Bora",
         "url": "https://anand-bora.vercel.app/",
+        "image": "https://anand-bora.vercel.app/profile.jpg",
         "jobTitle": "AI Engineer",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Flid AI",
-          "url": "https://flid.ai/"
-        },
-        "sameAs": [
-          "https://github.com/Anand-Bora-0001",
-          "https://www.linkedin.com/in/anand-bora/"
-        ]
+        "worksFor": { "@type": "Organization", "name": "Flid AI", "url": "https://flid.ai/" },
+        "address": { "@type": "PostalAddress", "addressLocality": "Pune", "addressCountry": "IN" },
+        "sameAs": ["https://github.com/Anand-Bora-0001", "https://www.linkedin.com/in/anand-bora/"]
       }
     </script>
   </head>
   <body>
     <div id="root"></div>
-    <noscript
-      >Anand Bora — AI Engineer at Flid AI. Working with Go, DuckDB, Python, and
-      agent architectures in Pune, India. Explore my work at
-      github.com/Anand-Bora-0001 or email anandbora241@gmail.com. Enable
-      JavaScript to use the portfolio.</noscript
-    >
+    <noscript>
+      Anand Bora — AI Engineer at Flid AI in Pune, India, building LeapView and Alloy Catalog.
+      GitHub: github.com/Anand-Bora-0001 · Email: anandbora241@gmail.com
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

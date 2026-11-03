@@ -1,0 +1,171 @@
+/*
+  Design tokens, in three tiers:
+    1. Primitives — raw colors. Ink neutrals (near-black / warm paper) and one signature
+                    accent, electric lime, with sky, amber and lavender as quiet supports.
+    2. Semantic   — what a color is FOR. Components use only these.
+    3. Scales     — type, space, radius, depth, motion. Theme-independent.
+
+  scripts/content.test.mjs checks every text/background pair for WCAG AA in both themes.
+  The 3D scenes read --tone-* and --color-* at runtime (src/lib/palette.ts).
+*/
+@layer tokens {
+  /* ---------- 1. Primitives ---------- */
+  :root {
+    /* Ink — dark theme steps */
+    --ink-d0: #09090b;
+    --ink-d1: #0f0f12;
+    --ink-d2: #131316;
+    --ink-d3: #1a1a1e;
+    --ink-d4: #1f1f24;
+    --ink-d5: #2a2a31;
+    --ink-d6: #3d3d46;
+    --ink-d7: #8b8b95;
+    --ink-d8: #a9a9b3;
+    --ink-d9: #e7e7ea;
+    --ink-d10: #fafaf9;
+
+    /* Paper — light theme steps */
+    --paper-l0: #f4f3ee;
+    --paper-l1: #eceae3;
+    --paper-l2: #ffffff;
+    --paper-l3: #e9e7e0;
+    --paper-l4: #dfddd5;
+    --paper-l5: #cfccc3;
+    --paper-l6: #a3a097;
+    --paper-l7: #5f5f67;
+    --paper-l8: #46464d;
+    --paper-l9: #1d1d20;
+    --paper-l10: #0b0b0c;
+
+    /* Accents — on-dark / on-light */
+    --lime-d: #c6f135;
+    --lime-l: #476700;
+    --sky-d: #7cc8ff;
+    --sky-l: #0b5cab;
+    --amber-d: #ffc65c;
+    --amber-l: #845400;
+    --lavender-d: #b9a8ff;
+    --lavender-l: #5a45c2;
+  }
+
+  /* ---------- 2. Semantic: dark (default) ---------- */
+  :root,
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --color-bg: var(--ink-d0);
+    --color-bg-raised: var(--ink-d1);
+    --color-surface: var(--ink-d2);
+    --color-surface-2: var(--ink-d3);
+    --color-surface-glass: rgb(19 19 22 / 0.66);
+    --color-border-subtle: var(--ink-d4);
+    --color-border: var(--ink-d5);
+    --color-border-strong: var(--ink-d6);
+    --color-heading: var(--ink-d10);
+    --color-text: var(--ink-d9);
+    --color-text-muted: var(--ink-d8);
+    --color-text-faint: var(--ink-d7);
+
+    --color-accent: var(--lime-d);
+    --color-accent-2: var(--sky-d);
+    --color-on-accent: var(--ink-d0);
+    --color-accent-soft: rgb(198 241 53 / 0.1);
+    --color-accent-glow: rgb(198 241 53 / 0.28);
+    --color-focus: var(--lime-d);
+    --color-spotlight: rgb(198 241 53 / 0.06);
+
+    --tone-agents: var(--lime-d);
+    --tone-systems: var(--sky-d);
+    --tone-data: var(--amber-d);
+    --tone-cloud: var(--lavender-d);
+
+    --grid-line: rgb(250 250 249 / 0.04);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-md: 0 18px 40px -20px rgb(0 0 0 / 0.8);
+    --shadow-lg: 0 50px 100px -40px rgb(0 0 0 / 0.9);
+  }
+
+  /* ---------- 2. Semantic: light ---------- */
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --color-bg: var(--paper-l0);
+    --color-bg-raised: var(--paper-l1);
+    --color-surface: var(--paper-l2);
+    --color-surface-2: var(--paper-l3);
+    --color-surface-glass: rgb(255 255 255 / 0.7);
+    --color-border-subtle: var(--paper-l4);
+    --color-border: var(--paper-l5);
+    --color-border-strong: var(--paper-l6);
+    --color-heading: var(--paper-l10);
+    --color-text: var(--paper-l9);
+    --color-text-muted: var(--paper-l8);
+    --color-text-faint: var(--paper-l7);
+
+    --color-accent: var(--lime-l);
+    --color-accent-2: var(--sky-l);
+    --color-on-accent: #ffffff;
+    --color-accent-soft: rgb(71 103 0 / 0.09);
+    --color-accent-glow: rgb(71 103 0 / 0.22);
+    --color-focus: var(--lime-l);
+    --color-spotlight: rgb(71 103 0 / 0.05);
+
+    --tone-agents: var(--lime-l);
+    --tone-systems: var(--sky-l);
+    --tone-data: var(--amber-l);
+    --tone-cloud: var(--lavender-l);
+
+    --grid-line: rgb(11 11 12 / 0.05);
+    --shadow-sm: 0 1px 2px rgb(11 11 12 / 0.06);
+    --shadow-md: 0 18px 40px -22px rgb(11 11 12 / 0.25);
+    --shadow-lg: 0 50px 100px -44px rgb(11 11 12 / 0.35);
+  }
+
+  /* ---------- 3. Scales ---------- */
+  :root {
+    --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+    --text-2xs: 0.6875rem;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-md: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.375rem;
+    --text-2xl: clamp(1.6rem, 2.6vw, 2.1rem);
+    --text-3xl: clamp(2.2rem, 4.6vw, 3.8rem);
+    --text-4xl: clamp(2.8rem, 7vw, 6rem);
+    --text-display: clamp(4.2rem, 14vw, 12.5rem);
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+    --space-9: 96px;
+    --space-10: 144px;
+    --gutter: clamp(16px, 5vw, 64px);
+    --container: 1280px;
+    --readable: 640px;
+
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 28px;
+    --radius-pill: 999px;
+
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration-fast: 0.15s;
+    --duration-base: 0.3s;
+    --duration-slow: 0.8s;
+
+    --z-field: 0;
+    --z-content: 1;
+    --z-header: 40;
+    --z-progress: 50;
+    --z-skip: 100;
+  }
+}
