@@ -9,7 +9,6 @@ npm install
 npm run dev     # local dev server
 npm test        # content, accessibility and config checks
 npm run build   # typecheck, sitemap, production build
-npm run covers  # re-render project cover images (needs Chromium)
 ```
 
-Project covers are generated from `scripts/cover-specs/*.json`, which describe each repo's real UI with sample data.
+Project images are real screenshots of each app running locally with sample data. A project without one shows no image.

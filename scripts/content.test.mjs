@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -21,12 +21,17 @@ test("every project has a unique slug, a valid group, and the fields its page ne
 
 test("project images and links point at real files and the right accounts", () => {
   for (const p of projects) {
-    if (p.image) assert.ok(existsSync(resolve(root, "public", p.image.slice(1))), p.image);
+    for (const src of [p.image, ...(p.gallery ?? []).map((g) => g.src)].filter(Boolean))
+      assert.ok(existsSync(resolve(root, "public", src.slice(1))), src);
     if (p.githubUrl) assert.match(p.githubUrl, /^https:\/\/github\.com\/Anand-Bora-0001\//);
   }
-  // Every project shows an image: a real screenshot or a generated cover (npm run covers).
-  assert.ok(projects.every((p) => p.image), "every project has an image");
+  // Images are real screenshots of the running app only; a project without one shows none.
+  assert.ok(!existsSync(resolve(root, "public/projects/covers")), "no generated mockups");
   assert.ok(featuredProjects.length >= 6);
+  // The home page features projects that have a screenshot, each a different one.
+  const shown = featuredProjects.slice(0, 6).map((p) => p.image);
+  assert.ok(shown.every(Boolean), "featured projects have screenshots");
+  assert.equal(new Set(shown).size, shown.length);
   assert.ok(featuredProjects.every((p) => p.githubUrl));
 });
 
@@ -167,31 +172,5 @@ test("theme tokens meet WCAG AA for every text and background pair, in both them
       }
     const onAccent = contrast(hex(vars, "--color-on-accent"), hex(vars, "--color-accent"));
     assert.ok(onAccent >= 4.5, `${name}: button text on accent is ${onAccent.toFixed(2)}:1`);
-  }
-});
-
-test("cover specs are well-formed and safe to publish", () => {
-  const dir = resolve(root, "scripts/cover-specs");
-  const covered = new Set(projects.filter((p) => p.image?.startsWith("/projects/covers/")).map((p) => p.slug));
-  for (const file of readdirSync(dir)) {
-    const raw = readFileSync(resolve(dir, file), "utf8");
-    const spec = JSON.parse(raw);
-    assert.equal(file, `${spec.slug}.json`);
-    assert.ok(covered.has(spec.slug), `${spec.slug} is a project with a generated cover`);
-    assert.match(spec.repo, /^Anand-Bora-0001\//);
-    if (spec.kind === "terminal") {
-      assert.ok(spec.terminal.title && spec.terminal.lines.length >= 6 && spec.terminal.lines.length <= 22, spec.slug);
-    } else {
-      assert.equal(spec.kind, "dashboard", spec.slug);
-      assert.equal(spec.nav.length, 5, `${spec.slug} nav`);
-      assert.equal(spec.kpis.length, 4, `${spec.slug} kpis`);
-      assert.ok(["area", "bars", "lines"].includes(spec.chart.type), `${spec.slug} chart`);
-      assert.ok(spec.table.columns.length >= 3 && spec.table.columns.length <= 4, `${spec.slug} columns`);
-      assert.equal(spec.table.rows.length, 5, `${spec.slug} rows`);
-    }
-    // These images are public: no contact details or credentials, even from private repos.
-    assert.doesNotMatch(raw, /[\w.+-]+@[\w-]+\.[\w.]+/, `${spec.slug} contains an email address`);
-    assert.doesNotMatch(raw, /\+?\d[\d -]{9,}\d/, `${spec.slug} contains a phone-like number`);
-    assert.doesNotMatch(raw, /(sk-|ghp_|AKIA|api[_-]?key\s*[:=]\s*[^\s",]|password\s*[:=]\s*[^\s",])/i, `${spec.slug} contains a credential`);
   }
 });
