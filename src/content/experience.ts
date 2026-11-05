@@ -20,6 +20,7 @@ export const roles: Role[] = [
     points: [
       "LeapView: 135+ merged pull requests across agent-authored dashboards, governed access, tables and performance.",
       "Alloy Catalog: the Ask-the-catalog agent, Tantivy search, 3D part and assembly views, data quality and the home launchpad.",
+      "Deployment: rolled out LeapView's hosted demo, hardened its staging and release checks, and added CI gates.",
       "Redesigned the flid.ai public site and made it fast.",
     ],
     tags: ["Go", "Rust", "DuckDB", "TypeScript", "MCP", "Agents"],
