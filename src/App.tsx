@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "@/pages/Home";
+import ThemePicker from "@/components/ThemePicker";
 import { ThemeProvider } from "@/lib/theme";
 
 const CaseStudy = lazy(() => import("@/pages/CaseStudy"));
@@ -12,6 +13,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
+        <ThemePicker />
         <Suspense fallback={<div className="page-loading" role="status">Loading…</div>}>
           <Routes>
             <Route path="/" element={<Home />} />

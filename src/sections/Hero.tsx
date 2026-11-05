@@ -1,16 +1,11 @@
-import { lazy } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
-import Scene from "@/components/three/Scene";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { site, socials } from "@/content/site";
-
-const HeroScene = lazy(() => import("@/components/three/HeroScene"));
 
 export default function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
-      <Scene scene={HeroScene} props={{}} className="hero-canvas" fallback={<div className="hero-fallback" />} decorative />
       <div className="hero-inner">
         <p className="hero-status">
           <span className="live-dot" aria-hidden="true" />

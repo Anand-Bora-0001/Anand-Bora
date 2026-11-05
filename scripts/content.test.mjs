@@ -64,7 +64,7 @@ test("case studies are complete, and private work has no links", () => {
 
 test("home sections, roles and about links are wired up", () => {
   const { sections, about } = load("src/content/site.ts");
-  assert.equal(sections.map((s) => s.id).join(), "work,about,experience,projects,skills,contact");
+  assert.equal(sections.map((s) => s.id).join(), "about,work,experience,projects,skills,contact");
   const { stats } = load("src/content/site.ts");
   assert.equal(stats.find((s) => s.label.includes("projects")).value, String(load("src/content/projects.ts").projects.length));
   const internal = about.flat().filter((p) => typeof p === "object" && p.href.startsWith("/"));
@@ -113,24 +113,22 @@ test("sitemap lists every page on the real domain", () => {
   assert.equal((xml.match(/<loc>/g) || []).length, projects.length + 4);
 });
 
-test("theme tokens meet WCAG AA for every text and background pair, in both themes", () => {
+test("every theme meets WCAG AA for every text and background pair", () => {
   const css = readFileSync(resolve(root, "src/styles/tokens.css"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
-  const block = (selector) => {
-    const start = css.indexOf(selector);
-    assert.ok(start >= 0, `missing ${selector}`);
-    const open = css.indexOf("{", start);
-    return css.slice(open + 1, css.indexOf("}", open));
-  };
   const declarations = (text) =>
     Object.fromEntries([...text.matchAll(/(--[\w-]+):\s*([^;]+);/g)].map((m) => [m[1], m[2].trim()]));
-  const primitives = declarations(block(":root {"));
+  const themes = Object.fromEntries(
+    [...css.matchAll(/\[data-theme="([\w-]+)"\]\s*\{([^}]*)\}/g)].map((m) => [m[1], declarations(m[2])]),
+  );
+  // The theme picker (src/lib/themes.ts) and the no-flash script (index.html) list the same themes.
+  const listed = [...readFileSync(resolve(root, "src/lib/themes.ts"), "utf8").matchAll(/\{ id: "([\w-]+)"/g)].map((m) => m[1]);
+  assert.ok(listed.length >= 8, `${listed.length} themes listed`);
+  assert.deepEqual(Object.keys(themes).sort(), [...listed].sort());
+  const head = readFileSync(resolve(root, "index.html"), "utf8");
+  for (const id of listed) assert.match(head, new RegExp(`"?${id}"?: "#[0-9a-f]{6}"`), `index.html knows ${id}`);
   const hex = (vars, name) => {
-    let value = vars[name] ?? primitives[name];
-    while (value?.startsWith("var(")) {
-      const ref = value.slice(4, -1);
-      value = vars[ref] ?? primitives[ref];
-    }
-    assert.match(value ?? "", /^#[0-9a-f]{6}$/i, `${name} resolves to a hex color`);
+    const value = vars[name];
+    assert.match(value ?? "", /^#[0-9a-f]{6}$/i, `${name} is a hex color`);
     return value;
   };
   const luminance = (color) =>
@@ -141,10 +139,6 @@ test("theme tokens meet WCAG AA for every text and background pair, in both them
   const contrast = (a, b) => {
     const [dark, light] = [luminance(a), luminance(b)].sort((x, y) => x - y);
     return (light + 0.05) / (dark + 0.05);
-  };
-  const themes = {
-    dark: declarations(block(':root[data-theme="dark"]')),
-    light: declarations(block(':root[data-theme="light"]')),
   };
   const texts = [
     "--color-text",

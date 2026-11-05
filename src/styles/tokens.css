@@ -1,127 +1,405 @@
 /*
-  Design tokens, in three tiers:
-    1. Primitives — raw colors. Ink neutrals (near-black / warm paper) and one signature
-                    accent, electric lime, with sky, amber and lavender as quiet supports.
-    2. Semantic   — what a color is FOR. Components use only these.
-    3. Scales     — type, space, radius, depth, motion. Theme-independent.
+  Design tokens, in two tiers:
+    1. Themes — ten palettes, each a full set of semantic colors plus its display type.
+                Components use only these names, so a theme is one attribute: on <html> for the page,
+                or on any element (the theme picker's preview cards) to theme just that part:
+                data-theme="matte-black", "tokyo-night", "flexoki" and the rest in src/lib/themes.ts,
+                which lists them for the theme picker and the 3D scenes.
+    2. Scales — type, space, radius, depth, motion. Theme-independent.
 
-  scripts/content.test.mjs checks every text/background pair for WCAG AA in both themes.
+  scripts/content.test.mjs checks every text/background pair for WCAG AA in every theme.
   The 3D scenes read --tone-* and --color-* at runtime (src/lib/palette.ts).
 */
 @layer tokens {
-  /* ---------- 1. Primitives ---------- */
-  :root {
-    /* Ink — dark theme steps */
-    --ink-d0: #09090b;
-    --ink-d1: #0f0f12;
-    --ink-d2: #131316;
-    --ink-d3: #1a1a1e;
-    --ink-d4: #1f1f24;
-    --ink-d5: #2a2a31;
-    --ink-d6: #3d3d46;
-    --ink-d7: #8b8b95;
-    --ink-d8: #a9a9b3;
-    --ink-d9: #e7e7ea;
-    --ink-d10: #fafaf9;
-
-    /* Paper — light theme steps */
-    --paper-l0: #f4f3ee;
-    --paper-l1: #eceae3;
-    --paper-l2: #ffffff;
-    --paper-l3: #e9e7e0;
-    --paper-l4: #dfddd5;
-    --paper-l5: #cfccc3;
-    --paper-l6: #a3a097;
-    --paper-l7: #5f5f67;
-    --paper-l8: #46464d;
-    --paper-l9: #1d1d20;
-    --paper-l10: #0b0b0c;
-
-    /* Accents — on-dark / on-light */
-    --lime-d: #c6f135;
-    --lime-l: #476700;
-    --sky-d: #7cc8ff;
-    --sky-l: #0b5cab;
-    --amber-d: #ffc65c;
-    --amber-l: #845400;
-    --lavender-d: #b9a8ff;
-    --lavender-l: #5a45c2;
-  }
-
-  /* ---------- 2. Semantic: dark (default) ---------- */
+  /* ---------- 1. Themes ---------- */
+  /* Palettes from Omarchy's themes (colors.toml), with text and accents nudged where needed to pass
+     the contrast test. Matte Black (dark) and Flexoki (light) are the defaults. */
   :root,
-  :root[data-theme="dark"] {
+  [data-theme="matte-black"] {
     color-scheme: dark;
-    --color-bg: var(--ink-d0);
-    --color-bg-raised: var(--ink-d1);
-    --color-surface: var(--ink-d2);
-    --color-surface-2: var(--ink-d3);
-    --color-surface-glass: rgb(19 19 22 / 0.66);
-    --color-border-subtle: var(--ink-d4);
-    --color-border: var(--ink-d5);
-    --color-border-strong: var(--ink-d6);
-    --color-heading: var(--ink-d10);
-    --color-text: var(--ink-d9);
-    --color-text-muted: var(--ink-d8);
-    --color-text-faint: var(--ink-d7);
+    --color-bg: #121212;
+    --color-bg-raised: #161616;
+    --color-surface: #1a1a1a;
+    --color-surface-2: #1f1f1f;
+    --color-surface-glass: rgb(26 26 26 / 0.72);
+    --color-border-subtle: #242424;
+    --color-border: #2e2e2e;
+    --color-border-strong: #4a4a4a;
+    --color-heading: #f0f0f0;
+    --color-text: #d4d4d4;
+    --color-text-muted: #a8a8a8;
+    --color-text-faint: #8f8f8f;
 
-    --color-accent: var(--lime-d);
-    --color-accent-2: var(--sky-d);
-    --color-on-accent: var(--ink-d0);
-    --color-accent-soft: rgb(198 241 53 / 0.1);
-    --color-accent-glow: rgb(198 241 53 / 0.28);
-    --color-focus: var(--lime-d);
-    --color-spotlight: rgb(198 241 53 / 0.06);
+    --color-accent: #e68e0d;
+    --color-accent-2: #ffc107;
+    --color-on-accent: #121212;
+    --color-accent-soft: rgb(230 142 13 / 0.12);
+    --color-accent-glow: rgb(230 142 13 / 0.2);
+    --color-focus: #e68e0d;
+    --color-spotlight: rgb(230 142 13 / 0.035);
 
-    --tone-agents: var(--lime-d);
-    --tone-systems: var(--sky-d);
-    --tone-data: var(--amber-d);
-    --tone-cloud: var(--lavender-d);
+    --tone-agents: #e68e0d;
+    --tone-systems: #ffc107;
+    --tone-data: #d56565;
+    --tone-cloud: #bebebe;
 
-    --grid-line: rgb(250 250 249 / 0.04);
+    --grid-line: rgb(240 240 240 / 0.035);
     --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
     --shadow-md: 0 18px 40px -20px rgb(0 0 0 / 0.8);
     --shadow-lg: 0 50px 100px -40px rgb(0 0 0 / 0.9);
+
+    --font-display: var(--font-sans-display);
+    --display-weight: 600;
+    --display-tracking: -0.035em;
   }
 
-  /* ---------- 2. Semantic: light ---------- */
-  :root[data-theme="light"] {
+  [data-theme="tokyo-night"] {
+    color-scheme: dark;
+    --color-bg: #1a1b26;
+    --color-bg-raised: #1d1e2b;
+    --color-surface: #222436;
+    --color-surface-2: #24283b;
+    --color-surface-glass: rgb(34 36 54 / 0.72);
+    --color-border-subtle: #292e42;
+    --color-border: #3b4261;
+    --color-border-strong: #545c7e;
+    --color-heading: #c0caf5;
+    --color-text: #b4bce0;
+    --color-text-muted: #9aa5ce;
+    --color-text-faint: #8890b8;
+
+    --color-accent: #bb9af7;
+    --color-accent-2: #7dcfff;
+    --color-on-accent: #1a1b26;
+    --color-accent-soft: rgb(187 154 247 / 0.12);
+    --color-accent-glow: rgb(187 154 247 / 0.2);
+    --color-focus: #bb9af7;
+    --color-spotlight: rgb(187 154 247 / 0.035);
+
+    --tone-agents: #7aa2f7;
+    --tone-systems: #9ece6a;
+    --tone-data: #e0af68;
+    --tone-cloud: #bb9af7;
+
+    --grid-line: rgb(192 202 245 / 0.035);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-md: 0 18px 40px -20px rgb(0 0 0 / 0.8);
+    --shadow-lg: 0 50px 100px -40px rgb(0 0 0 / 0.9);
+
+    --font-display: var(--font-grotesk);
+    --display-weight: 600;
+    --display-tracking: -0.04em;
+  }
+
+  [data-theme="hackerman"] {
+    color-scheme: dark;
+    --color-bg: #0b0c16;
+    --color-bg-raised: #0e0f1b;
+    --color-surface: #121424;
+    --color-surface-2: #151828;
+    --color-surface-glass: rgb(18 20 36 / 0.72);
+    --color-border-subtle: #1a1d2e;
+    --color-border: #1f253a;
+    --color-border-strong: #2d3450;
+    --color-heading: #ddf7ff;
+    --color-text: #c9e4ef;
+    --color-text-muted: #b5c5db;
+    --color-text-faint: #9aa4c4;
+
+    --color-accent: #82fb9c;
+    --color-accent-2: #7cf8f7;
+    --color-on-accent: #0b0c16;
+    --color-accent-soft: rgb(130 251 156 / 0.12);
+    --color-accent-glow: rgb(130 251 156 / 0.2);
+    --color-focus: #82fb9c;
+    --color-spotlight: rgb(130 251 156 / 0.035);
+
+    --tone-agents: #82fb9c;
+    --tone-systems: #7cf8f7;
+    --tone-data: #50f7d4;
+    --tone-cloud: #86a7df;
+
+    --grid-line: rgb(221 247 255 / 0.035);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-md: 0 18px 40px -20px rgb(0 0 0 / 0.8);
+    --shadow-lg: 0 50px 100px -40px rgb(0 0 0 / 0.9);
+
+    --font-display: var(--font-mono);
+    --display-weight: 600;
+    --display-tracking: -0.06em;
+  }
+
+  [data-theme="lumon"] {
+    color-scheme: dark;
+    --color-bg: #16242d;
+    --color-bg-raised: #192833;
+    --color-surface: #1b2d3a;
+    --color-surface-2: #1f3242;
+    --color-surface-glass: rgb(27 45 58 / 0.72);
+    --color-border-subtle: #213546;
+    --color-border: #243d56;
+    --color-border-strong: #304860;
+    --color-heading: #f2fcff;
+    --color-text: #d6e2ee;
+    --color-text-muted: #b4cde0;
+    --color-text-faint: #9dbad0;
+
+    --color-accent: #8bc9eb;
+    --color-accent-2: #d1eef8;
+    --color-on-accent: #16242d;
+    --color-accent-soft: rgb(139 201 235 / 0.12);
+    --color-accent-glow: rgb(139 201 235 / 0.2);
+    --color-focus: #8bc9eb;
+    --color-spotlight: rgb(139 201 235 / 0.035);
+
+    --tone-agents: #8bc9eb;
+    --tone-systems: #6fb8e3;
+    --tone-data: #b4e4f6;
+    --tone-cloud: #9dcae5;
+
+    --grid-line: rgb(242 252 255 / 0.035);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-md: 0 18px 40px -20px rgb(0 0 0 / 0.8);
+    --shadow-lg: 0 50px 100px -40px rgb(0 0 0 / 0.9);
+
+    --font-display: var(--font-sans-display);
+    --display-weight: 600;
+    --display-tracking: -0.035em;
+  }
+
+  [data-theme="retro-82"] {
+    color-scheme: dark;
+    --color-bg: #05182e;
+    --color-bg-raised: #061c35;
+    --color-surface: #0a2540;
+    --color-surface-2: #0d2b48;
+    --color-surface-glass: rgb(10 37 64 / 0.72);
+    --color-border-subtle: #0f3050;
+    --color-border: #134e5a;
+    --color-border-strong: #2a6b78;
+    --color-heading: #fbe9c6;
+    --color-text: #f6dcac;
+    --color-text-muted: #d8c9a8;
+    --color-text-faint: #a7c9c6;
+
+    --color-accent: #faa968;
+    --color-accent-2: #2fb5a8;
+    --color-on-accent: #05182e;
+    --color-accent-soft: rgb(250 169 104 / 0.12);
+    --color-accent-glow: rgb(250 169 104 / 0.2);
+    --color-focus: #faa968;
+    --color-spotlight: rgb(250 169 104 / 0.035);
+
+    --tone-agents: #faa968;
+    --tone-systems: #f85f32;
+    --tone-data: #8cbfb8;
+    --tone-cloud: #e97b3c;
+
+    --grid-line: rgb(251 233 198 / 0.035);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-md: 0 18px 40px -20px rgb(0 0 0 / 0.8);
+    --shadow-lg: 0 50px 100px -40px rgb(0 0 0 / 0.9);
+
+    --font-display: var(--font-grotesk);
+    --display-weight: 600;
+    --display-tracking: -0.04em;
+  }
+
+  [data-theme="ristretto"] {
+    color-scheme: dark;
+    --color-bg: #2c2525;
+    --color-bg-raised: #302828;
+    --color-surface: #352c2c;
+    --color-surface-2: #3d2f2a;
+    --color-surface-glass: rgb(53 44 44 / 0.72);
+    --color-border-subtle: #403434;
+    --color-border: #4a3d3d;
+    --color-border-strong: #72696a;
+    --color-heading: #f4ebec;
+    --color-text: #e6d9db;
+    --color-text-muted: #c3b7b8;
+    --color-text-faint: #ab9fa0;
+
+    --color-accent: #fd6883;
+    --color-accent-2: #f9cc6c;
+    --color-on-accent: #2c2525;
+    --color-accent-soft: rgb(253 104 131 / 0.12);
+    --color-accent-glow: rgb(253 104 131 / 0.2);
+    --color-focus: #fd6883;
+    --color-spotlight: rgb(253 104 131 / 0.035);
+
+    --tone-agents: #fd6883;
+    --tone-systems: #adda78;
+    --tone-data: #f9cc6c;
+    --tone-cloud: #a8a9eb;
+
+    --grid-line: rgb(244 235 236 / 0.035);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-md: 0 18px 40px -20px rgb(0 0 0 / 0.8);
+    --shadow-lg: 0 50px 100px -40px rgb(0 0 0 / 0.9);
+
+    --font-display: var(--font-serif);
+    --display-weight: 400;
+    --display-tracking: -0.02em;
+  }
+
+  [data-theme="osaka-jade"] {
+    color-scheme: dark;
+    --color-bg: #111c18;
+    --color-bg-raised: #13201b;
+    --color-surface: #172620;
+    --color-surface-2: #1c2e26;
+    --color-surface-glass: rgb(23 38 32 / 0.72);
+    --color-border-subtle: #23372b;
+    --color-border: #32473b;
+    --color-border-strong: #53685b;
+    --color-heading: #f7e8b2;
+    --color-text: #d6d5bc;
+    --color-text-muted: #c1c497;
+    --color-text-faint: #a9ac88;
+
+    --color-accent: #e5c736;
+    --color-accent-2: #63b07a;
+    --color-on-accent: #111c18;
+    --color-accent-soft: rgb(229 199 54 / 0.12);
+    --color-accent-glow: rgb(229 199 54 / 0.2);
+    --color-focus: #e5c736;
+    --color-spotlight: rgb(229 199 54 / 0.035);
+
+    --tone-agents: #e5c736;
+    --tone-systems: #63b07a;
+    --tone-data: #2dd5b7;
+    --tone-cloud: #d571a2;
+
+    --grid-line: rgb(247 232 178 / 0.035);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-md: 0 18px 40px -20px rgb(0 0 0 / 0.8);
+    --shadow-lg: 0 50px 100px -40px rgb(0 0 0 / 0.9);
+
+    --font-display: var(--font-serif);
+    --display-weight: 400;
+    --display-tracking: -0.02em;
+  }
+
+  [data-theme="lupine"] {
     color-scheme: light;
-    --color-bg: var(--paper-l0);
-    --color-bg-raised: var(--paper-l1);
-    --color-surface: var(--paper-l2);
-    --color-surface-2: var(--paper-l3);
-    --color-surface-glass: rgb(255 255 255 / 0.7);
-    --color-border-subtle: var(--paper-l4);
-    --color-border: var(--paper-l5);
-    --color-border-strong: var(--paper-l6);
-    --color-heading: var(--paper-l10);
-    --color-text: var(--paper-l9);
-    --color-text-muted: var(--paper-l8);
-    --color-text-faint: var(--paper-l7);
+    --color-bg: #fafafa;
+    --color-bg-raised: #f5f5f5;
+    --color-surface: #ffffff;
+    --color-surface-2: #ececec;
+    --color-surface-glass: rgb(255 255 255 / 0.74);
+    --color-border-subtle: #e6e6e6;
+    --color-border: #d0d0d0;
+    --color-border-strong: #9e9e9e;
+    --color-heading: #000000;
+    --color-text: #212121;
+    --color-text-muted: #424242;
+    --color-text-faint: #5a5a5a;
 
-    --color-accent: var(--lime-l);
-    --color-accent-2: var(--sky-l);
-    --color-on-accent: #ffffff;
-    --color-accent-soft: rgb(71 103 0 / 0.09);
-    --color-accent-glow: rgb(71 103 0 / 0.22);
-    --color-focus: var(--lime-l);
-    --color-spotlight: rgb(71 103 0 / 0.05);
+    --color-accent: #3060e2;
+    --color-accent-2: #bd00b8;
+    --color-on-accent: #fafafa;
+    --color-accent-soft: rgb(48 96 226 / 0.09);
+    --color-accent-glow: rgb(48 96 226 / 0.16);
+    --color-focus: #3060e2;
+    --color-spotlight: rgb(48 96 226 / 0.03);
 
-    --tone-agents: var(--lime-l);
-    --tone-systems: var(--sky-l);
-    --tone-data: var(--amber-l);
-    --tone-cloud: var(--lavender-l);
+    --tone-agents: #3060e2;
+    --tone-systems: #8447ce;
+    --tone-data: #bd00b8;
+    --tone-cloud: #0268d1;
 
-    --grid-line: rgb(11 11 12 / 0.05);
-    --shadow-sm: 0 1px 2px rgb(11 11 12 / 0.06);
-    --shadow-md: 0 18px 40px -22px rgb(11 11 12 / 0.25);
-    --shadow-lg: 0 50px 100px -44px rgb(11 11 12 / 0.35);
+    --grid-line: rgb(0 0 0 / 0.05);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
+    --shadow-md: 0 18px 40px -20px rgb(0 0 0 / 0.22);
+    --shadow-lg: 0 50px 100px -40px rgb(0 0 0 / 0.3);
+
+    --font-display: var(--font-sans-display);
+    --display-weight: 600;
+    --display-tracking: -0.035em;
+  }
+
+  [data-theme="rose-pine"] {
+    color-scheme: light;
+    --color-bg: #faf4ed;
+    --color-bg-raised: #f6efe7;
+    --color-surface: #fffaf3;
+    --color-surface-2: #f2e9e1;
+    --color-surface-glass: rgb(255 250 243 / 0.74);
+    --color-border-subtle: #f2e9e1;
+    --color-border: #dfdad9;
+    --color-border-strong: #cecacd;
+    --color-heading: #3e3a5e;
+    --color-text: #47426b;
+    --color-text-muted: #575279;
+    --color-text-faint: #6a6681;
+
+    --color-accent: #286983;
+    --color-accent-2: #975366;
+    --color-on-accent: #faf4ed;
+    --color-accent-soft: rgb(40 105 131 / 0.09);
+    --color-accent-glow: rgb(40 105 131 / 0.16);
+    --color-focus: #286983;
+    --color-spotlight: rgb(40 105 131 / 0.03);
+
+    --tone-agents: #286983;
+    --tone-systems: #417079;
+    --tone-data: #8c5e1f;
+    --tone-cloud: #736287;
+
+    --grid-line: rgb(62 58 94 / 0.05);
+    --shadow-sm: 0 1px 2px rgb(62 58 94 / 0.06);
+    --shadow-md: 0 18px 40px -20px rgb(62 58 94 / 0.22);
+    --shadow-lg: 0 50px 100px -40px rgb(62 58 94 / 0.3);
+
+    --font-display: var(--font-serif);
+    --display-weight: 400;
+    --display-tracking: -0.02em;
+  }
+
+  [data-theme="flexoki"] {
+    color-scheme: light;
+    --color-bg: #fffcf0;
+    --color-bg-raised: #f7f5ea;
+    --color-surface: #ffffff;
+    --color-surface-2: #f2f0e5;
+    --color-surface-glass: rgb(255 255 255 / 0.74);
+    --color-border-subtle: #e6e4d9;
+    --color-border: #dad8ce;
+    --color-border-strong: #b7b5ac;
+    --color-heading: #100f0f;
+    --color-text: #1c1b1a;
+    --color-text-muted: #403e3c;
+    --color-text-faint: #575653;
+
+    --color-accent: #205ea6;
+    --color-accent-2: #b14d14;
+    --color-on-accent: #fffcf0;
+    --color-accent-soft: rgb(32 94 166 / 0.09);
+    --color-accent-glow: rgb(32 94 166 / 0.16);
+    --color-focus: #205ea6;
+    --color-spotlight: rgb(32 94 166 / 0.03);
+
+    --tone-agents: #205ea6;
+    --tone-systems: #20766f;
+    --tone-data: #876601;
+    --tone-cloud: #5e409d;
+
+    --grid-line: rgb(16 15 15 / 0.05);
+    --shadow-sm: 0 1px 2px rgb(16 15 15 / 0.06);
+    --shadow-md: 0 18px 40px -20px rgb(16 15 15 / 0.22);
+    --shadow-lg: 0 50px 100px -40px rgb(16 15 15 / 0.3);
+
+    --font-display: var(--font-mono);
+    --display-weight: 600;
+    --display-tracking: -0.06em;
   }
 
   /* ---------- 3. Scales ---------- */
   :root {
-    --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+    --font-sans-display: "Inter Tight", "Inter", system-ui, sans-serif;
+    --font-serif: "Instrument Serif", Georgia, serif;
+    --font-grotesk: "Space Grotesk", "Inter Tight", system-ui, sans-serif;
     --font-body: "Inter", system-ui, sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
@@ -133,8 +411,8 @@
     --text-xl: 1.375rem;
     --text-2xl: clamp(1.6rem, 2.6vw, 2.1rem);
     --text-3xl: clamp(2.2rem, 4.6vw, 3.8rem);
-    --text-4xl: clamp(2.8rem, 7vw, 6rem);
-    --text-display: clamp(4.2rem, 14vw, 12.5rem);
+    --text-4xl: clamp(2.2rem, 4.6vw, 3.75rem);
+    --text-display: clamp(3.2rem, 8vw, 7rem);
 
     --space-1: 4px;
     --space-2: 8px;

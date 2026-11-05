@@ -7,7 +7,7 @@ export default function Work() {
     <section className="section" aria-labelledby="work-title" id="work">
       <SectionTitle
         id="work-title"
-        index={1}
+        index={2}
         label="Now building"
         lede="At Flid AI I build two products end to end: the agents, the data underneath, and the interface people use every day."
       >

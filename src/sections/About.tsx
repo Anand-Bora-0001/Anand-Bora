@@ -5,7 +5,7 @@ import { about, site, stats } from "@/content/site";
 export default function About() {
   return (
     <section className="section" aria-labelledby="about-title" id="about">
-      <SectionTitle id="about-title" index={2} label="About">
+      <SectionTitle id="about-title" index={1} label="About">
         Engineer at the seam of <span className="accent">AI</span> and data.
       </SectionTitle>
       <div className="about">

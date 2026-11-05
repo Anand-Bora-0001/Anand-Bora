@@ -5,7 +5,7 @@ import { prefersReducedMotion } from "@/lib/hooks";
 
 /** The real LeapView dashboard in a browser frame, tilted in 3D, with the agent layered in front. */
 export default function LeapViewVisual({ large = false }: { large?: boolean }) {
-  const { theme } = useTheme();
+  const { scheme } = useTheme();
   const stage = useRef<HTMLDivElement>(null);
   const move = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "mouse" || prefersReducedMotion()) return;
@@ -30,7 +30,7 @@ export default function LeapViewVisual({ large = false }: { large?: boolean }) {
             <span>leapview.dev / dashboards / executive-sales</span>
           </div>
           <img
-            src={theme === "light" ? "/work/leapview-light.png" : "/work/leapview-dark.png"}
+            src={scheme === "light" ? "/work/leapview-light.png" : "/work/leapview-dark.png"}
             alt="LeapView's Executive Sales dashboard: date, state and category filters, order and revenue KPIs, and monthly revenue."
             width="1296"
             height="704"

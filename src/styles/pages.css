@@ -2,9 +2,9 @@
 @layer pages {
   .page-title {
     font-size: var(--text-4xl);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 0.98;
+    font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking);
+    line-height: 1.02;
     margin-top: var(--space-3);
   }
   .page-title .accent {

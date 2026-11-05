@@ -20,22 +20,33 @@
     <meta property="og:image" content="https://anand-bora.vercel.app/profile.jpg" />
     <meta name="twitter:card" content="summary" />
     <link rel="canonical" href="https://anand-bora.vercel.app/" />
-    <meta name="theme-color" content="#09090b" />
+    <meta name="theme-color" content="#121212" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Space+Grotesk:wght@500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
     />
     <script>
-      // Mirrors src/lib/theme.tsx so the right theme paints before React loads.
+      // Mirrors src/lib/theme.tsx and src/lib/themes.ts so the right theme paints before React loads.
       (function () {
+        var bg = { "matte-black": "#121212",
+          "tokyo-night": "#1a1b26",
+          "hackerman": "#0b0c16",
+          "lumon": "#16242d",
+          "retro-82": "#05182e",
+          "ristretto": "#2c2525",
+          "osaka-jade": "#111c18",
+          "lupine": "#fafafa",
+          "rose-pine": "#faf4ed",
+          "flexoki": "#fffcf0" };
         var t;
         try { t = localStorage.getItem("theme"); } catch (e) {}
-        if (t !== "light" && t !== "dark")
-          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        if (t === "dark") t = "matte-black";
+        if (t === "light") t = "flexoki";
+        if (!bg[t]) t = matchMedia("(prefers-color-scheme: light)").matches ? "flexoki" : "matte-black";
         document.documentElement.dataset.theme = t;
-        document.querySelector('meta[name="theme-color"]').content = t === "dark" ? "#09090b" : "#f4f3ee";
+        document.querySelector('meta[name="theme-color"]').content = bg[t];
       })();
     </script>
     <script type="application/ld+json">
