@@ -15,7 +15,7 @@ import Work from "@/sections/Work";
 import { prefersReducedMotion, useDocumentTitle, useReveal } from "@/lib/hooks";
 
 export default function Home() {
-  useDocumentTitle("Anand Bora — AI Engineer at Flid AI");
+  useDocumentTitle("Anand Bora — Full-Stack Developer at Flid AI");
   useReveal("home");
   const { hash } = useLocation();
   useEffect(() => {

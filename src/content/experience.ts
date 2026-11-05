@@ -11,12 +11,12 @@ export interface Role {
 
 export const roles: Role[] = [
   {
-    period: "2026 — Now",
-    title: "AI Engineer",
+    period: "Aug 2026 — Now",
+    title: "Full-Stack Developer",
     org: "Flid AI",
     href: "https://flid.ai/",
     current: true,
-    summary: "Building LeapView and Alloy Catalog, and the AI agents inside both.",
+    summary: "Taking features from first idea to production in LeapView and Alloy Catalog: the interfaces, the services behind them, and the AI agents inside both.",
     points: [
       "LeapView: 135+ merged pull requests across agent-authored dashboards, governed access, tables and performance.",
       "Alloy Catalog: the Ask-the-catalog agent, Tantivy search, 3D part and assembly views, data quality and the home launchpad.",

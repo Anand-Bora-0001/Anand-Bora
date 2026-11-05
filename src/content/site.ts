@@ -1,6 +1,6 @@
 export const site = {
   name: "Anand Bora",
-  role: "AI Engineer",
+  role: "Full-Stack Developer",
   company: "Flid AI",
   companyUrl: "https://flid.ai/",
   location: "Pune, India",
@@ -34,7 +34,7 @@ export type Rich = (string | { text: string; href: string })[];
 
 export const about: Rich[] = [
   [
-    "I'm an AI engineer at ",
+    "I'm a full-stack developer at ",
     { text: "Flid AI", href: "https://flid.ai/" },
     " in Pune. I work where applied AI, backend engineering, and data systems meet: how an agent gets context and uses tools, how data moves through a system, and how to make the whole thing dependable and easy to understand.",
   ],
@@ -59,7 +59,7 @@ export const stats = [
 ];
 
 export const facts = [
-  { label: "Role", value: "AI Engineer, Flid AI" },
+  { label: "Role", value: "Full-Stack Developer, Flid AI" },
   { label: "Based in", value: "Pune, India" },
   { label: "Education", value: "B.E. Computer Eng. · CGPA 8.55" },
   { label: "Core stack", value: "Go · Rust · DuckDB · Python · TypeScript" },
