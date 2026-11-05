@@ -34,7 +34,7 @@ export const caseStudies: CaseStudy[] = [
     tagline: "Define metrics in code. Explore them everywhere.",
     summary:
       "Open-source business intelligence for teams who want analytics in Git and data on their own infrastructure. One governed metric, reused across dashboards, APIs and AI agents.",
-    role: "AI Engineer · core contributor",
+    role: "Full-Stack Developer · core contributor",
     period: "Aug 2026 — Now",
     status: "Alpha · v0.4",
     tone: "agents",
@@ -105,7 +105,7 @@ export const caseStudies: CaseStudy[] = [
     tagline: "Every part, assembly and project — searchable, askable, in 3D.",
     summary:
       "Turns saved Autodesk Inventor files into a searchable catalog of parts, assemblies and projects, served through a web app, a JSON API and MCP — with an agent you can ask and 3D views of what you find.",
-    role: "AI Engineer · catalog app and agent",
+    role: "Full-Stack Developer · catalog app and agent",
     period: "Oct 2026 — Now",
     status: "In use at Flid AI",
     tone: "systems",

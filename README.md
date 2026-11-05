@@ -1,6 +1,6 @@
 # Anand Bora — Portfolio
 
-AI Engineer at Flid AI. Live at https://anand-bora.vercel.app
+Full-Stack Developer at Flid AI. Live at https://anand-bora.vercel.app
 
 React 18, TypeScript, Vite and React Three Fiber. Vercel deploys `main` automatically.
 
