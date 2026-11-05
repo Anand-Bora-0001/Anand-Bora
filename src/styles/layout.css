@@ -30,15 +30,15 @@
       linear-gradient(var(--grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 72px 72px;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
+    mask-image: radial-gradient(ellipse 70% 45% at 50% 0%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 45% at 50% 0%, #000 20%, transparent 75%);
   }
   .backdrop-glow {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(40% 35% at 85% 10%, color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 70%),
-      radial-gradient(35% 30% at 0% 60%, color-mix(in srgb, var(--color-accent-2) 7%, transparent), transparent 70%);
+      radial-gradient(40% 35% at 85% 10%, color-mix(in srgb, var(--color-accent) 5%, transparent), transparent 70%),
+      radial-gradient(35% 30% at 0% 60%, color-mix(in srgb, var(--color-accent-2) 4%, transparent), transparent 70%);
   }
   .backdrop-spotlight {
     position: absolute;
@@ -97,7 +97,7 @@
     border-radius: 11px;
     background: var(--color-heading);
     color: var(--color-bg);
-    font: 800 var(--text-md) / 1 var(--font-display);
+    font: 700 var(--text-md) / 1 var(--font-body);
     letter-spacing: -0.04em;
     transition: transform var(--duration-base) var(--ease-out);
   }
@@ -105,14 +105,11 @@
     font-style: normal;
     color: var(--color-accent);
   }
-  :root[data-theme="light"] .nav-mark i {
-    color: var(--lime-d);
-  }
   .nav-brand:hover .nav-mark {
     transform: rotate(-8deg) scale(1.05);
   }
   .nav-name {
-    font: 600 var(--text-md) var(--font-display);
+    font: 600 var(--text-md) var(--font-body);
     letter-spacing: -0.01em;
   }
   .nav-links ul {
@@ -198,6 +195,8 @@
     margin-top: var(--space-9);
     border-top: 1px solid var(--color-border-subtle);
     overflow: hidden;
+    /* The city behind the page fades out here, so the wordmark and the small print sit on calm ground. */
+    background: linear-gradient(to bottom, color-mix(in srgb, var(--color-bg) 78%, transparent), var(--color-bg) 55%);
   }
   .footer-inner {
     width: min(100% - 2 * var(--gutter), var(--container));
@@ -205,11 +204,11 @@
     padding-block: var(--space-7) var(--space-6);
   }
   .footer-mark {
-    font: 800 clamp(3.2rem, 15.5vw, 14rem) / 0.85 var(--font-display);
-    letter-spacing: -0.045em;
+    font: var(--display-weight) clamp(2.8rem, 11vw, 9rem) / 0.9 var(--font-display);
+    letter-spacing: var(--display-tracking);
     white-space: nowrap;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--color-border-strong);
+    color: color-mix(in srgb, var(--color-heading) 4%, transparent);
+    -webkit-text-stroke: 1.5px color-mix(in srgb, var(--color-heading) 42%, transparent);
   }
   .footer-mark span {
     color: var(--color-accent);
@@ -270,7 +269,7 @@
       padding: var(--space-4) 0;
       border-radius: 0;
       border-bottom: 1px solid var(--color-border-subtle);
-      font: 600 var(--text-2xl) var(--font-display);
+      font: var(--display-weight) var(--text-2xl) var(--font-display);
       letter-spacing: -0.02em;
       gap: var(--space-4);
     }

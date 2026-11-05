@@ -140,37 +140,502 @@
     font: 500 var(--text-xs) / 1.6 var(--font-mono);
   }
 
-  /* ---------- Theme switcher ---------- */
-  .theme-toggle {
-    position: relative;
-    display: grid;
-    place-items: center;
-    width: 38px;
+  /* ---------- Theme button (opens the theme picker) ---------- */
+  .theme-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
     height: 38px;
+    padding: 0 6px 0 12px;
     border-radius: var(--radius-pill);
     border: 1px solid var(--color-border);
     background: var(--color-surface-glass);
     color: var(--color-text-muted);
-    overflow: hidden;
+    font: 500 var(--text-sm) var(--font-body);
     transition:
       color var(--duration-fast),
       border-color var(--duration-fast);
   }
-  .theme-toggle:hover {
+  .theme-button:hover {
     color: var(--color-heading);
     border-color: var(--color-border-strong);
   }
-  /* Both icons share the cell; the hidden one rotates out of view. */
-  .theme-toggle svg {
-    grid-area: 1 / 1;
-    transition:
-      transform 0.5s var(--ease-out),
-      opacity var(--duration-base);
+  .theme-button kbd,
+  .picker kbd {
+    display: inline-grid;
+    place-items: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+    font: 500 var(--text-2xs) var(--font-mono);
   }
-  .theme-toggle[data-theme-shown="dark"] .theme-toggle-moon,
-  .theme-toggle[data-theme-shown="light"] .theme-toggle-sun {
+  .theme-button kbd {
+    height: 26px;
+    border-radius: var(--radius-pill);
+    padding: 0 8px;
+  }
+  @media (max-width: 1100px) {
+    .theme-button-name {
+      display: none;
+    }
+  }
+  @media (max-width: 760px) {
+    .theme-button {
+      width: 38px;
+      padding: 0;
+      justify-content: center;
+    }
+    .theme-button kbd {
+      display: none;
+    }
+  }
+
+  /* ---------- Theme picker (src/components/ThemePicker.tsx) ---------- */
+  .picker {
+    --card-w: min(56vw, calc((100dvh - 380px) * 1.6), 900px);
+    --card-ratio: 16 / 10;
+    --card-radius: 18px;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-text);
+    overflow: hidden;
+  }
+  .picker::backdrop {
+    background: rgb(0 0 0 / 0.6);
+    background: color-mix(in srgb, var(--color-bg) 76%, transparent);
+    backdrop-filter: blur(16px) saturate(1.1);
+    -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  }
+  .picker[open]::backdrop {
+    animation: picker-fade 0.3s var(--ease-out);
+  }
+  .picker.is-closing::backdrop {
+    animation: picker-fade 0.26s var(--ease) reverse forwards;
+  }
+  .picker-shell {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto auto auto;
+    gap: var(--space-4);
+    height: 100%;
+    padding: var(--space-5) var(--space-6) var(--space-4);
+  }
+  .picker[open] .picker-shell {
+    animation: picker-in 0.45s var(--ease-out);
+  }
+  .picker.is-closing .picker-shell {
+    animation: picker-out 0.26s var(--ease) forwards;
+  }
+  @keyframes picker-in {
+    from {
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+    }
+  }
+  @keyframes picker-out {
+    to {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.98);
+    }
+  }
+  @keyframes picker-fade {
+    from {
+      opacity: 0;
+    }
+  }
+  .picker kbd {
+    min-width: 24px;
+  }
+
+  .picker-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .picker-kicker {
+    display: flex;
+    gap: var(--space-3);
+    color: var(--color-text-muted);
+    font: 500 var(--text-xs) var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .picker-kicker span {
+    color: var(--color-text-faint);
+  }
+  .picker-close {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: 38px;
+    padding: 0 10px 0 7px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-glass);
+    color: var(--color-text-muted);
+    transition:
+      color var(--duration-fast),
+      border-color var(--duration-fast);
+  }
+  .picker-close:hover {
+    color: var(--color-heading);
+    border-color: var(--color-border-strong);
+  }
+
+  /* The carousel: cards placed in 3D around the selected one (positions set inline). */
+  .picker-stage {
+    position: relative;
+    min-height: 0;
+    perspective: 1600px;
+    outline: none;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .picker-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--card-w);
+    aspect-ratio: var(--card-ratio);
+    border: 1px solid var(--color-border);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    color: var(--color-text);
+    background: var(--color-bg);
+    box-shadow: 0 34px 80px -28px rgb(0 0 0 / 0.6);
+    cursor: pointer;
+    transition:
+      transform 0.6s var(--ease-out),
+      opacity 0.4s var(--ease),
+      box-shadow 0.4s var(--ease);
+    will-change: transform;
+  }
+  /* Cards further back sink into shadow. */
+  .picker-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0);
+    opacity: var(--dim, 0);
+    pointer-events: none;
+    transition: opacity 0.45s var(--ease);
+  }
+  .picker-card.is-active {
+    border-color: var(--color-accent);
+    box-shadow:
+      0 0 0 2px var(--color-accent),
+      0 44px 110px -30px color-mix(in srgb, var(--color-accent) 42%, rgb(0 0 0 / 0.6));
+  }
+  .picker-stage:focus-visible .picker-card.is-active {
+    box-shadow:
+      0 0 0 2px var(--color-accent),
+      0 0 0 6px color-mix(in srgb, var(--color-accent) 30%, transparent),
+      0 44px 110px -30px color-mix(in srgb, var(--color-accent) 42%, rgb(0 0 0 / 0.6));
+  }
+  /* Each card is its own theme (data-theme on the card), so these are that theme's colors. */
+  .picker-art {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60% 75% at 50% 42%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 72%),
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 34px 34px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 34px 34px,
+      var(--color-bg);
+  }
+  .picker-art img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: picker-fade 0.5s var(--ease-out);
+    transition: opacity 0.35s var(--ease);
+  }
+  .picker-art img.is-hidden {
     opacity: 0;
-    transform: rotate(-90deg) scale(0.4);
+  }
+  .picker-card-bar {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 14px 18px;
+    background: linear-gradient(transparent, color-mix(in srgb, var(--color-bg) 88%, transparent) 55%);
+  }
+  .picker-card-name {
+    color: var(--color-heading);
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.5vw, 1.35rem);
+    font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking);
+  }
+  .picker-card-scene {
+    color: var(--color-text-muted);
+    font: 500 var(--text-2xs) var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .picker-swatch {
+    display: flex;
+    margin-left: auto;
+  }
+  .picker-swatch i {
+    width: 16px;
+    height: 16px;
+    margin-left: -4px;
+    border: 2px solid var(--color-bg);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--color-border);
+  }
+  .picker-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font: 600 var(--text-2xs) var(--font-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  /* The live 3D view sits exactly over the selected card and fades in once the slide ends. */
+  .picker-live {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 20;
+    width: var(--card-w);
+    aspect-ratio: var(--card-ratio);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.35s var(--ease);
+    cursor: grab;
+  }
+  .picker-live.is-shown {
+    opacity: 1;
+  }
+  .picker-live:active {
+    cursor: grabbing;
+  }
+  .picker-studio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 640px;
+    aspect-ratio: var(--card-ratio);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .picker-caption {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+    text-align: center;
+  }
+  .picker-title {
+    color: var(--color-heading);
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+    font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking);
+    line-height: 1;
+  }
+  .picker-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+  .picker-meta span + span::before {
+    content: "·";
+    margin: 0 10px;
+    color: var(--color-text-faint);
+  }
+  .picker-apply {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: 40px;
+    margin-top: var(--space-1);
+    padding: 0 8px 0 16px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font: 600 var(--text-sm) var(--font-body);
+    box-shadow: 0 10px 30px -12px var(--color-accent-glow);
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+  .picker-apply:hover {
+    transform: translateY(-1px);
+  }
+  .picker-apply:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  .picker .picker-apply kbd {
+    border-color: transparent;
+    background: color-mix(in srgb, var(--color-on-accent) 16%, transparent);
+    color: inherit;
+  }
+  .picker-dots {
+    display: flex;
+    gap: 6px;
+    margin-top: var(--space-1);
+  }
+  .picker-dots button {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: var(--color-border-strong);
+    transition:
+      width 0.35s var(--ease-out),
+      background 0.35s var(--ease);
+  }
+  .picker-dots button.is-active {
+    width: 28px;
+    background: var(--dot);
+  }
+
+  .picker-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+  .picker-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 11px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-glass);
+    color: var(--color-text-muted);
+    font: 500 0.8125rem var(--font-body);
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      color var(--duration-fast),
+      border-color var(--duration-fast),
+      background var(--duration-fast);
+  }
+  .picker-chip:hover,
+  .picker-chip:focus-visible {
+    border-color: color-mix(in srgb, var(--color-accent) 60%, transparent);
+    background: var(--color-accent-soft);
+    color: var(--color-heading);
+  }
+  .picker-sep {
+    align-self: center;
+    width: 1px;
+    height: 20px;
+    margin: 0 var(--space-1);
+    background: var(--color-border);
+  }
+
+  .picker-keys {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2) var(--space-5);
+    color: var(--color-text-faint);
+    font-size: var(--text-xs);
+  }
+  .picker-keys > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .picker-keys .picker-keys-touch {
+    display: none;
+  }
+  @media (hover: none) and (pointer: coarse) {
+    .picker-keys > span {
+      display: none;
+    }
+    .picker-keys .picker-keys-touch {
+      display: inline-flex;
+    }
+  }
+  @media (max-width: 640px) {
+    .picker {
+      /* Tall cards on phones, so the 3D gets the room. */
+      --card-w: min(80vw, calc((100dvh - 390px) * 0.8));
+      --card-ratio: 4 / 5;
+      --card-radius: 16px;
+    }
+    .picker-shell {
+      gap: var(--space-3);
+      padding: var(--space-4) 0 var(--space-4);
+    }
+    .picker-head,
+    .picker-caption {
+      padding: 0 var(--space-4);
+    }
+    .picker-card-scene,
+    .picker-meta span:nth-child(3) {
+      display: none;
+    }
+    .picker-items {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      padding: 2px var(--space-4);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .picker-sep {
+      flex: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .picker[open] .picker-shell,
+    .picker[open]::backdrop,
+    .picker.is-closing .picker-shell,
+    .picker.is-closing::backdrop,
+    .picker-art img {
+      animation: none;
+    }
+    .picker-card,
+    .picker-card::after,
+    .picker-live,
+    .picker-dots button {
+      transition: none;
+    }
+  }
+
+  /* Theme changes cross-fade (view transitions; src/lib/theme.tsx). */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.35s;
+    animation-timing-function: var(--ease);
   }
 
   .bullets li,
@@ -216,8 +681,8 @@
     align-items: center;
     gap: var(--space-6);
     padding-right: var(--space-6);
-    font: 700 clamp(1.6rem, 3.4vw, 2.8rem) / 1 var(--font-display);
-    letter-spacing: -0.03em;
+    font: var(--display-weight) clamp(1.4rem, 2.6vw, 2.2rem) / 1 var(--font-display);
+    letter-spacing: var(--display-tracking);
     white-space: nowrap;
     color: transparent;
     -webkit-text-stroke: 1px var(--color-text-faint);
@@ -303,9 +768,9 @@
   }
   .showcase-name {
     font-size: var(--text-4xl);
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 0.95;
+    font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking);
+    line-height: 1;
   }
   .showcase-name a {
     display: inline-flex;
@@ -322,7 +787,7 @@
     transform: translateX(8px);
   }
   .showcase-tagline {
-    font: 500 var(--text-xl) / 1.35 var(--font-display);
+    font: var(--display-weight) var(--text-xl) / 1.35 var(--font-display);
     color: var(--color-heading);
     letter-spacing: -0.01em;
   }
@@ -347,8 +812,8 @@
     color: var(--color-text-faint);
   }
   .showcase-metrics dd {
-    font: 700 var(--text-xl) / 1.1 var(--font-display);
-    letter-spacing: -0.03em;
+    font: var(--display-weight) var(--text-xl) / 1.1 var(--font-display);
+    letter-spacing: var(--display-tracking);
     color: var(--tone);
   }
   .showcase-links {

@@ -13,7 +13,7 @@ import {
   Vector3,
 } from "three";
 import type { SceneProps } from "./Scene";
-import { readPalette } from "@/lib/palette";
+import { usePalette } from "@/lib/palette";
 
 export interface AssemblyProps {
   exploded: boolean;
@@ -97,7 +97,7 @@ function Part({
 }
 
 function Assembly({ light, running, exploded }: AssemblyProps & { light: boolean; running: boolean }) {
-  const palette = useMemo(readPalette, [light]);
+  const palette = usePalette();
   const colors = {
     steel: light ? "#b9c1cd" : "#7d8798",
     dark: light ? "#8792a3" : "#4a5466",

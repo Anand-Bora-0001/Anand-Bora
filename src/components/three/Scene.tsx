@@ -9,8 +9,9 @@ import {
 } from "react";
 import { hasWebGL, useInView, usePageVisible, useReducedMotion } from "@/lib/hooks";
 import { useTheme } from "@/lib/theme";
+import type { ThemeInfo } from "@/lib/themes";
 
-class Boundary extends Component<{ children: ReactNode; onError: () => void }, { failed: boolean }> {
+export class Boundary extends Component<{ children: ReactNode; onError: () => void }, { failed: boolean }> {
   state = { failed: false };
   static getDerivedStateFromError() {
     return { failed: true };
@@ -26,6 +27,8 @@ class Boundary extends Component<{ children: ReactNode; onError: () => void }, {
 /** Props every scene receives from the wrapper. */
 export interface SceneProps {
   light: boolean;
+  /** The theme on screen; the hero picks its scene from it. */
+  theme: ThemeInfo;
   running: boolean;
   onFailure: () => void;
 }
@@ -51,7 +54,7 @@ export default function Scene<P extends object>({
 }) {
   // lazy() erases the generic props; restore them for JSX.
   const LazyScene = scene as unknown as ComponentType<SceneProps & Record<string, unknown>>;
-  const { theme } = useTheme();
+  const { scheme, info } = useTheme();
   const { ref, inView, seen } = useInView<HTMLDivElement>("200px");
   const visible = usePageVisible();
   const reduced = useReducedMotion();
@@ -72,7 +75,8 @@ export default function Scene<P extends object>({
               <Suspense fallback={null}>
                 <LazyScene
                   {...(props as Record<string, unknown>)}
-                  light={theme === "light"}
+                  light={scheme === "light"}
+                  theme={info}
                   running={inView && visible && !reduced}
                   onFailure={() => setFailed(true)}
                 />

@@ -21,8 +21,8 @@ export const socials = [
 
 /** Home page sections, in order. The nav and scroll-spy read this. */
 export const sections = [
-  { id: "work", label: "Work" },
   { id: "about", label: "About" },
+  { id: "work", label: "Work" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },

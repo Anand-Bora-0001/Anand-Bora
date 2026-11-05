@@ -1,154 +1,159 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useRef, type MutableRefObject, type ReactNode } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Environment, Lightformer, MeshDistortMaterial } from "@react-three/drei";
-import { AdditiveBlending, BufferGeometry, Float32BufferAttribute, Group, MathUtils, Mesh } from "three";
+import { Group, MathUtils } from "three";
 import type { SceneProps } from "./Scene";
-import { readPalette } from "@/lib/palette";
+import { worlds } from "./HeroWorlds";
+import City, { type CityJourney } from "./CityJourney";
+import Stage from "./Stage";
+import { sections } from "@/content/site";
+import { usePalette } from "@/lib/palette";
 
-/** One orbit: a thin ring with a few nodes ("agents") travelling around it. */
-const orbits = [
-  { radius: 2.15, tilt: [1.2, 0.2, 0.3], speed: 0.32, nodes: 3, tone: "agents" },
-  { radius: 2.65, tilt: [1.75, -0.5, -0.2], speed: -0.22, nodes: 2, tone: "systems" },
-  { radius: 3.15, tilt: [1.0, 0.9, 0.6], speed: 0.16, nodes: 4, tone: "ink" },
-] as const;
+/**
+ * The home page's 3D, fixed behind the content: a night city built from the work (CityJourney.tsx),
+ * with the theme's object turning beside the headline over it (src/components/three/HeroWorlds.tsx).
+ * Scrolling on, the object turns away and the camera flies through the city, one view per section.
+ */
+const stops = ["hero", ...sections.map((s) => s.id)];
+const smooth = (t: number) => t * t * (3 - 2 * t);
+type Journey = CityJourney & { target: number };
 
-function Orbit({ spec, color }: { spec: (typeof orbits)[number]; color: string }) {
-  const nodes = useRef<Group>(null);
-  useFrame((_, delta) => {
-    if (nodes.current) nodes.current.rotation.z += delta * spec.speed;
-  });
-  return (
-    <group rotation={spec.tilt as unknown as [number, number, number]}>
-      <mesh>
-        <torusGeometry args={[spec.radius, 0.0045, 8, 220]} />
-        <meshBasicMaterial color={color} transparent opacity={0.35} />
-      </mesh>
-      <group ref={nodes}>
-        {Array.from({ length: spec.nodes }, (_, i) => {
-          const angle = (i / spec.nodes) * Math.PI * 2;
-          return (
-            <group key={i} position={[Math.cos(angle) * spec.radius, Math.sin(angle) * spec.radius, 0]}>
-              <mesh>
-                <sphereGeometry args={[0.055, 16, 16]} />
-                <meshBasicMaterial color={color} />
-              </mesh>
-              <mesh>
-                <sphereGeometry args={[0.16, 16, 16]} />
-                <meshBasicMaterial color={color} transparent opacity={0.16} blending={AdditiveBlending} depthWrite={false} />
-              </mesh>
-            </group>
-          );
-        })}
-      </group>
-    </group>
-  );
-}
-
-/** A shell of faint dust around the core. */
-function Dust({ color, light }: { color: string; light: boolean }) {
-  const geometry = useMemo(() => {
-    const count = 900;
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const r = 4 + Math.random() * 6;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      positions.set([r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta)], i * 3);
-    }
-    const g = new BufferGeometry();
-    g.setAttribute("position", new Float32BufferAttribute(positions, 3));
-    return g;
+/** Where the visitor is on the page, as one continuous number: k when section k's top is 60% of
+ *  the way down the screen, rising evenly while it is read, up to 7 at the bottom of the page. It is
+ *  smoothed over time, so a jump of the scroll wheel glides rather than snaps. */
+function useJourney() {
+  const journey = useRef<Journey>({ travel: 0, target: 0, velocity: 0 });
+  const last = useRef(window.scrollY);
+  const anchors = useRef<number[]>([]);
+  // Section positions, re-measured as the page changes size (images load, fonts swap).
+  useEffect(() => {
+    const measure = () => {
+      const vh = window.innerHeight;
+      const starts = stops.slice(1).map((id) => {
+        const el = document.getElementById(id);
+        return el ? el.getBoundingClientRect().top + window.scrollY - vh * 0.6 : Infinity;
+      });
+      anchors.current = [0, ...starts, document.documentElement.scrollHeight - vh];
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(document.body);
+    return () => observer.disconnect();
   }, []);
-  const ref = useRef<Mesh>(null);
+  // Runs before the rig and the light in each frame (lower priority runs first).
   useFrame((_, delta) => {
-    if (ref.current) ref.current.rotation.y += delta * 0.015;
-  });
-  return (
-    <points ref={ref as never} geometry={geometry}>
-      <pointsMaterial color={color} size={0.028} sizeAttenuation transparent opacity={light ? 0.45 : 0.6} depthWrite={false} />
-    </points>
-  );
+    const vh = window.innerHeight;
+    const y = window.scrollY;
+    const a = anchors.current;
+    let target = 0;
+    for (let k = 0; k < a.length - 1; k++) {
+      if (y >= a[k + 1]) continue;
+      target = k + Math.max(0, (y - a[k]) / Math.max(a[k + 1] - a[k], 1));
+      break;
+    }
+    if (a.length && y >= a[a.length - 1]) target = a.length - 1;
+    const j = journey.current;
+    j.target = target;
+    const speed = delta > 0 ? (y - last.current) / vh / delta : 0;
+    last.current = y;
+    j.velocity = MathUtils.damp(j.velocity, MathUtils.clamp(speed, -4, 4), 6, delta);
+    j.travel = Math.abs(target - j.travel) < 0.0005 ? target : MathUtils.damp(j.travel, target, 3.5, delta);
+  }, -1);
+  return journey;
 }
 
-function Rig({ light }: { light: boolean }) {
-  const palette = useMemo(readPalette, [light]);
+/** The theme's object, beside the headline and leaning toward the pointer. Scrolling on, it turns and
+ *  shrinks away as the camera dives into the city. */
+function HeroRig({ journey, x, y, scale, children }: { journey: MutableRefObject<Journey>; x: number; y: number; scale: number; children: ReactNode }) {
   const group = useRef<Group>(null);
-  const core = useRef<Mesh>(null);
-  const { viewport, size } = useThree();
-  const wide = size.width / size.height > 1.05;
-  // On wide screens the core sits right of the headline; on narrow ones it floats above it.
-  const base = wide ? { x: Math.min(viewport.width * 0.25, 3.3), y: -0.1, scale: 0.86 } : { x: 0, y: 1.25, scale: 0.6 };
-
   useFrame((state, delta) => {
     const g = group.current;
     if (!g) return;
-    const scroll = Math.min(window.scrollY / window.innerHeight, 1.5);
-    const { x, y } = state.pointer;
-    g.rotation.y = MathUtils.damp(g.rotation.y, x * 0.35 + scroll * 0.8, 3, delta);
-    g.rotation.x = MathUtils.damp(g.rotation.x, -y * 0.25 + scroll * 0.3, 3, delta);
-    g.position.x = MathUtils.damp(g.position.x, base.x + x * 0.15, 3, delta);
-    g.position.y = MathUtils.damp(g.position.y, base.y + scroll * 1.6, 4, delta);
-    if (core.current) core.current.rotation.y += delta * 0.12;
+    const leave = smooth(Math.min(journey.current.travel * 1.15, 1));
+    const { x: px, y: py } = state.pointer;
+    g.visible = leave < 0.995;
+    g.position.x = MathUtils.damp(g.position.x, x + px * 0.12, 3, delta);
+    g.position.y = MathUtils.damp(g.position.y, y, 3, delta);
+    g.scale.setScalar(Math.max(scale * (1 - leave), 0.001));
+    g.rotation.y = MathUtils.damp(g.rotation.y, px * 0.3 + leave * Math.PI * 1.5, 3, delta);
+    g.rotation.x = MathUtils.damp(g.rotation.x, -py * 0.2, 3, delta);
   });
-
-  const colors = { agents: palette.agents, systems: palette.systems, ink: palette.ink };
   return (
-    <group ref={group} position={[base.x, base.y, 0]} scale={base.scale}>
-      <mesh ref={core}>
-        <icosahedronGeometry args={[1.35, 48]} />
-        <MeshDistortMaterial
-          color={light ? "#e4e4df" : "#55555f"}
-          metalness={0.85}
-          roughness={0.18}
-          clearcoat={1}
-          clearcoatRoughness={0.1}
-          iridescence={1}
-          iridescenceIOR={1.4}
-          iridescenceThicknessRange={[120, 520]}
-          distort={0.3}
-          speed={1.4}
-          envMapIntensity={light ? 1.1 : 1.6}
-        />
-      </mesh>
-      {/* A faint wire shell: the "mesh" of data around the core. */}
-      <mesh scale={1.22}>
-        <icosahedronGeometry args={[1.35, 2]} />
-        <meshBasicMaterial color={palette.agents} wireframe transparent opacity={light ? 0.22 : 0.14} />
-      </mesh>
-      {orbits.map((spec) => (
-        <Orbit key={spec.radius} spec={spec} color={colors[spec.tone]} />
-      ))}
-      <Dust color={palette.ink} light={light} />
+    <group ref={group} position={[x, y, 0]} scale={scale}>
+      {children}
     </group>
   );
 }
 
-/** Full-bleed hero scene: a chrome "data core" with agent nodes orbiting it. */
-export default function HeroScene({ light, running, onFailure }: SceneProps) {
-  const palette = useMemo(readPalette, [light]);
+/** Everything 3D on the home page, fixed behind the content. */
+function Scenery({ theme, light, running }: Pick<SceneProps, "theme" | "light" | "running">) {
+  const palette = usePalette();
+  const World = worlds[theme.scene];
+  const { viewport, size } = useThree();
+  const isWide = size.width / size.height > 1.05 && size.width > 900;
+  // On wide screens the object sits beside the headline, clear of it however wide the window is;
+  // on phones it sits behind the headline, dimmed.
+  const x = isWide ? Math.min(viewport.width * 0.25, 3.3) : 0;
+  const y = (isWide ? -0.01 : 0.23) * viewport.height;
+  const scale = isWide ? 0.92 : 0.62;
+  const journey = useJourney();
+  const gl = useThree((state) => state.gl);
+  useFrame(() => {
+    const opacity = isWide || journey.current.travel > 0.5 ? "1" : "0.6";
+    if (gl.domElement.style.opacity !== opacity) gl.domElement.style.opacity = opacity;
+  });
+  // Still (reduced motion): no frames run to fly the camera, so the scene simply goes once the hero has.
+  useEffect(() => {
+    if (running) return;
+    const shown = isWide ? "1" : "0.6";
+    const onScroll = () => (gl.domElement.style.opacity = window.scrollY < window.innerHeight * 0.6 ? shown : "0");
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [running, gl, isWide]);
+  return (
+    <>
+      <Stage id={theme.id} palette={palette} light={light} />
+      <City journey={journey} palette={palette} light={light} wide={isWide} />
+      <HeroRig journey={journey} x={x} y={y} scale={scale}>
+        <Appear key={theme.id} animate={running}>
+          <World palette={palette} light={light} />
+        </Appear>
+      </HeroRig>
+    </>
+  );
+}
+
+/** A new theme's object grows and turns into place rather than popping in. When the scene is
+ *  still (reduced motion, or off-screen) it starts in place, since there are no frames to grow in. */
+function Appear({ children, animate }: { children: ReactNode; animate: boolean }) {
+  const group = useRef<Group>(null);
+  useFrame((_, delta) => {
+    const g = group.current;
+    if (!g) return;
+    const s = MathUtils.damp(g.scale.x, 1, 5, delta);
+    g.scale.setScalar(s);
+    g.rotation.y = MathUtils.damp(g.rotation.y, 0, 4, delta);
+  });
+  return (
+    <group ref={group} scale={animate ? 0.001 : 1} rotation={[0, animate ? -0.9 : 0, 0]}>
+      {children}
+    </group>
+  );
+}
+
+export default function HeroScene({ light, theme, running, onFailure }: SceneProps) {
   return (
     <Canvas
       camera={{ position: [0, 0, 8], fov: 38 }}
-      dpr={[1, 1.75]}
+      // The city fills the screen, so the canvas stops short of full retina resolution.
+      dpr={[1, 1.4]}
       frameloop={running ? "always" : "demand"}
       gl={{ antialias: true, alpha: true }}
       eventSource={document.documentElement}
       eventPrefix="client"
       onCreated={({ gl }) => gl.domElement.addEventListener("webglcontextlost", onFailure, { once: true })}
     >
-      {/* Studio lighting baked once into an environment map: no network fetch. */}
-      <Environment resolution={256} frames={1}>
-        <color attach="background" args={[light ? "#d9d8d2" : "#141418"]} />
-        <Lightformer form="rect" intensity={6} color={palette.agents} position={[-5, 2, 3]} scale={[6, 9, 1]} />
-        <Lightformer form="rect" intensity={5} color={palette.systems} position={[5, -2, 3]} scale={[5, 8, 1]} />
-        <Lightformer form="ring" intensity={4} color="#ffffff" position={[0, 5, 0]} scale={4} />
-        <Lightformer form="rect" intensity={2.5} color="#ffffff" position={[0, 0, 8]} scale={[14, 2, 1]} />
-        <Lightformer form="rect" intensity={2} color={palette.cloud} position={[0, -6, 2]} scale={[10, 3, 1]} />
-      </Environment>
-      <ambientLight intensity={light ? 0.6 : 0.25} />
-      <directionalLight position={[-4, 4, 5]} intensity={1.4} color={palette.agents} />
-      <directionalLight position={[5, -2, 4]} intensity={1.1} color={palette.systems} />
-      <Rig light={light} />
+      <Scenery theme={theme} light={light} running={running} />
     </Canvas>
   );
 }

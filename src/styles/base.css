@@ -54,7 +54,7 @@
   h3 {
     color: var(--color-heading);
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: var(--display-weight);
     line-height: 1.1;
     letter-spacing: -0.025em;
   }
