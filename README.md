@@ -1,8 +1,8 @@
 # Anand Bora — Portfolio
 
-Full-Stack Developer at Flid AI. Live at https://anand-bora.vercel.app
+Full-Stack Developer at Flid AI. Live at https://anandbora.pages.dev
 
-React 18, TypeScript, Vite and React Three Fiber. Vercel deploys `main` automatically.
+React 18, TypeScript, Vite and React Three Fiber. Hosted on Cloudflare Pages; deploy with `npx wrangler pages deploy dist --project-name anandbora`.
 
 ```bash
 npm install

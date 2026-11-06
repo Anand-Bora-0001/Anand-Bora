@@ -7,7 +7,7 @@ export const site = {
   email: "anandbora241@gmail.com",
   photo: "/profile.jpg",
   resume: "/Anand_Bora.pdf",
-  url: "https://anand-bora.vercel.app",
+  url: "https://anandbora.pages.dev",
   tagline: "I build AI agents and the data systems they stand on.",
   status: "Building LeapView & Alloy Catalog",
 };
