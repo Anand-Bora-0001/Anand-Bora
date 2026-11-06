@@ -89,27 +89,26 @@ test("email drafts keep Unicode, newlines, and URL-sensitive characters", () => 
   assert.ok(url.searchParams.get("body").includes(draft.email));
 });
 
-test("the site points at anand-bora.vercel.app everywhere, with Vercel config", () => {
+test("the site points at anandbora.pages.dev everywhere, with Cloudflare Pages config", () => {
   const { site } = load("src/content/site.ts");
-  assert.equal(site.url, "https://anand-bora.vercel.app");
+  assert.equal(site.url, "https://anandbora.pages.dev");
   for (const file of ["index.html", "public/robots.txt"]) {
     const text = readFileSync(resolve(root, file), "utf8");
-    assert.ok(!text.includes("anandbora.dev"), `${file} still mentions anandbora.dev`);
-    assert.ok(text.includes("https://anand-bora.vercel.app"), `${file} uses anand-bora.vercel.app`);
+    assert.ok(!text.includes("vercel.app"), `${file} still mentions vercel.app`);
+    assert.ok(text.includes("https://anandbora.pages.dev"), `${file} uses anandbora.pages.dev`);
   }
-  assert.ok(!existsSync(resolve(root, "wrangler.toml")));
-  const vercel = JSON.parse(readFileSync(resolve(root, "vercel.json"), "utf8"));
-  assert.equal(vercel.outputDirectory, "dist");
-  // Client-side routes (/work/leapview, /projects/...) must fall back to index.html.
-  assert.deepEqual(vercel.rewrites, [{ source: "/(.*)", destination: "/index.html" }]);
+  assert.ok(!existsSync(resolve(root, "vercel.json")));
+  assert.ok(readFileSync(resolve(root, "public/_headers"), "utf8").includes("X-Frame-Options: DENY"));
+  // Client-side routes (/work/leapview, /projects/...) fall back to index.html only while there is no 404.html.
+  assert.ok(!existsSync(resolve(root, "public/404.html")));
 });
 
 test("sitemap lists every page on the real domain", () => {
   const xml = readFileSync(resolve(root, "public/sitemap.xml"), "utf8");
   for (const p of projects)
-    assert.ok(xml.includes(`https://anand-bora.vercel.app/projects/${p.slug}</loc>`));
-  assert.ok(xml.includes("https://anand-bora.vercel.app/work/leapview</loc>"));
-  assert.ok(xml.includes("https://anand-bora.vercel.app/work/alloy-catalog</loc>"));
+    assert.ok(xml.includes(`https://anandbora.pages.dev/projects/${p.slug}</loc>`));
+  assert.ok(xml.includes("https://anandbora.pages.dev/work/leapview</loc>"));
+  assert.ok(xml.includes("https://anandbora.pages.dev/work/alloy-catalog</loc>"));
   assert.equal((xml.match(/<loc>/g) || []).length, projects.length + 4);
 });
 
